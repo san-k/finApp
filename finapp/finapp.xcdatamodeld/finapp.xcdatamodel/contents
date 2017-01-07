@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="15G1108" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CDFinAccount" representedClassName="CDFinAccount" syncable="YES">
+        <attribute name="comment" attributeType="String" syncable="YES"/>
+        <attribute name="currency" attributeType="String" syncable="YES"/>
+        <attribute name="id" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="sum" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Transaction" representedClassName="Transaction" syncable="YES">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="sum" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="transactionID" attributeType="String" syncable="YES"/>
+        <attribute name="transactionType" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="TransactionCategory" representedClassName="TransactionCategory" syncable="YES">
+        <attribute name="categoryID" attributeType="String" syncable="YES"/>
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="CDFinAccount" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="Transaction" positionX="-63" positionY="18" width="128" height="105"/>
+        <element name="TransactionCategory" positionX="-36" positionY="54" width="128" height="105"/>
+    </elements>
+</model>
