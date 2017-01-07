@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct TransactionCategory {
+struct FinTransactionCategory {
     
     let categoryID = UUID()
     var name : String

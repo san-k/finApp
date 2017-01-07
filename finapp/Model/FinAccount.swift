@@ -16,7 +16,7 @@ struct FinAccount {
     
     let accountID = UUID()
     var name : String
-    let currency:Currency
+    let currency : Currency
     var comment = ""
     var totalSum = 0.0
     // NSMutableArray of transactions - ?

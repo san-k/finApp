@@ -1,5 +1,5 @@
 //
-//  TransactionKind.swift
+//  CDDataSource.swift
 //  finapp
 //
 //  Created by Oleksandr Kachanov on 1/7/17.
@@ -8,7 +8,8 @@
 
 import Foundation
 
-enum TransactionType : Int {
-    case TakeMoney
-    case PutMoney
+
+struct CDDataCourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInfo {
+    
+    
 }

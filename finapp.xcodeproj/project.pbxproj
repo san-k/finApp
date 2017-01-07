@@ -20,11 +20,13 @@
 		3E8F6DA51E21325B001565D9 /* CDTransaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8F6D9F1E21325B001565D9 /* CDTransaction+CoreDataProperties.swift */; };
 		3E8F6DA61E21325B001565D9 /* CDFinAccount+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8F6DA01E21325B001565D9 /* CDFinAccount+CoreDataClass.swift */; };
 		3E8F6DA71E21325B001565D9 /* CDFinAccount+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8F6DA11E21325B001565D9 /* CDFinAccount+CoreDataProperties.swift */; };
+		3E8F6DA91E213305001565D9 /* DataSorceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8F6DA81E213305001565D9 /* DataSorceProtocols.swift */; };
+		3E8F6DAB1E213EB7001565D9 /* CDDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8F6DAA1E213EB7001565D9 /* CDDataSource.swift */; };
 		3EDD8A461E211061002C0666 /* FinAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD8A451E211061002C0666 /* FinAccount.swift */; };
 		3EDD8A481E211319002C0666 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD8A471E211319002C0666 /* Currency.swift */; };
-		3EDD8A4A1E211527002C0666 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD8A491E211527002C0666 /* Transaction.swift */; };
-		3EDD8A4C1E2115DF002C0666 /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD8A4B1E2115DF002C0666 /* TransactionType.swift */; };
-		3EDD8A4E1E21178B002C0666 /* TransactionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD8A4D1E21178B002C0666 /* TransactionCategory.swift */; };
+		3EDD8A4A1E211527002C0666 /* FinTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD8A491E211527002C0666 /* FinTransaction.swift */; };
+		3EDD8A4C1E2115DF002C0666 /* FinTransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD8A4B1E2115DF002C0666 /* FinTransactionType.swift */; };
+		3EDD8A4E1E21178B002C0666 /* FinTransactionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD8A4D1E21178B002C0666 /* FinTransactionCategory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,11 +45,13 @@
 		3E8F6D9F1E21325B001565D9 /* CDTransaction+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDTransaction+CoreDataProperties.swift"; path = "CoreDataModel/CDTransaction+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3E8F6DA01E21325B001565D9 /* CDFinAccount+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDFinAccount+CoreDataClass.swift"; path = "CoreDataModel/CDFinAccount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3E8F6DA11E21325B001565D9 /* CDFinAccount+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDFinAccount+CoreDataProperties.swift"; path = "CoreDataModel/CDFinAccount+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3E8F6DA81E213305001565D9 /* DataSorceProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSorceProtocols.swift; sourceTree = "<group>"; };
+		3E8F6DAA1E213EB7001565D9 /* CDDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDDataSource.swift; path = CoreDataModel/CDDataSource.swift; sourceTree = "<group>"; };
 		3EDD8A451E211061002C0666 /* FinAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinAccount.swift; path = Model/FinAccount.swift; sourceTree = "<group>"; };
 		3EDD8A471E211319002C0666 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Currency.swift; path = Model/Currency.swift; sourceTree = "<group>"; };
-		3EDD8A491E211527002C0666 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Transaction.swift; path = Model/Transaction.swift; sourceTree = "<group>"; };
-		3EDD8A4B1E2115DF002C0666 /* TransactionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionType.swift; path = Model/TransactionType.swift; sourceTree = "<group>"; };
-		3EDD8A4D1E21178B002C0666 /* TransactionCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionCategory.swift; path = Model/TransactionCategory.swift; sourceTree = "<group>"; };
+		3EDD8A491E211527002C0666 /* FinTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinTransaction.swift; path = Model/FinTransaction.swift; sourceTree = "<group>"; };
+		3EDD8A4B1E2115DF002C0666 /* FinTransactionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinTransactionType.swift; path = Model/FinTransactionType.swift; sourceTree = "<group>"; };
+		3EDD8A4D1E21178B002C0666 /* FinTransactionCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinTransactionCategory.swift; path = Model/FinTransactionCategory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +84,7 @@
 		3E08B3481E1D1DC40010A3C2 /* finapp */ = {
 			isa = PBXGroup;
 			children = (
-				3E8F6D9B1E213157001565D9 /* CoreDataModel */,
+				3E8F6D9B1E213157001565D9 /* CoreData */,
 				3EDD8A441E211034002C0666 /* Model */,
 				3E08B3491E1D1DC40010A3C2 /* AppDelegate.swift */,
 				3E08B34B1E1D1DC40010A3C2 /* ViewController.swift */,
@@ -90,11 +94,12 @@
 				3E08B3581E1D1DC40010A3C2 /* Info.plist */,
 				3E08B3501E1D1DC40010A3C2 /* finapp.xcdatamodeld */,
 				3E08B35E1E1D38A10010A3C2 /* CDController.swift */,
+				3E8F6DAC1E213EEA001565D9 /* DataSource */,
 			);
 			path = finapp;
 			sourceTree = "<group>";
 		};
-		3E8F6D9B1E213157001565D9 /* CoreDataModel */ = {
+		3E8F6D9B1E213157001565D9 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
 				3E8F6D9C1E21325B001565D9 /* CDTransactionCategory+CoreDataClass.swift */,
@@ -104,7 +109,16 @@
 				3E8F6DA01E21325B001565D9 /* CDFinAccount+CoreDataClass.swift */,
 				3E8F6DA11E21325B001565D9 /* CDFinAccount+CoreDataProperties.swift */,
 			);
-			name = CoreDataModel;
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		3E8F6DAC1E213EEA001565D9 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				3E8F6DA81E213305001565D9 /* DataSorceProtocols.swift */,
+				3E8F6DAA1E213EB7001565D9 /* CDDataSource.swift */,
+			);
+			name = DataSource;
 			sourceTree = "<group>";
 		};
 		3EDD8A441E211034002C0666 /* Model */ = {
@@ -112,9 +126,9 @@
 			children = (
 				3EDD8A451E211061002C0666 /* FinAccount.swift */,
 				3EDD8A471E211319002C0666 /* Currency.swift */,
-				3EDD8A491E211527002C0666 /* Transaction.swift */,
-				3EDD8A4B1E2115DF002C0666 /* TransactionType.swift */,
-				3EDD8A4D1E21178B002C0666 /* TransactionCategory.swift */,
+				3EDD8A491E211527002C0666 /* FinTransaction.swift */,
+				3EDD8A4B1E2115DF002C0666 /* FinTransactionType.swift */,
+				3EDD8A4D1E21178B002C0666 /* FinTransactionCategory.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -194,17 +208,19 @@
 				3EDD8A481E211319002C0666 /* Currency.swift in Sources */,
 				3EDD8A461E211061002C0666 /* FinAccount.swift in Sources */,
 				3E8F6DA51E21325B001565D9 /* CDTransaction+CoreDataProperties.swift in Sources */,
-				3EDD8A4A1E211527002C0666 /* Transaction.swift in Sources */,
+				3EDD8A4A1E211527002C0666 /* FinTransaction.swift in Sources */,
 				3E08B35F1E1D38A10010A3C2 /* CDController.swift in Sources */,
-				3EDD8A4C1E2115DF002C0666 /* TransactionType.swift in Sources */,
+				3EDD8A4C1E2115DF002C0666 /* FinTransactionType.swift in Sources */,
 				3E8F6DA61E21325B001565D9 /* CDFinAccount+CoreDataClass.swift in Sources */,
 				3E8F6DA71E21325B001565D9 /* CDFinAccount+CoreDataProperties.swift in Sources */,
 				3E08B34C1E1D1DC40010A3C2 /* ViewController.swift in Sources */,
 				3E08B3521E1D1DC40010A3C2 /* finapp.xcdatamodeld in Sources */,
 				3E08B34A1E1D1DC40010A3C2 /* AppDelegate.swift in Sources */,
-				3EDD8A4E1E21178B002C0666 /* TransactionCategory.swift in Sources */,
+				3E8F6DAB1E213EB7001565D9 /* CDDataSource.swift in Sources */,
+				3EDD8A4E1E21178B002C0666 /* FinTransactionCategory.swift in Sources */,
 				3E8F6DA21E21325B001565D9 /* CDTransactionCategory+CoreDataClass.swift in Sources */,
 				3E8F6DA31E21325B001565D9 /* CDTransactionCategory+CoreDataProperties.swift in Sources */,
+				3E8F6DA91E213305001565D9 /* DataSorceProtocols.swift in Sources */,
 				3E8F6DA41E21325B001565D9 /* CDTransaction+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

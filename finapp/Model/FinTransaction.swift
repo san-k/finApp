@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct Transaction {
+struct FinTransaction {
     
     typealias MoneySum = Double
     
     let transactionID = UUID()
-    var transactionType : TransactionType
+    var transactionType : FinTransactionType
     var sum = 0.0
-    var category : TransactionCategory?
+    var category : FinTransactionCategory?
     let date : Date
     
     
