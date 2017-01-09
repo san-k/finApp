@@ -16,10 +16,10 @@ extension CDFinAccount {
         return NSFetchRequest<CDFinAccount>(entityName: "CDFinAccount");
     }
 
-    @NSManaged public var comment: String?
-    @NSManaged public var currency: String?
-    @NSManaged public var id: String?
-    @NSManaged public var name: String?
+    @NSManaged public var comment: String
+    @NSManaged public var currency: String
+    @NSManaged public var id: String
+    @NSManaged public var name: String
     @NSManaged public var sum: Double
 
 }

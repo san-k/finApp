@@ -15,14 +15,14 @@ protocol AddEntity {
 }
 
 protocol UpdateEntity {
-    func update(finAccount: FinAccount) -> Bool
+//    func update(finAccount: FinAccount) -> Bool
 //    func update(finTransaction: FinTransaction) -> Bool
 }
 
 protocol GetEntityInfo {
-    func getAllFinAcoounts() -> [FinAccount]?
+//    func getAllFinAcoounts() -> [FinAccount]?
 //    func getFinAccounts(withName: String) -> [FinAccount]?
-//    func getFinAccount(withID: UUID) -> FinAccount?
+    func getFinAccount(withID id: UUID) -> FinAccount?
 //
 //    func getFinTransactionsForAccount(withID: UUID) -> [FinTransaction]?
 }

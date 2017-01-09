@@ -7,9 +7,30 @@
 //
 
 import Foundation
+import CoreData
 
 
-struct CDDataCourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInfo {
+struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInfo {
     
+    let context = CDController.persistentContainer.viewContext
+    
+    func add(finAccount: FinAccount) -> Bool {
+        let _ = CDFinAccount(finAccount: finAccount, context: context)
+        return true
+    }
+    
+    func getFinAccount(withID id: UUID) -> FinAccount? {
+        let request: NSFetchRequest<CDFinAccount>  = CDFinAccount.fetchRequest()
+        request.predicate = NSPredicate(format: "id = %@", id.uuidString)
+        if let results = try? context.fetch(request), let result = results.first {
+            let finAccount = FinAccount(name: result.name,
+                                        currency: Currency(rawValue:result.currency)!,
+                                        comment: result.comment,
+                                        totalSum: result.sum)
+            return finAccount
+        }
+        
+        return nil
+    }
     
 }
