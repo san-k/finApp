@@ -8,11 +8,6 @@
 
 import UIKit
 
-enum Test {
-    case One
-    case Two
-    case Three
-}
 
 
 class ViewController: UIViewController {

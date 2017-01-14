@@ -14,10 +14,21 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
     
     let context = CDController.persistentContainer.viewContext
     
+    // MARK: - AddEntity protocol
+    
     func add(finAccount: FinAccount) -> Bool {
         let _ = CDFinAccount(finAccount: finAccount, context: context)
         return true
     }
+    
+    func add(finTransaction: FinTransaction, toAccountWithID: UUID) -> Bool {
+        
+        
+        
+        return true
+    }
+    
+    // MARK: - GetEntityInfo protocol
     
     func getFinAccount(withID id: UUID) -> FinAccount? {
         let request: NSFetchRequest<CDFinAccount>  = CDFinAccount.fetchRequest()

@@ -19,6 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let _ = CDController.persistentContainer
         
+        // test start -----------
+        let dataSourse = AppSettings.sharedSettings.datasource
+        let facc0 = FinAccount(name: "FirstFinScoount", currency: Currency.GRN, comment: "", totalSum: 0.0);
+        let _ = dataSourse.add(finAccount: facc0)
+        guard let facc1 = dataSourse.getFinAccount(withID: facc0.accountID) else { return true}
+        
+        print("result fin account = \(facc1)")
+        // test end -----------
+        
         return true
     }
 

@@ -11,7 +11,7 @@ import Foundation
 
 protocol AddEntity {
     func add(finAccount: FinAccount) -> Bool
-//    func add(finTransaction: FinTransaction, toAccountWithID: UUID) -> Bool
+    func add(finTransaction: FinTransaction, toAccountWithID: UUID) -> Bool
 }
 
 protocol UpdateEntity {

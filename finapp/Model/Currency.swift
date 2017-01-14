@@ -9,6 +9,6 @@
 import Foundation
 
 enum Currency : String {
-    case GRG = "GRN"
+    case GRN = "GRN"
     case USD = "USD"
 }

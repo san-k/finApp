@@ -27,6 +27,7 @@
 		3EDD8A4A1E211527002C0666 /* FinTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD8A491E211527002C0666 /* FinTransaction.swift */; };
 		3EDD8A4C1E2115DF002C0666 /* FinTransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD8A4B1E2115DF002C0666 /* FinTransactionType.swift */; };
 		3EDD8A4E1E21178B002C0666 /* FinTransactionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD8A4D1E21178B002C0666 /* FinTransactionCategory.swift */; };
+		8420EAFC1E2AC06200DBF288 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8420EAFB1E2AC06200DBF288 /* AppSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		3EDD8A491E211527002C0666 /* FinTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinTransaction.swift; path = Model/FinTransaction.swift; sourceTree = "<group>"; };
 		3EDD8A4B1E2115DF002C0666 /* FinTransactionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinTransactionType.swift; path = Model/FinTransactionType.swift; sourceTree = "<group>"; };
 		3EDD8A4D1E21178B002C0666 /* FinTransactionCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinTransactionCategory.swift; path = Model/FinTransactionCategory.swift; sourceTree = "<group>"; };
+		8420EAFB1E2AC06200DBF288 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,12 +91,9 @@
 				3E08B3491E1D1DC40010A3C2 /* AppDelegate.swift */,
 				3E08B34B1E1D1DC40010A3C2 /* ViewController.swift */,
 				3E08B34D1E1D1DC40010A3C2 /* Main.storyboard */,
-				3E08B3531E1D1DC40010A3C2 /* Assets.xcassets */,
-				3E08B3551E1D1DC40010A3C2 /* LaunchScreen.storyboard */,
-				3E08B3581E1D1DC40010A3C2 /* Info.plist */,
-				3E08B3501E1D1DC40010A3C2 /* finapp.xcdatamodeld */,
-				3E08B35E1E1D38A10010A3C2 /* CDController.swift */,
+				8420EAFD1E2AC5B500DBF288 /* resources */,
 				3E8F6DAC1E213EEA001565D9 /* DataSource */,
+				8420EAFB1E2AC06200DBF288 /* AppSettings.swift */,
 			);
 			path = finapp;
 			sourceTree = "<group>";
@@ -103,11 +102,13 @@
 			isa = PBXGroup;
 			children = (
 				3E8F6D9C1E21325B001565D9 /* CDTransactionCategory+CoreDataClass.swift */,
-				3E8F6D9D1E21325B001565D9 /* CDTransactionCategory+CoreDataProperties.swift */,
 				3E8F6D9E1E21325B001565D9 /* CDTransaction+CoreDataClass.swift */,
-				3E8F6D9F1E21325B001565D9 /* CDTransaction+CoreDataProperties.swift */,
 				3E8F6DA01E21325B001565D9 /* CDFinAccount+CoreDataClass.swift */,
+				3E8F6D9D1E21325B001565D9 /* CDTransactionCategory+CoreDataProperties.swift */,
+				3E8F6D9F1E21325B001565D9 /* CDTransaction+CoreDataProperties.swift */,
 				3E8F6DA11E21325B001565D9 /* CDFinAccount+CoreDataProperties.swift */,
+				3E08B35E1E1D38A10010A3C2 /* CDController.swift */,
+				3E08B3501E1D1DC40010A3C2 /* finapp.xcdatamodeld */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -131,6 +132,16 @@
 				3EDD8A4D1E21178B002C0666 /* FinTransactionCategory.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		8420EAFD1E2AC5B500DBF288 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				3E08B3531E1D1DC40010A3C2 /* Assets.xcassets */,
+				3E08B3551E1D1DC40010A3C2 /* LaunchScreen.storyboard */,
+				3E08B3581E1D1DC40010A3C2 /* Info.plist */,
+			);
+			name = resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +230,7 @@
 				3E8F6DAB1E213EB7001565D9 /* CDDataSource.swift in Sources */,
 				3EDD8A4E1E21178B002C0666 /* FinTransactionCategory.swift in Sources */,
 				3E8F6DA21E21325B001565D9 /* CDTransactionCategory+CoreDataClass.swift in Sources */,
+				8420EAFC1E2AC06200DBF288 /* AppSettings.swift in Sources */,
 				3E8F6DA31E21325B001565D9 /* CDTransactionCategory+CoreDataProperties.swift in Sources */,
 				3E8F6DA91E213305001565D9 /* DataSorceProtocols.swift in Sources */,
 				3E8F6DA41E21325B001565D9 /* CDTransaction+CoreDataClass.swift in Sources */,
