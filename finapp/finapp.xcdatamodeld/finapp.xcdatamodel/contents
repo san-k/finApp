@@ -6,14 +6,14 @@
         <attribute name="id" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="sum" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="transactions" toMany="YES" deletionRule="Nullify" destinationEntity="CDTransaction" inverseName="acoount" inverseEntity="CDTransaction" syncable="YES"/>
+        <relationship name="transactions" toMany="YES" deletionRule="Nullify" destinationEntity="CDTransaction" inverseName="account" inverseEntity="CDTransaction" syncable="YES"/>
     </entity>
     <entity name="CDTransaction" representedClassName="CDTransaction" syncable="YES">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="sum" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="transactionID" attributeType="String" syncable="YES"/>
         <attribute name="transactionType" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="acoount" maxCount="1" deletionRule="Cascade" destinationEntity="CDFinAccount" inverseName="transactions" inverseEntity="CDFinAccount" syncable="YES"/>
+        <relationship name="account" maxCount="1" deletionRule="Cascade" destinationEntity="CDFinAccount" inverseName="transactions" inverseEntity="CDFinAccount" syncable="YES"/>
         <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="CDTransactionCategory" inverseName="transactions" inverseEntity="CDTransactionCategory" syncable="YES"/>
     </entity>
     <entity name="CDTransactionCategory" representedClassName="CDTransactionCategory" syncable="YES">

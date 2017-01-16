@@ -12,7 +12,7 @@ import CoreData
 @objc(CDTransaction)
 public class CDTransaction: NSManagedObject {
 
-    convenience init(finTransaction: FinTransaction, finAccount: FinAccount?, context: NSManagedObjectContext) {
+    convenience init(finTransaction: FinTransaction, cdFinAccount: CDFinAccount, context: NSManagedObjectContext) {
         self.init(context: context)
         self.date = finTransaction.date as NSDate
         self.sum = finTransaction.sum
@@ -20,6 +20,7 @@ public class CDTransaction: NSManagedObject {
         /// Convert from Swift's widest signed integer type, trapping on
         /// overflow.
         self.transactionType = Int32(finTransaction.transactionType.rawValue)
+        self.account = cdFinAccount
         
         
         

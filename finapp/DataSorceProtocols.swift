@@ -11,7 +11,7 @@ import Foundation
 
 protocol AddEntity {
     func add(finAccount: FinAccount) -> Bool
-    func add(finTransaction: FinTransaction, toAccountWithID: UUID) -> Bool
+    func add(finTransaction: FinTransaction, toAccountWithID accountID: UUID) -> Bool
 }
 
 protocol UpdateEntity {
@@ -20,11 +20,11 @@ protocol UpdateEntity {
 }
 
 protocol GetEntityInfo {
-//    func getAllFinAcoounts() -> [FinAccount]?
-//    func getFinAccounts(withName: String) -> [FinAccount]?
-    func getFinAccount(withID id: UUID) -> FinAccount?
+    func getAllFinAccounts() -> [FinAccount]?
+    func getFinAccounts(withName name: String) -> [FinAccount]?
+    func getFinAccount(withID accountID: UUID) -> FinAccount?
 //
-//    func getFinTransactionsForAccount(withID: UUID) -> [FinTransaction]?
+    func getFinTransactionsForAccount(withID accountID: UUID) -> [FinTransaction]?
 }
 
 

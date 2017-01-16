@@ -20,7 +20,7 @@ extension CDTransaction {
     @NSManaged public var sum: Double
     @NSManaged public var transactionID: String
     @NSManaged public var transactionType: Int32
-    @NSManaged public var acoount: CDFinAccount
+    @NSManaged public var account: CDFinAccount
     @NSManaged public var category: CDTransactionCategory
 
 }
