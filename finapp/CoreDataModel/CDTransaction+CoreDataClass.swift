@@ -21,9 +21,6 @@ public class CDTransaction: NSManagedObject {
         /// overflow.
         self.transactionType = Int32(finTransaction.transactionType.rawValue)
         self.account = cdFinAccount
-        
-        
-        
     }
     
 }

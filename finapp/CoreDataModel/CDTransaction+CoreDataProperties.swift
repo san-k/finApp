@@ -2,7 +2,7 @@
 //  CDTransaction+CoreDataProperties.swift
 //  finapp
 //
-//  Created by Admin on 15.01.17.
+//  Created by Oleksandr Kachanov on 1/20/17.
 //  Copyright © 2017 Oleksandr Kachanov. All rights reserved.
 //
 
@@ -20,7 +20,8 @@ extension CDTransaction {
     @NSManaged public var sum: Double
     @NSManaged public var transactionID: String
     @NSManaged public var transactionType: Int32
+    @NSManaged public var comment: String
     @NSManaged public var account: CDFinAccount
-    @NSManaged public var category: CDTransactionCategory
+    @NSManaged public var category: CDTransactionCategory?
 
 }

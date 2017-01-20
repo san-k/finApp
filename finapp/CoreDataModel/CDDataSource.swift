@@ -35,6 +35,7 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
     
     // MARK: - GetEntityInfo protocol
     
+    // MARK: Account
     func getAllFinAccounts() -> [FinAccount]? {
         return getFinAccounts(withPredicate: nil)
     }
@@ -55,18 +56,9 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         return nil
     }
     
-    private func getCDFinAccount(withID accountID: UUID) -> CDFinAccount? {
-        let optionalResults = getCDFinAccounts(withPredicate: NSPredicate(format: "id = %@", accountID.uuidString))
-        if let results = optionalResults, let result = results.first {
-            return result
-        }
-        return nil
-    }
-    
+    // MARK: Transaction
     func getFinTransactionsForAccount(withID accountID: UUID) -> [FinTransaction]? {
-        let request: NSFetchRequest<CDTransaction> = CDTransaction.fetchRequest()
-        request.predicate = NSPredicate(format: "account.id = %@", accountID.uuidString)
-        if let cdTransactions = try? context.fetch(request) {
+        if let cdTransactions = getCDFinTransaction(withPredicate: NSPredicate(format: "account.id = %@", accountID.uuidString)) {
             var finTransactions = [FinTransaction]()
             for cdTransaction in cdTransactions {
                 let transactionID = UUID(uuidString: cdTransaction.transactionID)!
@@ -84,7 +76,14 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
     
     // MARK: GetEntityInfo protocol (private methods)
     
-    
+    private func getCDFinAccount(withID accountID: UUID) -> CDFinAccount? {
+        let optionalResults = getCDFinAccounts(withPredicate: NSPredicate(format: "id = %@", accountID.uuidString))
+        if let results = optionalResults, let result = results.first {
+            return result
+        }
+        return nil
+    }
+
     private func getFinTransactionCategory(fromCDTransactionCategory cdTransactionCategory: CDTransactionCategory?) -> FinTransactionCategory? {
         guard let category = cdTransactionCategory else {return nil}
         let finCategory = FinTransactionCategory(categoryID: UUID(uuidString: category.categoryID)!,
@@ -118,6 +117,33 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         return nil
     }
 
+    private func getCDFinTransaction(withPredicate predicate:NSPredicate?) -> [CDTransaction]? {
+        let request: NSFetchRequest<CDTransaction> = CDTransaction.fetchRequest()
+        request.predicate = predicate != nil ? predicate : NSPredicate()
+        if let cdTransactions = try? context.fetch(request) {
+            return cdTransactions
+        }
+        return nil
+    }
+    
+    // MARK: UpdateEntity protocol
+    
+    func updateFinAccount(withID accountID: UUID, newName: String?, newCurency: Currency?, newComment: String?) -> Bool {
+        guard let cdAccount = getCDFinAccount(withID: accountID) else {return false}
+        if let newName = newName {cdAccount.name = newName}
+        if let newCurency = newCurency {cdAccount.currency = newCurency.rawValue}
+        if let newComment = newComment {cdAccount.comment = newComment}
+        return true
+    }
+    
+    func updatefinTransaction(withID transactionID: UUID, newSum: Double?, newComment: String?) -> Bool {
+        if let cdTransaction = getCDFinTransaction(withPredicate: NSPredicate(format: "transaction.id = %@", transactionID.uuidString))?.first {
+            if let newSum = newSum {cdTransaction.sum = newSum}
+            if let newComment = newComment {cdTransaction.comment = newComment}
+            return true
+        }
+        return false
+    }
     
     
 }

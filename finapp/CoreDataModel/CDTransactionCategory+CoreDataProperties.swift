@@ -2,7 +2,7 @@
 //  CDTransactionCategory+CoreDataProperties.swift
 //  finapp
 //
-//  Created by Admin on 15.01.17.
+//  Created by Oleksandr Kachanov on 1/20/17.
 //  Copyright © 2017 Oleksandr Kachanov. All rights reserved.
 //
 
@@ -18,9 +18,9 @@ extension CDTransactionCategory {
 
     @NSManaged public var categoryID: String
     @NSManaged public var comment: String
-    @NSManaged public var image: NSData
+    @NSManaged public var image: NSData?
     @NSManaged public var name: String
-    @NSManaged public var transactions: NSSet
+    @NSManaged public var transactions: NSSet?
 
 }
 
