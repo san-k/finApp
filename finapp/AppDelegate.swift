@@ -19,14 +19,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let _ = CDController.persistentContainer
         
-        // test start -----------
+        print("------------ add acoount test, get coount by ID tests start ------------")
         let dataSourse = AppSettings.sharedSettings.datasource
-        let facc0 = FinAccount(name: "FirstFinScoount", currency: Currency.GRN, comment: "", totalSum: 0.0);
-        let _ = dataSourse.add(finAccount: facc0)
-        guard let facc1 = dataSourse.getFinAccount(withID: facc0.accountID) else { return true}
+        let facc00 = FinAccount(name: "FirstFinAccount", currency: Currency.GRN, comment: "first", totalSum: 0.0);
+        let _ = dataSourse.add(finAccount: facc00)
+        guard let facc01 = dataSourse.getFinAccount(withID: facc00.accountID) else { return true}
         
-        print("result fin account = \(facc1)")
-        // test end -----------
+        print("result fin account = \(facc01)")
+        print("------------ test end ------------")
+        
+        // ------------------------------------------------------------------------------------
+        
+        print("------------ get all accounts test - should be a list of two items test start ------------")
+        // add one more account
+        let facc10 = FinAccount(name: "SecondFinAccount", currency: Currency.GRN, comment: "second", totalSum: 10.0);
+        let _ = dataSourse.add(finAccount: facc10)
+        guard let faccList = dataSourse.getAllFinAccounts() else {return true}
+        print("result list of all accounts = \(faccList)")
+        print("------------ test end ------------")
+        
+        // ------------------------------------------------------------------------------------
+        
+        print("------------ add cd transaction test start ------------")
+        let tr01 = FinTransaction(transactionType: FinTransactionType.TakeMoney, sum: 10, category: FinTransactionCategory.init(name: <#T##String#>, image: <#T##UIImage?#>, comment: <#T##String?#>), date: <#T##Date#>)
+        print("------------ test end ------------")
+        // ------------------------------------------------------------------------------------
+        
+        print("------------  test start ------------")
+        print("------------ test end ------------")
+        // ------------------------------------------------------------------------------------
+        
+        print("------------  test start ------------")
+        print("------------ test end ------------")
+
+        
         
         return true
     }
