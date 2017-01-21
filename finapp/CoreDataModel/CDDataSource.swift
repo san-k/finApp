@@ -27,7 +27,21 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         // in case we failed - we will return false
         // in this method we're not going to cresate new one account, if it doesn't exists
         if let cdAccount = getCDFinAccount(withID: accountID) {
-            let _ = CDTransaction(finTransaction: finTransaction, cdFinAccount: cdAccount, context: context)
+            let cdTransaction = CDTransaction(finTransaction: finTransaction, cdFinAccount: cdAccount, context: context)
+            // relationship "transaction category -> transaction" is "one -> to many"
+            // so category which is used by this finTransaction can exists
+            // at first we need to check whether we have category in current finTransaction
+            guard let finTransactionCategory = finTransaction.category else {return true}
+            // then we try to find it by its ID in core data, if we fail, we gonna create new one
+            if let cdTransactionCategory = getCDTransactionCategory(withID: finTransactionCategory.categoryID) {
+                // category alredy exists - so we just reuse it (and add our transaction to set of transactions for current category)
+                cdTransaction.category = cdTransactionCategory
+            } else {
+                // category doesn't exists - we should create new one
+                let newCDTrCategory = CDTransactionCategory(finTransactionCategory: finTransactionCategory, context: context)
+                cdTransaction.category = newCDTrCategory
+            }
+            
             return true
         }
         return false
@@ -66,7 +80,8 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
                                                     transactionType: FinTransactionType(rawValue: Int(cdTransaction.transactionType))!,
                                                     sum: cdTransaction.sum,
                                                     category: getFinTransactionCategory(fromCDTransactionCategory: cdTransaction.category),
-                                                    date: cdTransaction.date as Date)
+                                                    date: cdTransaction.date as Date,
+                                                    comment: cdTransaction.comment)
                 finTransactions.append(finTransaction)
             }
             return finTransactions
@@ -75,6 +90,15 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
     }
     
     // MARK: GetEntityInfo protocol (private methods)
+    
+    private func getCDTransactionCategory(withID categoryID: UUID) -> CDTransactionCategory? {
+        let request: NSFetchRequest<CDTransactionCategory> = CDTransactionCategory.fetchRequest()
+        request.predicate = NSPredicate(format: "categoryID = %@", categoryID.uuidString)
+        if let results = try? context.fetch(request), let result = results.first {
+            return result
+        }
+        return nil
+    }
     
     private func getCDFinAccount(withID accountID: UUID) -> CDFinAccount? {
         let optionalResults = getCDFinAccounts(withPredicate: NSPredicate(format: "id = %@", accountID.uuidString))
@@ -88,7 +112,7 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         guard let category = cdTransactionCategory else {return nil}
         let finCategory = FinTransactionCategory(categoryID: UUID(uuidString: category.categoryID)!,
                                                  name:category.name,
-                                                 image: FinTransactionCategory.setImage(fromData: category.image),
+                                                 image: FinTransactionCategory.makeImage(fromData: category.image),
                                                  comment: category.comment)
         return finCategory
     }

@@ -17,17 +17,19 @@ struct FinTransaction {
     var sum: MoneySum = 0.0
     var category: FinTransactionCategory?
     let date: Date
+    var comment: String
     
-    init(transactionID: UUID, transactionType: FinTransactionType, sum: MoneySum, category: FinTransactionCategory?, date: Date) {
+    init(transactionID: UUID, transactionType: FinTransactionType, sum: MoneySum, category: FinTransactionCategory?, date: Date, comment:String?) {
         self.transactionID = transactionID
         self.transactionType = transactionType
         self.sum = sum
         self.category = category
         self.date = date
+        self.comment = comment ?? ""
     }
     
-    init(transactionType: FinTransactionType, sum: MoneySum, category: FinTransactionCategory?, date: Date) {
-        self.init(transactionID: UUID(), transactionType: transactionType, sum: sum, category: category, date: date)
+    init(transactionType: FinTransactionType, sum: MoneySum, category: FinTransactionCategory?, date: Date, comment:String) {
+        self.init(transactionID: UUID(), transactionType: transactionType, sum: sum, category: category, date: date, comment:comment)
     }
     
 }

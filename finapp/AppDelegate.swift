@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // ------------------------------------------------------------------------------------
         
         print("------------ add cd transaction test start ------------")
-        let tr01 = FinTransaction(transactionType: FinTransactionType.TakeMoney, sum: 10, category: FinTransactionCategory.init(name: <#T##String#>, image: <#T##UIImage?#>, comment: <#T##String?#>), date: <#T##Date#>)
+//        let tr01 = FinTransaction(transactionType: FinTransactionType.TakeMoney, sum: 10, category: FinTransactionCategory.init(name: <#T##String#>, image: <#T##UIImage?#>, comment: <#T##String?#>), date: <#T##Date#>)
         print("------------ test end ------------")
         // ------------------------------------------------------------------------------------
         
