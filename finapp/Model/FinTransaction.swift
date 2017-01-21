@@ -32,4 +32,13 @@ struct FinTransaction {
         self.init(transactionID: UUID(), transactionType: transactionType, sum: sum, category: category, date: date, comment:comment)
     }
     
+    init(fromCDTransaction cdTransaction: CDTransaction) {
+        self.init(transactionID: UUID(uuidString: cdTransaction.transactionID)!,
+                  transactionType: FinTransactionType(rawValue: Int(cdTransaction.transactionType))!,
+                  sum: cdTransaction.sum,
+                  category: FinTransactionCategory(fromCDTransactionCategory: cdTransaction.category),
+                  date: cdTransaction.date as Date,
+                  comment: cdTransaction.comment)
+    }
+    
 }
