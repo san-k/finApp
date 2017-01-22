@@ -90,7 +90,7 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
     }
     
     private func getCDFinAccount(withID accountID: UUID) -> CDFinAccount? {
-        let optionalResults = getCDFinAccounts(withPredicate: NSPredicate(format: "id = %@", accountID.uuidString))
+        let optionalResults = getCDFinAccounts(withPredicate: NSPredicate(format: "accountID = %@", accountID.uuidString))
         if let results = optionalResults, let result = results.first {
             return result
         }
@@ -111,7 +111,6 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
 
     private func getCDFinAccounts(withPredicate predicate:NSPredicate?) -> [CDFinAccount]? {
         let request: NSFetchRequest<CDFinAccount> = CDFinAccount.fetchRequest()
-        request.predicate = predicate != nil ? predicate : NSPredicate()
         if let cdFinAccounts = try? context.fetch(request) {
             return cdFinAccounts
         }
@@ -120,7 +119,6 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
 
     private func getCDFinTransaction(withPredicate predicate:NSPredicate?) -> [CDTransaction]? {
         let request: NSFetchRequest<CDTransaction> = CDTransaction.fetchRequest()
-        request.predicate = predicate != nil ? predicate : NSPredicate()
         if let cdTransactions = try? context.fetch(request) {
             return cdTransactions
         }

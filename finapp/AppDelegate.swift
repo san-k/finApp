@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let facc01 = dataSourse.getFinAccount(withID: facc00.accountID) else { return true}
         
         print("result fin account = \(facc01)")
-        print("------------ test end ------------")
+        print("------------ test end ------------\n\n")
         
         // ------------------------------------------------------------------------------------
         
@@ -35,22 +35,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let facc10 = FinAccount(name: "SecondFinAccount", currency: Currency.GRN, comment: "second", startSum: 10.0);
         let _ = dataSourse.add(finAccount: facc10)
         guard let faccList = dataSourse.getAllFinAccounts() else {return true}
-        print("result list of all accounts = \(faccList)")
-        print("------------ test end ------------")
+        
+        print("result list of all accounts = \n")
+        faccList.forEach{print("---> \($0)\n")}
+        print("------------ test end ------------\n\n")
         
         // ------------------------------------------------------------------------------------
         
         print("------------ add cd transaction test start ------------")
-//        let tr01 = FinTransaction(transactionType: FinTransactionType.TakeMoney, sum: 10, category: FinTransactionCategory.init(name: <#T##String#>, image: <#T##UIImage?#>, comment: <#T##String?#>), date: <#T##Date#>)
-        print("------------ test end ------------")
+        let tr01 = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 10.0, category: FinTransactionCategory(name: "Food", image: nil, comment: "This is food"), date: Date(), comment: "I bought eggs")
+        let tr02 = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 20.0, category: FinTransactionCategory(name: "Food2", image: nil, comment: "This is food2"), date: Date(), comment: "I bought bread")
+        let _ = dataSourse.add(finTransaction: tr01, toAccountWithID: facc10.accountID)
+        let _ = dataSourse.add(finTransaction: tr02, toAccountWithID: facc10.accountID)
+        
+        guard let transactions = dataSourse.getFinTransactionsForAccount(withID: facc10.accountID) else {return true}
+        print("transaction list = \n")
+        transactions.forEach{print("---> \($0)\n")}
+        print("------------ test end ------------\n\n")
         // ------------------------------------------------------------------------------------
         
-        print("------------  test start ------------")
-        print("------------ test end ------------")
-        // ------------------------------------------------------------------------------------
-        
-        print("------------  test start ------------")
-        print("------------ test end ------------")
+//        print("------------  test start ------------")
+//        print("------------ test end ------------")
+//        // ------------------------------------------------------------------------------------
+//        
+//        print("------------  test start ------------")
+//        print("------------ test end ------------")
 
         
         
