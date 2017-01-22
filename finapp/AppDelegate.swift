@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("------------ add acoount test, get coount by ID tests start ------------")
         let dataSourse = AppSettings.sharedSettings.datasource
-        let facc00 = FinAccount(name: "FirstFinAccount", currency: Currency.GRN, comment: "first", totalSum: 0.0);
+        let facc00 = FinAccount(name: "FirstFinAccount", currency: Currency.GRN, comment: "first", startSum: 0.0);
         let _ = dataSourse.add(finAccount: facc00)
         guard let facc01 = dataSourse.getFinAccount(withID: facc00.accountID) else { return true}
         
@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("------------ get all accounts test - should be a list of two items test start ------------")
         // add one more account
-        let facc10 = FinAccount(name: "SecondFinAccount", currency: Currency.GRN, comment: "second", totalSum: 10.0);
+        let facc10 = FinAccount(name: "SecondFinAccount", currency: Currency.GRN, comment: "second", startSum: 10.0);
         let _ = dataSourse.add(finAccount: facc10)
         guard let faccList = dataSourse.getAllFinAccounts() else {return true}
         print("result list of all accounts = \(faccList)")

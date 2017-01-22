@@ -18,7 +18,7 @@ extension CDFinAccount {
 
     @NSManaged public var comment: String
     @NSManaged public var currency: String
-    @NSManaged public var ccountID: String
+    @NSManaged public var accountID: String
     @NSManaged public var name: String
     @NSManaged public var sum: Double
     @NSManaged public var transactions: NSOrderedSet

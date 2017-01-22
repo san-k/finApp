@@ -15,7 +15,7 @@ public class CDFinAccount: NSManagedObject {
     convenience init(finAccount: FinAccount, context: NSManagedObjectContext) {
         self.init(context: context)
         
-        self.id = finAccount.accountID.uuidString
+        self.accountID = finAccount.accountID.uuidString
         self.name = finAccount.name
         self.sum = finAccount.totalSum
         self.currency = finAccount.currency.rawValue

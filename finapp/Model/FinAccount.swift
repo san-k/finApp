@@ -34,7 +34,7 @@ struct FinAccount {
     }
     
     init(fromCDFinAccount cdFinAccount: CDFinAccount) {
-        self.init(accountID: UUID(uuidString: cdFinAccount.ccountID)!,
+        self.init(accountID: UUID(uuidString: cdFinAccount.accountID)!,
                   name: cdFinAccount.name,
                   currency: Currency(rawValue:cdFinAccount.currency)!,
                   comment: cdFinAccount.comment,
