@@ -34,10 +34,8 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
             guard let finTransactionCategory = finTransaction.category else {return true}
             // then we try to find it by its ID in core data, if we fail, we gonna create new one
             if let cdTransactionCategory = getCDTransactionCategory(withID: finTransactionCategory.categoryID) {
-                // category alredy exists - so we just reuse it (and add our transaction to set of transactions for current category)
                 cdTransaction.category = cdTransactionCategory
             } else {
-                // category doesn't exists - we should create new one
                 let newCDTrCategory = CDTransactionCategory(finTransactionCategory: finTransactionCategory, context: context)
                 cdTransaction.category = newCDTrCategory
             }
@@ -61,10 +59,7 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
     func getFinAccount(withID accountID: UUID) -> FinAccount? {
 
         if let cdAccount = getCDFinAccount(withID: accountID) {
-            let finAccount = FinAccount(name: cdAccount.name,
-                                        currency: Currency(rawValue:cdAccount.currency)!,
-                                        comment: cdAccount.comment,
-                                        totalSum: cdAccount.sum)
+            let finAccount = FinAccount(fromCDFinAccount: cdAccount)
             return finAccount
         }
         return nil
@@ -75,13 +70,7 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         if let cdTransactions = getCDFinTransaction(withPredicate: NSPredicate(format: "account.id = %@", accountID.uuidString)) {
             var finTransactions = [FinTransaction]()
             for cdTransaction in cdTransactions {
-                let transactionID = UUID(uuidString: cdTransaction.transactionID)!
-                let finTransaction = FinTransaction(transactionID: transactionID,
-                                                    transactionType: FinTransactionType(rawValue: Int(cdTransaction.transactionType))!,
-                                                    sum: cdTransaction.sum,
-                                                    category: getFinTransactionCategory(fromCDTransactionCategory: cdTransaction.category),
-                                                    date: cdTransaction.date as Date,
-                                                    comment: cdTransaction.comment)
+                let finTransaction = FinTransaction(fromCDTransaction: cdTransaction)
                 finTransactions.append(finTransaction)
             }
             return finTransactions
@@ -107,24 +96,12 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         }
         return nil
     }
-
-    private func getFinTransactionCategory(fromCDTransactionCategory cdTransactionCategory: CDTransactionCategory?) -> FinTransactionCategory? {
-        guard let category = cdTransactionCategory else {return nil}
-        let finCategory = FinTransactionCategory(categoryID: UUID(uuidString: category.categoryID)!,
-                                                 name:category.name,
-                                                 image: FinTransactionCategory.makeImage(fromData: category.image),
-                                                 comment: category.comment)
-        return finCategory
-    }
     
     private func getFinAccounts(withPredicate predicate:NSPredicate?) -> [FinAccount]? {
         if let cdFinAccounts = getCDFinAccounts(withPredicate: predicate) {
             var finAccounts = [FinAccount]()
             for cdAccount in cdFinAccounts {
-                let finAccount = FinAccount(name: cdAccount.name,
-                                            currency: Currency(rawValue:cdAccount.currency)!,
-                                            comment: cdAccount.comment,
-                                            totalSum: cdAccount.sum)
+                let finAccount = FinAccount(fromCDFinAccount: cdAccount)
                 finAccounts.append(finAccount)
             }
             return finAccounts

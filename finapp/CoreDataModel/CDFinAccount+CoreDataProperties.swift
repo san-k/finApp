@@ -2,7 +2,7 @@
 //  CDFinAccount+CoreDataProperties.swift
 //  finapp
 //
-//  Created by Oleksandr Kachanov on 1/20/17.
+//  Created by Admin on 22.01.17.
 //  Copyright © 2017 Oleksandr Kachanov. All rights reserved.
 //
 
@@ -18,7 +18,7 @@ extension CDFinAccount {
 
     @NSManaged public var comment: String
     @NSManaged public var currency: String
-    @NSManaged public var id: String
+    @NSManaged public var ccountID: String
     @NSManaged public var name: String
     @NSManaged public var sum: Double
     @NSManaged public var transactions: NSOrderedSet
