@@ -18,5 +18,12 @@ class ViewController: UIViewController {
     }
 
 
+    @IBAction func show(_ sender: Any) {
+     
+        let controller = AccountsViewController()
+        self.present(controller, animated: true, completion: nil)
+        
+    }
+
 }
 
