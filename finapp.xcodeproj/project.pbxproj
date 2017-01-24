@@ -29,6 +29,8 @@
 		3EDD8A4A1E211527002C0666 /* FinTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD8A491E211527002C0666 /* FinTransaction.swift */; };
 		3EDD8A4C1E2115DF002C0666 /* FinTransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD8A4B1E2115DF002C0666 /* FinTransactionType.swift */; };
 		3EDD8A4E1E21178B002C0666 /* FinTransactionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD8A4D1E21178B002C0666 /* FinTransactionCategory.swift */; };
+		840FF6A91E37F21200F06684 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FF6A71E37F21200F06684 /* AccountTableViewCell.swift */; };
+		840FF6AA1E37F21200F06684 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840FF6A81E37F21200F06684 /* AccountTableViewCell.xib */; };
 		8420EAFC1E2AC06200DBF288 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8420EAFB1E2AC06200DBF288 /* AppSettings.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +59,8 @@
 		3EDD8A491E211527002C0666 /* FinTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinTransaction.swift; path = Model/FinTransaction.swift; sourceTree = "<group>"; };
 		3EDD8A4B1E2115DF002C0666 /* FinTransactionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinTransactionType.swift; path = Model/FinTransactionType.swift; sourceTree = "<group>"; };
 		3EDD8A4D1E21178B002C0666 /* FinTransactionCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinTransactionCategory.swift; path = Model/FinTransactionCategory.swift; sourceTree = "<group>"; };
+		840FF6A71E37F21200F06684 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountTableViewCell.swift; path = UI/AccountTableViewCell.swift; sourceTree = "<group>"; };
+		840FF6A81E37F21200F06684 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountTableViewCell.xib; path = UI/AccountTableViewCell.xib; sourceTree = "<group>"; };
 		8420EAFB1E2AC06200DBF288 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +112,8 @@
 				3E08B34B1E1D1DC40010A3C2 /* ViewController.swift */,
 				3E4D229F1E37A44E005708C7 /* AccountsViewController.xib */,
 				3E4D229E1E37A44E005708C7 /* AccountsViewController.swift */,
+				840FF6A71E37F21200F06684 /* AccountTableViewCell.swift */,
+				840FF6A81E37F21200F06684 /* AccountTableViewCell.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -218,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E08B3571E1D1DC40010A3C2 /* LaunchScreen.storyboard in Resources */,
+				840FF6AA1E37F21200F06684 /* AccountTableViewCell.xib in Resources */,
 				3E08B3541E1D1DC40010A3C2 /* Assets.xcassets in Resources */,
 				3E4D22A11E37A44E005708C7 /* AccountsViewController.xib in Resources */,
 				3E08B34F1E1D1DC40010A3C2 /* Main.storyboard in Resources */,
@@ -244,6 +251,7 @@
 				3E08B3521E1D1DC40010A3C2 /* finapp.xcdatamodeld in Sources */,
 				3E08B34A1E1D1DC40010A3C2 /* AppDelegate.swift in Sources */,
 				3E8F6DAB1E213EB7001565D9 /* CDDataSource.swift in Sources */,
+				840FF6A91E37F21200F06684 /* AccountTableViewCell.swift in Sources */,
 				3EDD8A4E1E21178B002C0666 /* FinTransactionCategory.swift in Sources */,
 				3E8F6DA21E21325B001565D9 /* CDTransactionCategory+CoreDataClass.swift in Sources */,
 				8420EAFC1E2AC06200DBF288 /* AppSettings.swift in Sources */,

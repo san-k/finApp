@@ -8,12 +8,14 @@
 
 import UIKit
 
+let kAccountCellIdentifier = "accountCellIdentifier"
+
 class AccountsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet var tableView: UITableView!
     var datasource: AddEntity & UpdateEntity & GetEntityInfo & CalculateEntityInfo!
     var accounts: [FinAccount]!
-    static let cellIdentifier = "cellIdentifier"
+    
     
     override func awakeFromNib() {
         setup()
@@ -32,7 +34,6 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     private func setup() {
         datasource = AppSettings.sharedSettings.datasource
         accounts = datasource.getAllFinAccounts()
-        // tableView.register(nil, forCellReuseIdentifier: AccountsViewController.cellIdentifier)
     }
     
     
@@ -41,8 +42,9 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        tableView.register(UINib(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: kAccountCellIdentifier)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 71
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -54,8 +56,10 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell() // tableView.dequeueReusableCell(withIdentifier: AccountsViewController.cellIdentifier, for: indexPath)
-        cell.textLabel?.text = accounts[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: kAccountCellIdentifier, for: indexPath) as! AccountTableViewCell
+        cell.accountName.text = accounts[indexPath.row].name
+        cell.accountSum.text = String(accounts[indexPath.row].totalSum)
+        
         return cell
     }
 

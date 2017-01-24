@@ -21,6 +21,11 @@ public class CDTransaction: NSManagedObject {
         /// overflow.
         self.transactionType = Int32(finTransaction.transactionType.rawValue)
         self.account = cdFinAccount
+        
+        switch finTransaction.transactionType {
+        case .PutMoney: cdFinAccount.sum += finTransaction.sum
+        case .TakeMoney: cdFinAccount.sum -= finTransaction.sum
+        }
     }
     
 }
