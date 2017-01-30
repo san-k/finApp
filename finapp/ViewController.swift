@@ -22,7 +22,7 @@ class ViewController: UIViewController {
      
         let controller = AccountsViewController()
         let navcontroller = self.navigationController
-        navcontroller?.show(controller, sender: nil)
+        navcontroller?.pushViewController(controller, animated: true)
     }
 
 }
