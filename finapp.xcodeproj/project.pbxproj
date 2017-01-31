@@ -14,7 +14,6 @@
 		3E08B3541E1D1DC40010A3C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E08B3531E1D1DC40010A3C2 /* Assets.xcassets */; };
 		3E08B3571E1D1DC40010A3C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E08B3551E1D1DC40010A3C2 /* LaunchScreen.storyboard */; };
 		3E08B35F1E1D38A10010A3C2 /* CDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08B35E1E1D38A10010A3C2 /* CDController.swift */; };
-		3E23AC651E40FDC1006F9C9D /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E23AC641E40FDC1006F9C9D /* Storyboard.storyboard */; };
 		3E4D22A01E37A44E005708C7 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4D229E1E37A44E005708C7 /* AccountsViewController.swift */; };
 		3E4D22A11E37A44E005708C7 /* AccountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E4D229F1E37A44E005708C7 /* AccountsViewController.xib */; };
 		3E6E40B21E3B768400814FFB /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E40B01E3B768400814FFB /* TransactionsViewController.swift */; };
@@ -37,6 +36,8 @@
 		840FF6A91E37F21200F06684 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FF6A71E37F21200F06684 /* AccountTableViewCell.swift */; };
 		840FF6AA1E37F21200F06684 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840FF6A81E37F21200F06684 /* AccountTableViewCell.xib */; };
 		8420EAFC1E2AC06200DBF288 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8420EAFB1E2AC06200DBF288 /* AppSettings.swift */; };
+		84F163BE1E41483700BDDF04 /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F163BC1E41483700BDDF04 /* NewAccountViewController.swift */; };
+		84F163BF1E41483700BDDF04 /* NewAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F163BD1E41483700BDDF04 /* NewAccountViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,7 +50,6 @@
 		3E08B3561E1D1DC40010A3C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E08B3581E1D1DC40010A3C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E08B35E1E1D38A10010A3C2 /* CDController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDController.swift; sourceTree = "<group>"; };
-		3E23AC641E40FDC1006F9C9D /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		3E4D229E1E37A44E005708C7 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountsViewController.swift; path = UI/AccountsViewController.swift; sourceTree = "<group>"; };
 		3E4D229F1E37A44E005708C7 /* AccountsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountsViewController.xib; path = UI/AccountsViewController.xib; sourceTree = "<group>"; };
 		3E6E40B01E3B768400814FFB /* TransactionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionsViewController.swift; path = UI/TransactionsViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +72,8 @@
 		840FF6A71E37F21200F06684 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountTableViewCell.swift; path = UI/AccountTableViewCell.swift; sourceTree = "<group>"; };
 		840FF6A81E37F21200F06684 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountTableViewCell.xib; path = UI/AccountTableViewCell.xib; sourceTree = "<group>"; };
 		8420EAFB1E2AC06200DBF288 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		84F163BC1E41483700BDDF04 /* NewAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewAccountViewController.swift; path = UI/NewAccountViewController.swift; sourceTree = "<group>"; };
+		84F163BD1E41483700BDDF04 /* NewAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NewAccountViewController.xib; path = UI/NewAccountViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,7 +131,8 @@
 		3E23AC5F1E40EF56006F9C9D /* newAccountUI */ = {
 			isa = PBXGroup;
 			children = (
-				3E23AC641E40FDC1006F9C9D /* Storyboard.storyboard */,
+				84F163BC1E41483700BDDF04 /* NewAccountViewController.swift */,
+				84F163BD1E41483700BDDF04 /* NewAccountViewController.xib */,
 			);
 			name = newAccountUI;
 			sourceTree = "<group>";
@@ -264,12 +267,12 @@
 			files = (
 				3E08B3571E1D1DC40010A3C2 /* LaunchScreen.storyboard in Resources */,
 				840FF6AA1E37F21200F06684 /* AccountTableViewCell.xib in Resources */,
-				3E23AC651E40FDC1006F9C9D /* Storyboard.storyboard in Resources */,
 				3E08B3541E1D1DC40010A3C2 /* Assets.xcassets in Resources */,
 				3E6E40B71E3B76E700814FFB /* TransactionsTableViewCell.xib in Resources */,
 				3E4D22A11E37A44E005708C7 /* AccountsViewController.xib in Resources */,
 				3E08B34F1E1D1DC40010A3C2 /* Main.storyboard in Resources */,
 				3E6E40B31E3B768400814FFB /* TransactionsViewController.xib in Resources */,
+				84F163BF1E41483700BDDF04 /* NewAccountViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +294,7 @@
 				3E6E40B61E3B76E700814FFB /* TransactionsTableViewCell.swift in Sources */,
 				3E8F6DA71E21325B001565D9 /* CDFinAccount+CoreDataProperties.swift in Sources */,
 				3E08B34C1E1D1DC40010A3C2 /* ViewController.swift in Sources */,
+				84F163BE1E41483700BDDF04 /* NewAccountViewController.swift in Sources */,
 				3E08B3521E1D1DC40010A3C2 /* finapp.xcdatamodeld in Sources */,
 				3E08B34A1E1D1DC40010A3C2 /* AppDelegate.swift in Sources */,
 				3E8F6DAB1E213EB7001565D9 /* CDDataSource.swift in Sources */,
