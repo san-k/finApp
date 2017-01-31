@@ -38,8 +38,7 @@ class TransactionsViewController: UIViewController, UITableViewDataSource, UITab
     convenience init(withAccount account: FinAccount) {
         self.init()
         self.account = account
-        transactions = datasource.getFinTransactionsForAccount(withID: account.accountID)	
-        
+        transactions = datasource.getFinTransactionsForAccount(withID: account.accountID)
     }
     
     private func setup() {
@@ -49,7 +48,7 @@ class TransactionsViewController: UIViewController, UITableViewDataSource, UITab
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "TransactionsViewController", bundle: nil), forCellReuseIdentifier: kTransactionCellIdentifier)
+        tableView.register(UINib(nibName: "TransactionsTableViewCell", bundle: nil), forCellReuseIdentifier: kTransactionCellIdentifier)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 99
         
@@ -67,7 +66,7 @@ class TransactionsViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let transactions = transactions else { return UITableViewCell() }
-        let transactionCell = tableView.dequeueReusableCell(withIdentifier: kTransactionCellIdentifier, for: indexPath) as! TransactionsTableViewCell
+        let transactionCell =  self.tableView.dequeueReusableCell(withIdentifier: kTransactionCellIdentifier, for: indexPath) as! TransactionsTableViewCell
         if transactions.count > indexPath.row {
             let finTransaction = transactions[indexPath.row]
             transactionCell.category.text = finTransaction.category?.name

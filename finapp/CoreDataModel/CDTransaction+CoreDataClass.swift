@@ -20,6 +20,7 @@ public class CDTransaction: NSManagedObject {
         /// Convert from Swift's widest signed integer type, trapping on
         /// overflow.
         self.transactionType = Int32(finTransaction.transactionType.rawValue)
+        self.comment = finTransaction.comment
         self.account = cdFinAccount
         
         switch finTransaction.transactionType {

@@ -67,7 +67,7 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
     
     // MARK: Transaction
     func getFinTransactionsForAccount(withID accountID: UUID) -> [FinTransaction]? {
-        if let cdTransactions = getCDFinTransaction(withPredicate: NSPredicate(format: "account.id = %@", accountID.uuidString)) {
+        if let cdTransactions = getCDFinTransaction(withPredicate: NSPredicate(format: "account.accountID = %@", accountID.uuidString)) {
             var finTransactions = [FinTransaction]()
             for cdTransaction in cdTransactions {
                 let finTransaction = FinTransaction(fromCDTransaction: cdTransaction)
@@ -111,6 +111,7 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
 
     private func getCDFinAccounts(withPredicate predicate:NSPredicate?) -> [CDFinAccount]? {
         let request: NSFetchRequest<CDFinAccount> = CDFinAccount.fetchRequest()
+        request.predicate = predicate
         if let cdFinAccounts = try? context.fetch(request) {
             return cdFinAccounts
         }
@@ -119,6 +120,7 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
 
     private func getCDFinTransaction(withPredicate predicate:NSPredicate?) -> [CDTransaction]? {
         let request: NSFetchRequest<CDTransaction> = CDTransaction.fetchRequest()
+        request.predicate = predicate
         if let cdTransactions = try? context.fetch(request) {
             return cdTransactions
         }

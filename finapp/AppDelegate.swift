@@ -19,48 +19,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let _ = CDController.persistentContainer
         
-        print("------------ add acoount test, get coount by ID tests start ------------")
         let dataSourse = AppSettings.sharedSettings.datasource
-        let facc00 = FinAccount(name: "FirstFinAccount", currency: Currency.GRN, comment: "first", startSum: 0.0);
-        let _ = dataSourse.add(finAccount: facc00)
-        guard let facc01 = dataSourse.getFinAccount(withID: facc00.accountID) else { return true}
-        
-        print("result fin account = \(facc01)")
-        print("------------ test end ------------\n\n")
-        
-        // ------------------------------------------------------------------------------------
-        
-        print("------------ get all accounts test - should be a list of two items test start ------------")
-        // add one more account
-        let facc10 = FinAccount(name: "SecondFinAccount", currency: Currency.GRN, comment: "second", startSum: 10.0);
-        let _ = dataSourse.add(finAccount: facc10)
-        guard let faccList = dataSourse.getAllFinAccounts() else {return true}
-        
-        print("result list of all accounts = \n")
-        faccList.forEach{print("---> \($0)\n")}
-        print("------------ test end ------------\n\n")
-        
-        // ------------------------------------------------------------------------------------
-        
-        print("------------ add cd transaction test start ------------")
-        let tr01 = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 10.0, category: FinTransactionCategory(name: "Food", image: nil, comment: "This is food"), date: Date(), comment: "I bought eggs")
-        let tr02 = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 20.0, category: FinTransactionCategory(name: "Food2", image: nil, comment: "This is food2"), date: Date(), comment: "I bought bread")
-        let _ = dataSourse.add(finTransaction: tr01, toAccountWithID: facc10.accountID)
-        let _ = dataSourse.add(finTransaction: tr02, toAccountWithID: facc10.accountID)
-        
-        guard let transactions = dataSourse.getFinTransactionsForAccount(withID: facc10.accountID) else {return true}
-        print("transaction list = \n")
-        transactions.forEach{print("---> \($0)\n")}
-        print("------------ test end ------------\n\n")
-        // ------------------------------------------------------------------------------------
-        
-//        print("------------  test start ------------")
-//        print("------------ test end ------------")
-//        // ------------------------------------------------------------------------------------
-//        
-//        print("------------  test start ------------")
-//        print("------------ test end ------------")
+        let facc0 = FinAccount(name: "FirstFinAccount", currency: Currency.GRN, comment: "first", startSum: 0.0);
+        let _ = dataSourse.add(finAccount: facc0)
 
+        let facc1 = FinAccount(name: "SecondFinAccount", currency: Currency.GRN, comment: "second", startSum: 10.0);
+        let _ = dataSourse.add(finAccount: facc1)
+
+        for counter in 1..<5 {
+            let tr = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 10.0 * Double(counter), category: FinTransactionCategory(name: "Food - \(counter)", image: nil, comment: "This is category N \(counter)"), date: Date(), comment: "transaction comment N \(counter)")
+            let _ = dataSourse.add(finTransaction: tr, toAccountWithID: facc0.accountID)
+
+        }
+
+        for counter in 6..<9 {
+            let tr = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 10.0 * Double(counter), category: FinTransactionCategory(name: "Food - \(counter)", image: nil, comment: "This is category N \(counter)"), date: Date(), comment: "transaction comment N \(counter)")
+            let _ = dataSourse.add(finTransaction: tr, toAccountWithID: facc1.accountID)
+            
+        }
+
+
+        if let tr = dataSourse.getFinTransactionsForAccount(withID: facc0.accountID)?.first {
+            print(tr)
+        }
+        
         
         
         return true

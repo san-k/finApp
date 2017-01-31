@@ -68,16 +68,10 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         guard let row = tableView.indexPath(for: cell)?.row else { return }
         guard accounts.count > row else { return }
         let account = accounts[row]
-        //let transactionsController = TransactionsViewController(withAccount: account)
-        let transactionsController = TransactionsViewController()
+        let transactionsController = TransactionsViewController(withAccount: account)
         self.navigationController?.pushViewController(transactionsController, animated: true)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let c = segue.destination as! TransactionsViewController
-        c.account = accounts[1]
-        c.transactions = datasource.getFinTransactionsForAccount(withID: c.account!.accountID)
-    }
     
 
 }

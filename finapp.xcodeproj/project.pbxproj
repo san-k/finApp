@@ -113,16 +113,24 @@
 			path = finapp;
 			sourceTree = "<group>";
 		};
+		3E23AC5E1E40E46B006F9C9D /* TransactionsUI */ = {
+			isa = PBXGroup;
+			children = (
+				3E6E40B11E3B768400814FFB /* TransactionsViewController.xib */,
+				3E6E40B01E3B768400814FFB /* TransactionsViewController.swift */,
+				3E6E40B51E3B76E700814FFB /* TransactionsTableViewCell.xib */,
+				3E6E40B41E3B76E700814FFB /* TransactionsTableViewCell.swift */,
+			);
+			name = TransactionsUI;
+			sourceTree = "<group>";
+		};
 		3E4D229D1E37A420005708C7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				3E08B34D1E1D1DC40010A3C2 /* Main.storyboard */,
 				3E08B34B1E1D1DC40010A3C2 /* ViewController.swift */,
 				3E6E40AF1E3B75F800814FFB /* Accounts UI */,
-				3E6E40B11E3B768400814FFB /* TransactionsViewController.xib */,
-				3E6E40B01E3B768400814FFB /* TransactionsViewController.swift */,
-				3E6E40B51E3B76E700814FFB /* TransactionsTableViewCell.xib */,
-				3E6E40B41E3B76E700814FFB /* TransactionsTableViewCell.swift */,
+				3E23AC5E1E40E46B006F9C9D /* TransactionsUI */,
 			);
 			name = UI;
 			sourceTree = "<group>";
