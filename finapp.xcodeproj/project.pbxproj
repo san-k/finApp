@@ -14,6 +14,7 @@
 		3E08B3541E1D1DC40010A3C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E08B3531E1D1DC40010A3C2 /* Assets.xcassets */; };
 		3E08B3571E1D1DC40010A3C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E08B3551E1D1DC40010A3C2 /* LaunchScreen.storyboard */; };
 		3E08B35F1E1D38A10010A3C2 /* CDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08B35E1E1D38A10010A3C2 /* CDController.swift */; };
+		3E23AC651E40FDC1006F9C9D /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E23AC641E40FDC1006F9C9D /* Storyboard.storyboard */; };
 		3E4D22A01E37A44E005708C7 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4D229E1E37A44E005708C7 /* AccountsViewController.swift */; };
 		3E4D22A11E37A44E005708C7 /* AccountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E4D229F1E37A44E005708C7 /* AccountsViewController.xib */; };
 		3E6E40B21E3B768400814FFB /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E40B01E3B768400814FFB /* TransactionsViewController.swift */; };
@@ -48,6 +49,7 @@
 		3E08B3561E1D1DC40010A3C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E08B3581E1D1DC40010A3C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E08B35E1E1D38A10010A3C2 /* CDController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDController.swift; sourceTree = "<group>"; };
+		3E23AC641E40FDC1006F9C9D /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		3E4D229E1E37A44E005708C7 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountsViewController.swift; path = UI/AccountsViewController.swift; sourceTree = "<group>"; };
 		3E4D229F1E37A44E005708C7 /* AccountsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountsViewController.xib; path = UI/AccountsViewController.xib; sourceTree = "<group>"; };
 		3E6E40B01E3B768400814FFB /* TransactionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionsViewController.swift; path = UI/TransactionsViewController.swift; sourceTree = "<group>"; };
@@ -124,9 +126,18 @@
 			name = TransactionsUI;
 			sourceTree = "<group>";
 		};
+		3E23AC5F1E40EF56006F9C9D /* newAccountUI */ = {
+			isa = PBXGroup;
+			children = (
+				3E23AC641E40FDC1006F9C9D /* Storyboard.storyboard */,
+			);
+			name = newAccountUI;
+			sourceTree = "<group>";
+		};
 		3E4D229D1E37A420005708C7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3E23AC5F1E40EF56006F9C9D /* newAccountUI */,
 				3E08B34D1E1D1DC40010A3C2 /* Main.storyboard */,
 				3E08B34B1E1D1DC40010A3C2 /* ViewController.swift */,
 				3E6E40AF1E3B75F800814FFB /* Accounts UI */,
@@ -253,6 +264,7 @@
 			files = (
 				3E08B3571E1D1DC40010A3C2 /* LaunchScreen.storyboard in Resources */,
 				840FF6AA1E37F21200F06684 /* AccountTableViewCell.xib in Resources */,
+				3E23AC651E40FDC1006F9C9D /* Storyboard.storyboard in Resources */,
 				3E08B3541E1D1DC40010A3C2 /* Assets.xcassets in Resources */,
 				3E6E40B71E3B76E700814FFB /* TransactionsTableViewCell.xib in Resources */,
 				3E4D22A11E37A44E005708C7 /* AccountsViewController.xib in Resources */,
