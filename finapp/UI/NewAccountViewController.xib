@@ -16,6 +16,7 @@
                 <outlet property="commentTextView" destination="z54-my-EXu" id="I4h-j0-OvU"/>
                 <outlet property="nameText" destination="8Fh-PP-ODc" id="eSw-69-7uB"/>
                 <outlet property="startSumText" destination="7dv-KE-BvM" id="RFH-2I-GfX"/>
+                <outlet property="tableHeightConstraint" destination="4zj-1Y-X3o" id="HsN-U3-jHZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -87,6 +88,10 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="80" id="4zj-1Y-X3o"/>
                                     </constraints>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="cQP-Ir-Zmv"/>
+                                        <outlet property="delegate" destination="-1" id="063-xJ-g9Y"/>
+                                    </connections>
                                 </tableView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
