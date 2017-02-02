@@ -40,9 +40,35 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpCell()
+        addBarButtons()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+
+    }
+    
+    private func setUpCell() {
         tableView.register(UINib(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: kAccountCellIdentifier)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 71
+    }
+    
+    private func addBarButtons() {
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(showAddAccountPage(sender:)))
+    self.navigationItem.setRightBarButton(button, animated: false)
+
+    }
+    
+    @objc private func showAddAccountPage(sender: UIBarButtonItem) {
+        let newAccountController = NewAccountViewController()
+        newAccountController.categories = datasource.getAllFinCategories()
+        let navController = UINavigationController(rootViewController: newAccountController)
+        
+        
+        self.present(navController, animated: true) {
+            
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

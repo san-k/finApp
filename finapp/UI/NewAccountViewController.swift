@@ -16,6 +16,7 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var tableHeightConstraint: NSLayoutConstraint!
     @IBOutlet var commentTextView: UITextView!
 
+    // 'in' property - should be set during segueing
     var categories: [FinTransactionCategory]?
     
     
@@ -33,7 +34,7 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        startSumText.resignFirstResponder()
     }
     
     //MARK: - table view data source
@@ -47,6 +48,9 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TransactionCategoryTableViewCell.staticIdentifier, for: indexPath) as! TransactionCategoryTableViewCell
+        if let categories = categories, categories.count > indexPath.row {
+            cell.name.text = categories[indexPath.row].name
+        }
         return cell
     }
 }

@@ -21,6 +21,7 @@ protocol UpdateEntity {
 
 protocol GetEntityInfo {
     func getAllFinAccounts() -> [FinAccount]?
+    func getAllFinCategories() -> [FinTransactionCategory]?
     func getFinAccounts(withName name: String) -> [FinAccount]?
     func getFinAccount(withID accountID: UUID) -> FinAccount?
 //

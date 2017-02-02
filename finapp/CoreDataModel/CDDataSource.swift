@@ -65,6 +65,17 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         return nil
     }
     
+    // MARK: Category
+    func getAllFinCategories() -> [FinTransactionCategory]? {
+        let request: NSFetchRequest<CDTransactionCategory> = CDTransactionCategory.fetchRequest()
+        if let results = try? context.fetch(request) {
+            var finCategories = [FinTransactionCategory]()
+            results.forEach{ finCategories.append(FinTransactionCategory(fromCDTransactionCategory: $0)!)}
+            return finCategories
+        }
+        return nil
+    }
+    
     // MARK: Transaction
     func getFinTransactionsForAccount(withID accountID: UUID) -> [FinTransaction]? {
         if let cdTransactions = getCDFinTransaction(withPredicate: NSPredicate(format: "account.accountID = %@", accountID.uuidString)) {
