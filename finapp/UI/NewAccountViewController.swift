@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NewAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     @IBOutlet var nameText: UITextField!
     @IBOutlet var startSumText: UITextField!
@@ -24,18 +24,48 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
     private var account: FinAccount?
     
     
-    
-    
     @IBAction func categoryTapped(_ sender: UIButton) {
     }
     
     override func viewDidLoad() {
+        setupCell()
+        addBarButtons()
+    }
+
+    private func setupCell() {
         categoryTable.register(UINib(nibName: "TransactionCategoryTableViewCell", bundle: nil), forCellReuseIdentifier: TransactionCategoryTableViewCell.staticIdentifier)
+        categoryTable.rowHeight = UITableViewAutomaticDimension
+        categoryTable.estimatedRowHeight = 71
+
+    }
+    
+    private func addBarButtons() {
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(cancelTapped(sender:)))
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(doneTapped(sender:)))
+        self.navigationItem.setLeftBarButton(cancelButton, animated: false)
+        self.navigationItem.setRightBarButton(doneButton, animated: false)
+    }
+    
+    @objc private func cancelTapped(sender: UIBarButtonSystemItem) {
+        dismiss(animated: true) { 
+            
+        }
+    }
+    
+    @objc private func doneTapped(sender: UIBarButtonSystemItem) {
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         startSumText.resignFirstResponder()
     }
+    
+    //MARK: - textView delegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
+    
     
     //MARK: - table view data source
     
@@ -54,3 +84,5 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
 }
+
+

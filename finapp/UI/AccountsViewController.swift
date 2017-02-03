@@ -56,8 +56,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     private func addBarButtons() {
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(showAddAccountPage(sender:)))
-    self.navigationItem.setRightBarButton(button, animated: false)
-
+        self.navigationItem.setRightBarButton(button, animated: false)
     }
     
     @objc private func showAddAccountPage(sender: UIBarButtonItem) {
