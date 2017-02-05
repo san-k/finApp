@@ -61,13 +61,8 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @objc private func showAddAccountPage(sender: UIBarButtonItem) {
         let newAccountController = NewAccountViewController()
-        newAccountController.categories = datasource.getAllFinCategories()
         let navController = UINavigationController(rootViewController: newAccountController)
-        
-        
-        self.present(navController, animated: true) {
-            
-        }
+        self.present(navController, animated: true) { }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

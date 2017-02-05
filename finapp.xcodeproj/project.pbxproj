@@ -40,6 +40,8 @@
 		8420EAFC1E2AC06200DBF288 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8420EAFB1E2AC06200DBF288 /* AppSettings.swift */; };
 		84F163BE1E41483700BDDF04 /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F163BC1E41483700BDDF04 /* NewAccountViewController.swift */; };
 		84F163BF1E41483700BDDF04 /* NewAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F163BD1E41483700BDDF04 /* NewAccountViewController.xib */; };
+		84F163C21E46923E00BDDF04 /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F163C01E46923E00BDDF04 /* CurrencyTableViewCell.swift */; };
+		84F163C31E46923E00BDDF04 /* CurrencyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F163C11E46923E00BDDF04 /* CurrencyTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +80,8 @@
 		8420EAFB1E2AC06200DBF288 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		84F163BC1E41483700BDDF04 /* NewAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewAccountViewController.swift; path = UI/NewAccountViewController.swift; sourceTree = "<group>"; };
 		84F163BD1E41483700BDDF04 /* NewAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NewAccountViewController.xib; path = UI/NewAccountViewController.xib; sourceTree = "<group>"; };
+		84F163C01E46923E00BDDF04 /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrencyTableViewCell.swift; path = UI/CurrencyTableViewCell.swift; sourceTree = "<group>"; };
+		84F163C11E46923E00BDDF04 /* CurrencyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CurrencyTableViewCell.xib; path = UI/CurrencyTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,10 +117,10 @@
 				3E4D229D1E37A420005708C7 /* UI */,
 				3E8F6D9B1E213157001565D9 /* CoreData */,
 				3EDD8A441E211034002C0666 /* Model */,
-				3E08B3491E1D1DC40010A3C2 /* AppDelegate.swift */,
 				8420EAFD1E2AC5B500DBF288 /* resources */,
 				3E8F6DAC1E213EEA001565D9 /* DataSource */,
 				8420EAFB1E2AC06200DBF288 /* AppSettings.swift */,
+				3E08B3491E1D1DC40010A3C2 /* AppDelegate.swift */,
 			);
 			path = finapp;
 			sourceTree = "<group>";
@@ -139,6 +143,8 @@
 				84F163BD1E41483700BDDF04 /* NewAccountViewController.xib */,
 				3E23AC691E423A37006F9C9D /* TransactionCategoryTableViewCell.swift */,
 				3E23AC6A1E423A37006F9C9D /* TransactionCategoryTableViewCell.xib */,
+				84F163C01E46923E00BDDF04 /* CurrencyTableViewCell.swift */,
+				84F163C11E46923E00BDDF04 /* CurrencyTableViewCell.xib */,
 			);
 			name = newAccountUI;
 			sourceTree = "<group>";
@@ -277,6 +283,7 @@
 				3E08B3541E1D1DC40010A3C2 /* Assets.xcassets in Resources */,
 				3E6E40B71E3B76E700814FFB /* TransactionsTableViewCell.xib in Resources */,
 				3E4D22A11E37A44E005708C7 /* AccountsViewController.xib in Resources */,
+				84F163C31E46923E00BDDF04 /* CurrencyTableViewCell.xib in Resources */,
 				3E08B34F1E1D1DC40010A3C2 /* Main.storyboard in Resources */,
 				3E6E40B31E3B768400814FFB /* TransactionsViewController.xib in Resources */,
 				84F163BF1E41483700BDDF04 /* NewAccountViewController.xib in Resources */,
@@ -298,6 +305,7 @@
 				3E08B35F1E1D38A10010A3C2 /* CDController.swift in Sources */,
 				3EDD8A4C1E2115DF002C0666 /* FinTransactionType.swift in Sources */,
 				3E8F6DA61E21325B001565D9 /* CDFinAccount+CoreDataClass.swift in Sources */,
+				84F163C21E46923E00BDDF04 /* CurrencyTableViewCell.swift in Sources */,
 				3E6E40B61E3B76E700814FFB /* TransactionsTableViewCell.swift in Sources */,
 				3E8F6DA71E21325B001565D9 /* CDFinAccount+CoreDataProperties.swift in Sources */,
 				3E08B34C1E1D1DC40010A3C2 /* ViewController.swift in Sources */,

@@ -13,8 +13,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let _ = CDController.persistentContainer
@@ -29,22 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         for counter in 1..<5 {
             let tr = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 10.0 * Double(counter), category: FinTransactionCategory(name: "Food - \(counter)", image: nil, comment: "This is category N \(counter)"), date: Date(), comment: "transaction comment N \(counter)")
             let _ = dataSourse.add(finTransaction: tr, toAccountWithID: facc0.accountID)
-
         }
 
         for counter in 6..<9 {
             let tr = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 10.0 * Double(counter), category: FinTransactionCategory(name: "Food - \(counter)", image: nil, comment: "This is category N \(counter)"), date: Date(), comment: "transaction comment N \(counter)")
             let _ = dataSourse.add(finTransaction: tr, toAccountWithID: facc1.accountID)
-            
         }
 
-
-        if let tr = dataSourse.getFinTransactionsForAccount(withID: facc0.accountID)?.first {
-            print(tr)
-        }
-        
-        
-        
         return true
     }
 

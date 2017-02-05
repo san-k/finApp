@@ -12,31 +12,30 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @IBOutlet var nameText: UITextField!
     @IBOutlet var startSumText: UITextField!
-    @IBOutlet var categoryTable: UITableView!
-    @IBOutlet var tableHeightConstraint: NSLayoutConstraint!
     @IBOutlet var commentTextView: UITextView!
 
-    // 'in' property - should be set during segueing
-    var categories: [FinTransactionCategory]?
+    @IBOutlet weak var currencyTable: UITableView!
+    @IBOutlet weak var currencyLabel: UILabel!
+    private var selectedCurrency: String?
     
     
     // PRIVATE PROPERTIES
-    private var account: FinAccount?
-    
-    
-    @IBAction func categoryTapped(_ sender: UIButton) {
-    }
+    private var createdAccount: FinAccount?
+    private let currencyArr: [String] = {
+        var resArray = [String]()
+        iterateEnum(Currency.self).forEach{resArray.append($0.rawValue)}
+        return resArray
+    }()
     
     override func viewDidLoad() {
-        setupCell()
+        setupTable()
         addBarButtons()
     }
-
-    private func setupCell() {
-        categoryTable.register(UINib(nibName: "TransactionCategoryTableViewCell", bundle: nil), forCellReuseIdentifier: TransactionCategoryTableViewCell.staticIdentifier)
-        categoryTable.rowHeight = UITableViewAutomaticDimension
-        categoryTable.estimatedRowHeight = 71
-
+    
+    private func setupTable() {
+        currencyTable.register(UINib(nibName: "CurrencyTableViewCell", bundle: nil), forCellReuseIdentifier: CurrencyTableViewCell.staticIdentifier)
+        currencyTable.rowHeight = UITableViewAutomaticDimension
+        currencyTable.estimatedRowHeight = 71
     }
     
     private func addBarButtons() {
@@ -56,8 +55,13 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        currencyTable.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: UITableViewScrollPosition.none)
+        self.tableView(currencyTable, didSelectRowAt: IndexPath(row: 0, section: 0))
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
-        startSumText.resignFirstResponder()
+        startSumText.becomeFirstResponder()
     }
     
     //MARK: - textView delegate
@@ -73,15 +77,25 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories?.count ?? 0
+        return currencyArr.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TransactionCategoryTableViewCell.staticIdentifier, for: indexPath) as! TransactionCategoryTableViewCell
-        if let categories = categories, categories.count > indexPath.row {
-            cell.name.text = categories[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyTableViewCell.staticIdentifier, for: indexPath) as! CurrencyTableViewCell
+        if currencyArr.count > indexPath.row {
+            cell.name.text = currencyArr[indexPath.row]
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if currencyArr.count > indexPath.row {
+            selectedCurrency = currencyArr[indexPath.row]
+            currencyLabel.text = "Currency \(selectedCurrency!)"
+        } else {
+            selectedCurrency = nil
+            currencyLabel.text = "Currency"
+        }
     }
 }
 
