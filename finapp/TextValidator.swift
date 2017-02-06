@@ -19,13 +19,29 @@ class TextValidator {
     
     func validate(field: TunableTextField) -> Bool {
         var matched = false
-        /* match regexp...*/
         
-//        if matched {
-//            textFieldsSet.remove(<#T##member: Hashable##Hashable#>)
-//        }
+        // check regExp
+        if let regExp = try? NSRegularExpression(pattern: field.regexpPattern, options: []) {
+            let text = field.text ?? ""
+            let nsText = text as NSString
+            let fullRange = NSMakeRange(0, nsText.length)
+            let matchString = regExp.stringByReplacingMatches(in: text, options: [], range: fullRange, withTemplate: "")
+            
+            if matchString == "" {
+                matched = true
+            }
+        }
+        
+        // work with text Field Set
+        if matched {
+            textFieldsSet.remove(field.valiadtorID)
+        } else {
+            let _ = textFieldsSet.insert(field.valiadtorID)
+        }
         
         return matched
     }
+    
+    var isAllValidated: Bool { return textFieldsSet.isEmpty}
     
 }

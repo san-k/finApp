@@ -16,6 +16,7 @@
 		3E08B35F1E1D38A10010A3C2 /* CDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08B35E1E1D38A10010A3C2 /* CDController.swift */; };
 		3E23AC6B1E423A37006F9C9D /* TransactionCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23AC691E423A37006F9C9D /* TransactionCategoryTableViewCell.swift */; };
 		3E23AC6C1E423A37006F9C9D /* TransactionCategoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E23AC6A1E423A37006F9C9D /* TransactionCategoryTableViewCell.xib */; };
+		3E23AC7D1E48DD5B006F9C9D /* KeyboardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23AC7C1E48DD5B006F9C9D /* KeyboardListener.swift */; };
 		3E4D22A01E37A44E005708C7 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4D229E1E37A44E005708C7 /* AccountsViewController.swift */; };
 		3E4D22A11E37A44E005708C7 /* AccountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E4D229F1E37A44E005708C7 /* AccountsViewController.xib */; };
 		3E6E40B21E3B768400814FFB /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E40B01E3B768400814FFB /* TransactionsViewController.swift */; };
@@ -58,6 +59,7 @@
 		3E08B35E1E1D38A10010A3C2 /* CDController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDController.swift; sourceTree = "<group>"; };
 		3E23AC691E423A37006F9C9D /* TransactionCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionCategoryTableViewCell.swift; path = UI/TransactionCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		3E23AC6A1E423A37006F9C9D /* TransactionCategoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TransactionCategoryTableViewCell.xib; path = UI/TransactionCategoryTableViewCell.xib; sourceTree = "<group>"; };
+		3E23AC7C1E48DD5B006F9C9D /* KeyboardListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardListener.swift; path = UI/KeyboardListener.swift; sourceTree = "<group>"; };
 		3E4D229E1E37A44E005708C7 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountsViewController.swift; path = UI/AccountsViewController.swift; sourceTree = "<group>"; };
 		3E4D229F1E37A44E005708C7 /* AccountsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountsViewController.xib; path = UI/AccountsViewController.xib; sourceTree = "<group>"; };
 		3E6E40B01E3B768400814FFB /* TransactionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionsViewController.swift; path = UI/TransactionsViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				3E08B34B1E1D1DC40010A3C2 /* ViewController.swift */,
 				3E6E40AF1E3B75F800814FFB /* Accounts UI */,
 				3E23AC5E1E40E46B006F9C9D /* TransactionsUI */,
+				3E23AC7C1E48DD5B006F9C9D /* KeyboardListener.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				3E6E40B61E3B76E700814FFB /* TransactionsTableViewCell.swift in Sources */,
 				3E8F6DA71E21325B001565D9 /* CDFinAccount+CoreDataProperties.swift in Sources */,
 				3E08B34C1E1D1DC40010A3C2 /* ViewController.swift in Sources */,
+				3E23AC7D1E48DD5B006F9C9D /* KeyboardListener.swift in Sources */,
 				84F163BE1E41483700BDDF04 /* NewAccountViewController.swift in Sources */,
 				3E08B3521E1D1DC40010A3C2 /* finapp.xcdatamodeld in Sources */,
 				3E08B34A1E1D1DC40010A3C2 /* AppDelegate.swift in Sources */,

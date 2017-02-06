@@ -12,6 +12,5 @@ class CurrencyTableViewCell: UITableViewCell {
     
     static let staticIdentifier = "CurrencyTableViewCellIdentifier"
     @IBOutlet weak var name: UILabel!
-    
-    
+
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -42,6 +42,12 @@
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="CanBeEmptyAdapter" value="Cant"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="valiadtorID" value="NewAccountNameText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="regexpPattern" value="[A-Za-z]{3,}"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="textTypeAdapter" value="Text"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <outlet property="delegate" destination="-1" id="1Gb-Au-NPq"/>
                                     </connections>
@@ -66,6 +72,12 @@
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="CanBeEmptyAdapter" value="Cant"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="valiadtorID" value="NewAccountSumText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="regexpPattern" value="[-+]?[0-9]*[.]?[0-9]+"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="textTypeAdapter" value="FloatNumber"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <outlet property="delegate" destination="-1" id="3aE-ed-92K"/>
                                     </connections>
