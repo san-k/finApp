@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -16,6 +16,7 @@
                 <outlet property="currencyLabel" destination="CUN-tL-e1C" id="gZK-fR-Pgm"/>
                 <outlet property="currencyTable" destination="GBq-Nq-HSI" id="506-xb-BsC"/>
                 <outlet property="nameText" destination="8Fh-PP-ODc" id="eSw-69-7uB"/>
+                <outlet property="scrollViewBottomConstraint" destination="ZvL-LI-fgy" id="RN7-1N-dVt"/>
                 <outlet property="startSumText" destination="7dv-KE-BvM" id="RFH-2I-GfX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -29,16 +30,16 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q6C-8w-cCs">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="393"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="593"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFf-Sc-1kT" userLabel="NameLabel">
-                                    <rect key="frame" x="8" y="8" width="359" height="21"/>
+                                    <rect key="frame" x="8" y="208" width="359" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Fh-PP-ODc" userLabel="NameText" customClass="TunableTextField" customModule="finapp" customModuleProvider="target">
-                                    <rect key="frame" x="8" y="37" width="359" height="30"/>
+                                    <rect key="frame" x="8" y="237" width="359" height="30"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
@@ -53,22 +54,22 @@
                                     </connections>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUN-tL-e1C" userLabel="CurrencyLabel">
-                                    <rect key="frame" x="8" y="75" width="359" height="30"/>
+                                    <rect key="frame" x="8" y="275" width="359" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ksL-TA-5ey" userLabel="CurrencyButton">
-                                    <rect key="frame" x="8" y="75" width="359" height="30"/>
+                                    <rect key="frame" x="8" y="275" width="359" height="30"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start sum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ck9-wf-K1H" userLabel="Start sum lablel">
-                                    <rect key="frame" x="8" y="161" width="359" height="21"/>
+                                    <rect key="frame" x="8" y="361" width="359" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7dv-KE-BvM" userLabel="Start sum text" customClass="TunableTextField" customModule="finapp" customModuleProvider="target">
-                                    <rect key="frame" x="8" y="190" width="359" height="30"/>
+                                    <rect key="frame" x="8" y="390" width="359" height="30"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
@@ -83,13 +84,13 @@
                                     </connections>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UP4-rY-ccO" userLabel="Comment Label">
-                                    <rect key="frame" x="8" y="228" width="359" height="21"/>
+                                    <rect key="frame" x="8" y="428" width="359" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="z54-my-EXu" userLabel="CommentTextView">
-                                    <rect key="frame" x="8" y="257" width="359" height="128"/>
+                                    <rect key="frame" x="8" y="457" width="359" height="128"/>
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="128" id="5s9-Ss-hzR"/>
@@ -98,7 +99,7 @@
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GBq-Nq-HSI" userLabel="Currency Table">
-                                    <rect key="frame" x="8" y="113" width="359" height="40"/>
+                                    <rect key="frame" x="8" y="313" width="359" height="40"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="4zj-1Y-X3o"/>
@@ -145,7 +146,7 @@
                                 <constraint firstItem="8Fh-PP-ODc" firstAttribute="top" secondItem="XFf-Sc-1kT" secondAttribute="bottom" constant="8" id="wcc-Y9-FVY"/>
                                 <constraint firstItem="7dv-KE-BvM" firstAttribute="trailing" secondItem="Q6C-8w-cCs" secondAttribute="trailingMargin" id="wdq-7b-lyb"/>
                                 <constraint firstItem="8Fh-PP-ODc" firstAttribute="leading" secondItem="Q6C-8w-cCs" secondAttribute="leadingMargin" id="y3N-WF-kP0"/>
-                                <constraint firstItem="XFf-Sc-1kT" firstAttribute="top" secondItem="Q6C-8w-cCs" secondAttribute="topMargin" id="yeN-hf-dFf"/>
+                                <constraint firstItem="XFf-Sc-1kT" firstAttribute="top" secondItem="Q6C-8w-cCs" secondAttribute="topMargin" constant="200" id="yeN-hf-dFf"/>
                                 <constraint firstItem="8Fh-PP-ODc" firstAttribute="trailing" secondItem="Q6C-8w-cCs" secondAttribute="trailingMargin" id="yvF-Fa-y2k"/>
                                 <constraint firstAttribute="bottomMargin" secondItem="z54-my-EXu" secondAttribute="bottom" id="z1c-6g-qVf"/>
                                 <constraint firstItem="UP4-rY-ccO" firstAttribute="leading" secondItem="Q6C-8w-cCs" secondAttribute="leadingMargin" id="zoY-e1-aTu"/>

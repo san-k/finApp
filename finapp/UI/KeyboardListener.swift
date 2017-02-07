@@ -38,13 +38,13 @@ extension KeyboardListener where Self: UIViewController {
             if let strongSelf = weakSelf {
                 strongSelf.keyboardWillHide(duration: duration)
             }
-
-        }
-        
-        func stopObserveKeyboardWillNotifications() {
-            stopObserveFromAll(NotificationArr: [Notification.Name.UIKeyboardWillShow, Notification.Name.UIKeyboardWillHide])
         }
     }
+    
+    func stopObserveKeyboardWillNotifications() {
+        stopObserveFromAll(NotificationArr: [Notification.Name.UIKeyboardWillShow, Notification.Name.UIKeyboardWillHide])
+    }
+
 }
 
 @objc protocol NotificationObserver {}

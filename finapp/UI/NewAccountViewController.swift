@@ -9,7 +9,7 @@
 import UIKit
 
 
-class NewAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class NewAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, KeyboardListener {
 
     @IBOutlet var nameText: UITextField!
     @IBOutlet var startSumText: UITextField!
@@ -19,6 +19,11 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var currencyLabel: UILabel!
     private var selectedCurrency: String?
     
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
+    var scrollBottomOffset: CGFloat {
+        get {return scrollViewBottomConstraint.constant}
+        set {scrollViewBottomConstraint.constant = newValue}
+    }
 
     // PRIVATE PROPERTIES
     private var createdAccount: FinAccount?
@@ -46,6 +51,9 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
         self.navigationItem.setRightBarButton(doneButton, animated: false)
     }
     
+    
+    // MARK: Bar buttons actions 
+    
     @objc private func cancelTapped(sender: UIBarButtonSystemItem) {
         dismiss(animated: true) { 
             
@@ -59,10 +67,15 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         currencyTable.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: UITableViewScrollPosition.none)
         self.tableView(currencyTable, didSelectRowAt: IndexPath(row: 0, section: 0))
+        observeKeyboardWillNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        stopObserveKeyboardWillNotifications()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        startSumText.becomeFirstResponder()
+        // startSumText.becomeFirstResponder()
     }
     
     //MARK: - textView delegate
@@ -98,6 +111,24 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
             currencyLabel.text = "Currency"
         }
     }
+    
+    //MARK - KeyboardListener
+    
+    func keyboardWillshow(absoluteFrame: CGRect, currentViewFrame: CGRect, duration: TimeInterval) {
+       print(duration)
+        UIView.animate(withDuration: duration) {
+            self.scrollBottomOffset = currentViewFrame.size.height
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func keyboardWillHide(duration: TimeInterval) {
+        UIView.animate(withDuration: duration) { 
+            self.scrollBottomOffset = 0.0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
 }
 
 
