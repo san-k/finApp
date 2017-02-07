@@ -9,31 +9,47 @@
 import Foundation
 import UIKit
 
-@objc protocol KeyboardListener: NotificationObserver {
-    func keyboardWillhow(withRect rect: CGRect)
-    //    func keyboardDidShow(withRect rect: CGRect)
-    //    func keyboardDidShow(withRect rect: CGRect)
-    //    func keyboardDidShow(withRect rect: CGRect)
+protocol KeyboardListener: NotificationObserver {
+    func keyboardWillshow(absoluteFrame: CGRect, currentViewFrame: CGRect, duration: TimeInterval)
+    func keyboardWillHide(duration: TimeInterval)
 }
 
 extension KeyboardListener where Self: UIViewController {
     
     func observeKeyboardWillNotifications() {
 
-        observeFromAll(notification: Notification.Name.UIKeyboardWillShow) { [weakSelf = self] (notification) in
-            let keyboardRect = CGRect()
-            weakSelf.keyboardWillhow(withRect: keyboardRect)
+        observeFromAll(notification: Notification.Name.UIKeyboardWillShow) { [weak weakSelf = self] (notification) in
+            guard let userDictionary = notification.userInfo else { return }
+            guard let frameValue = userDictionary[UIKeyboardFrameEndUserInfoKey] as? NSValue else{ return }
+            guard let duration = userDictionary[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval else { return }
+            let absoluteFrame = frameValue.cgRectValue
+            let currentViewFrame = self.view.convert(absoluteFrame, from: nil)
+            
+            if let strongSelf = weakSelf {
+                strongSelf.keyboardWillshow(absoluteFrame: absoluteFrame, currentViewFrame: currentViewFrame, duration: duration)
+            }
+            
+        }
+        
+        observeFromAll(notification: Notification.Name.UIKeyboardWillHide) { [weak weakSelf = self] (notification) in
+            guard let userDictionary = notification.userInfo else { return }
+            guard let duration = userDictionary[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval else { return }
+            
+            if let strongSelf = weakSelf {
+                strongSelf.keyboardWillHide(duration: duration)
+            }
+
+        }
+        
+        func stopObserveKeyboardWillNotifications() {
+            stopObserveFromAll(NotificationArr: [Notification.Name.UIKeyboardWillShow, Notification.Name.UIKeyboardWillHide])
         }
     }
- 
-    
-    
-    
 }
 
 @objc protocol NotificationObserver {}
 
-extension NotificationObserver where Self : UIViewController {
+extension NotificationObserver {
     
     typealias NotificationClosure = (Notification) -> Void
     
@@ -51,6 +67,10 @@ extension NotificationObserver where Self : UIViewController {
 
     func observe(notification: Notification.Name, fromPoster poster: Any?, using closure: @escaping NotificationClosure) {
         NotificationCenter.default.addObserver(forName: notification, object: poster, queue: nil, using: closure)
+    }
+    
+    func stopObserveFromAll(NotificationArr arr: [Notification.Name]) {
+        arr.forEach{ stopObserveFromAll(notification: $0) }
     }
     
     func stopObserveFromAll(notification: Notification.Name) {
