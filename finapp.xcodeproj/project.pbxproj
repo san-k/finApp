@@ -127,6 +127,7 @@
 				3E8F6DAC1E213EEA001565D9 /* DataSource */,
 				8420EAFB1E2AC06200DBF288 /* AppSettings.swift */,
 				3E08B3491E1D1DC40010A3C2 /* AppDelegate.swift */,
+				3E23AC7C1E48DD5B006F9C9D /* KeyboardListener.swift */,
 				84A91D161E46A612008CD94E /* TunableTextField.swift */,
 				84A91D181E478062008CD94E /* TextValidator.swift */,
 			);
@@ -165,7 +166,6 @@
 				3E08B34B1E1D1DC40010A3C2 /* ViewController.swift */,
 				3E6E40AF1E3B75F800814FFB /* Accounts UI */,
 				3E23AC5E1E40E46B006F9C9D /* TransactionsUI */,
-				3E23AC7C1E48DD5B006F9C9D /* KeyboardListener.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
