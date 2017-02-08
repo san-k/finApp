@@ -9,17 +9,24 @@
 import UIKit
 
 
-class NewAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, KeyboardListener {
+class NewAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIScrollViewDelegate, KeyboardListener {
 
-    @IBOutlet var nameText: UITextField!
-    @IBOutlet var startSumText: UITextField!
+    @IBOutlet var nameText: TunableTextField!
+    @IBOutlet var startSumText: TunableTextField!
+    private var activeTextField: TunableTextField?
     @IBOutlet var commentTextView: UITextView!
 
     @IBOutlet weak var currencyTable: UITableView!
     @IBOutlet weak var currencyLabel: UILabel!
     private var selectedCurrency: String?
     
-    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private var currencyTableHeightConstraint: NSLayoutConstraint!
+    var currencyTableHeight: CGFloat {
+        get { return currencyTableHeightConstraint.constant}
+        set { currencyTableHeightConstraint.constant = newValue}
+    }
+    
+    @IBOutlet private var scrollViewBottomConstraint: NSLayoutConstraint!
     var scrollBottomOffset: CGFloat {
         get {return scrollViewBottomConstraint.constant}
         set {scrollViewBottomConstraint.constant = newValue}
@@ -32,6 +39,11 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
         iterateEnum(Currency.self).forEach{resArray.append($0.rawValue)}
         return resArray
     }()
+    
+    struct MagicNumbers {
+        static let currencyTableHeight: CGFloat = 100.0
+    }
+    
     
     override func viewDidLoad() {
         setupTable()
@@ -75,13 +87,21 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        // startSumText.becomeFirstResponder()
+        startSumText.becomeFirstResponder()
+    }
+    
+    @IBAction func toggleCurrencyAppearace(_ sender: UIButton) {
+        currencyTableHeight =  currencyTableHeight == 0.0 ? MagicNumbers.currencyTableHeight : 0.0
     }
     
     //MARK: - textView delegate
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        
+        activeTextField = textField as? TunableTextField
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        activeTextField = nil
     }
     
     
@@ -105,14 +125,23 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if currencyArr.count > indexPath.row {
             selectedCurrency = currencyArr[indexPath.row]
-            currencyLabel.text = "Currency \(selectedCurrency!)"
+            currencyLabel.text = "Currency: \(selectedCurrency!)"
         } else {
             selectedCurrency = nil
             currencyLabel.text = "Currency"
         }
+        currencyTable.deselectRow(at: indexPath, animated: true)
+        
     }
     
-    //MARK - KeyboardListener
+    //MARK: - UIScrollViewDelegate
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        activeTextField?.resignFirstResponder()
+    }
+    
+    
+    //MARK: - KeyboardListener
     
     func keyboardWillshow(absoluteFrame: CGRect, currentViewFrame: CGRect, duration: TimeInterval) {
        print(duration)
