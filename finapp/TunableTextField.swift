@@ -33,7 +33,7 @@ class TunableTextField: UITextField {
     }
     var textType: TextType = TextType.NoValue
     @IBInspectable
-    var CanBeEmptyAdapter: String {
+    var canBeEmptyAdapter: String {
         get { return canBeEmpty.rawValue }
         // It would be beter if it crashes when there is a wrong string in storyboard
         set { canBeEmpty = CanBeEmpty(rawValue: newValue)! }

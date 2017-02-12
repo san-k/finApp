@@ -35,7 +35,12 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     private func setup() {
         datasource = AppSettings.sharedSettings.datasource
+        updateAccountsInfo()
+    }
+    
+    func updateAccountsInfo() {
         accounts = datasource.getAllFinAccounts()
+        tableView?.reloadData()
     }
     
     override func viewDidLoad() {
@@ -61,8 +66,9 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @objc private func showAddAccountPage(sender: UIBarButtonItem) {
         let newAccountController = NewAccountViewController()
+        newAccountController.accountsVC = self
         let navController = UINavigationController(rootViewController: newAccountController)
-        self.present(navController, animated: true) { }
+        self.present(navController, animated: true, completion: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

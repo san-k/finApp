@@ -11,26 +11,31 @@ import UIKit
 
 class NewAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIScrollViewDelegate, KeyboardListener {
 
-    @IBOutlet var nameText: TunableTextField!
-    @IBOutlet var startSumText: TunableTextField!
+    @IBOutlet private weak var nameText: TunableTextField!
+    @IBOutlet private weak var startSumText: TunableTextField!
     private var activeTextField: TunableTextField?
-    @IBOutlet var commentTextView: UITextView!
+    @IBOutlet private weak var commentTextView: UITextView!
 
-    @IBOutlet weak var currencyTable: UITableView!
-    @IBOutlet weak var currencyLabel: UILabel!
+    @IBOutlet private weak var currencyTable: UITableView!
+    @IBOutlet private weak var currencyLabel: UILabel!
     private var selectedCurrency: String?
     
-    @IBOutlet private var currencyTableHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private /*strong!*/ var currencyTableHeightConstraint: NSLayoutConstraint!
     var currencyTableHeight: CGFloat {
         get { return currencyTableHeightConstraint.constant}
         set { currencyTableHeightConstraint.constant = newValue}
     }
     
-    @IBOutlet private var scrollViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private /*strong!*/ var scrollViewBottomConstraint: NSLayoutConstraint!
     var scrollBottomOffset: CGFloat {
         get {return scrollViewBottomConstraint.constant}
         set {scrollViewBottomConstraint.constant = newValue}
     }
+    
+    @IBOutlet var validatingTextFields: [TunableTextField]!
+    
+    var accountsVC: AccountsViewController?
+
 
     // PRIVATE PROPERTIES
     private var createdAccount: FinAccount?
@@ -39,6 +44,8 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
         iterateEnum(Currency.self).forEach{resArray.append($0.rawValue)}
         return resArray
     }()
+
+    lazy private var validator: TextValidator = TextValidator(with: Set<String>( self.validatingTextFields.map{ $0.valiadtorID} ))
     
     struct MagicNumbers {
         static let currencyTableHeight: CGFloat = 100.0
@@ -67,13 +74,38 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: Bar buttons actions 
     
     @objc private func cancelTapped(sender: UIBarButtonSystemItem) {
-        dismiss(animated: true) { 
-            
-        }
+        activeTextField?.resignFirstResponder()
+        dismiss(animated: true, completion: nil)
     }
     
     @objc private func doneTapped(sender: UIBarButtonSystemItem) {
+        // there can be a case when validation of TF was passsed, then user tried to modify
+        // TF again, and without resigning first responder tapped on "done"
+        validatingTextFields.forEach{ self.validateTextField($0)}
         
+        if validator.isAllValidated {
+            /* 1. add info to DB
+               2. tell to acccount view condtroller, that DB was updated
+               3. dismiss
+             */
+            
+            createdAccount = FinAccount(name: nameText.text!,
+                                        currency: Currency(rawValue: selectedCurrency!)!,
+                                        comment: commentTextView.text,
+                                        startSum: FinAccount.MoneySum(startSumText.text!)!)
+            
+            let datasource = AppSettings.sharedSettings.datasource
+            let _ = datasource.add(finAccount: createdAccount!)
+            
+            accountsVC?.updateAccountsInfo()
+            
+            dismiss(animated: true, completion: nil)
+            
+        } else {
+            let alertController = UIAlertController(title: nil, message: "Text validation error", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,11 +129,20 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
     //MARK: - textView delegate
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.backgroundColor = UIColor.clear
         activeTextField = textField as? TunableTextField
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        validateTextField(activeTextField)
         activeTextField = nil
+    }
+    
+    private func validateTextField(_ textField: TunableTextField?) {
+        guard let textField = textField else { return }
+        if !validator.validate(field: textField) {
+            textField.backgroundColor = UIColor.red
+        }
     }
     
     

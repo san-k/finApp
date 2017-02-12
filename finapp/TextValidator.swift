@@ -20,8 +20,12 @@ class TextValidator {
     func validate(field: TunableTextField) -> Bool {
         var matched = false
         
+        // check for emptiness :)
+        if field.canBeEmpty == .Cant && field.text == "" {
+            matched = false
+        }
         // check regExp
-        if let regExp = try? NSRegularExpression(pattern: field.regexpPattern, options: []) {
+        else if let regExp = try? NSRegularExpression(pattern: field.regexpPattern, options: []) {
             let text = field.text ?? ""
             let nsText = text as NSString
             let fullRange = NSMakeRange(0, nsText.length)
