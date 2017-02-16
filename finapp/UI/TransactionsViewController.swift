@@ -51,7 +51,20 @@ class TransactionsViewController: UIViewController {
         tableView.register(UINib(nibName: "TransactionsTableViewCell", bundle: nil), forCellReuseIdentifier: kTransactionCellIdentifier)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 99
-        
+        addBarButtons()
+    }
+    
+    fileprivate func addBarButtons() {
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(showAddTransactionStory(sender:)))
+        self.navigationItem.setRightBarButton(button, animated: false)
+    }
+
+    @objc fileprivate func showAddTransactionStory(sender: UIBarButtonItem) {
+        let story = UIStoryboard(name: "newTransactionUI", bundle: nil)
+        let viewController = story.instantiateInitialViewController()
+        if let viewController = viewController {
+            present(viewController, animated: true, completion: nil)
+        }
     }
 }
 

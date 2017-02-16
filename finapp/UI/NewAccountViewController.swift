@@ -111,6 +111,7 @@ class NewAccountViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         currencyTable.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: UITableViewScrollPosition.none)
         self.tableView(currencyTable, didSelectRowAt: IndexPath(row: 0, section: 0))
+        startSumText.text = String(0.0)
         observeKeyboardWillNotifications()
     }
     
@@ -119,7 +120,7 @@ class NewAccountViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        startSumText.becomeFirstResponder()
+        nameText.becomeFirstResponder()
     }
     
     @IBAction func toggleCurrencyAppearace(_ sender: UIButton) {
