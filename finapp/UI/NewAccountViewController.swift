@@ -9,24 +9,24 @@
 import UIKit
 
 
-class NewAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIScrollViewDelegate, KeyboardListener {
+class NewAccountViewController: UIViewController {
 
-    @IBOutlet private weak var nameText: TunableTextField!
-    @IBOutlet private weak var startSumText: TunableTextField!
-    private var activeTextField: TunableTextField?
-    @IBOutlet private weak var commentTextView: UITextView!
+    @IBOutlet fileprivate weak var nameText: TunableTextField!
+    @IBOutlet fileprivate weak var startSumText: TunableTextField!
+    fileprivate var activeTextField: TunableTextField?
+    @IBOutlet fileprivate weak var commentTextView: UITextView!
 
-    @IBOutlet private weak var currencyTable: UITableView!
-    @IBOutlet private weak var currencyLabel: UILabel!
-    private var selectedCurrency: String?
+    @IBOutlet fileprivate weak var currencyTable: UITableView!
+    @IBOutlet fileprivate weak var currencyLabel: UILabel!
+    fileprivate var selectedCurrency: String?
     
-    @IBOutlet private /*strong!*/ var currencyTableHeightConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate /*strong!*/ var currencyTableHeightConstraint: NSLayoutConstraint!
     var currencyTableHeight: CGFloat {
         get { return currencyTableHeightConstraint.constant}
         set { currencyTableHeightConstraint.constant = newValue}
     }
     
-    @IBOutlet private /*strong!*/ var scrollViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate /*strong!*/ var scrollViewBottomConstraint: NSLayoutConstraint!
     var scrollBottomOffset: CGFloat {
         get {return scrollViewBottomConstraint.constant}
         set {scrollViewBottomConstraint.constant = newValue}
@@ -37,15 +37,15 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
     var accountsVC: AccountsViewController?
 
 
-    // PRIVATE PROPERTIES
-    private var createdAccount: FinAccount?
-    private let currencyArr: [String] = {
+    // fileprivate PROPERTIES
+    fileprivate var createdAccount: FinAccount?
+    fileprivate let currencyArr: [String] = {
         var resArray = [String]()
         iterateEnum(Currency.self).forEach{resArray.append($0.rawValue)}
         return resArray
     }()
 
-    lazy private var validator: TextValidator = TextValidator(with: Set<String>( self.validatingTextFields.map{ $0.valiadtorID} ))
+    lazy fileprivate var validator: TextValidator = TextValidator(with: Set<String>( self.validatingTextFields.map{ $0.valiadtorID} ))
     
     struct MagicNumbers {
         static let currencyTableHeight: CGFloat = 100.0
@@ -57,13 +57,13 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
         addBarButtons()
     }
     
-    private func setupTable() {
+    fileprivate func setupTable() {
         currencyTable.register(UINib(nibName: "CurrencyTableViewCell", bundle: nil), forCellReuseIdentifier: CurrencyTableViewCell.staticIdentifier)
         currencyTable.rowHeight = UITableViewAutomaticDimension
         currencyTable.estimatedRowHeight = 71
     }
     
-    private func addBarButtons() {
+    fileprivate func addBarButtons() {
         let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(cancelTapped(sender:)))
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(doneTapped(sender:)))
         self.navigationItem.setLeftBarButton(cancelButton, animated: false)
@@ -73,12 +73,12 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: Bar buttons actions 
     
-    @objc private func cancelTapped(sender: UIBarButtonSystemItem) {
+    @objc fileprivate func cancelTapped(sender: UIBarButtonSystemItem) {
         activeTextField?.resignFirstResponder()
         dismiss(animated: true, completion: nil)
     }
     
-    @objc private func doneTapped(sender: UIBarButtonSystemItem) {
+    @objc fileprivate func doneTapped(sender: UIBarButtonSystemItem) {
         // there can be a case when validation of TF was passsed, then user tried to modify
         // TF again, and without resigning first responder tapped on "done"
         validatingTextFields.forEach{ self.validateTextField($0)}
@@ -125,8 +125,11 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func toggleCurrencyAppearace(_ sender: UIButton) {
         currencyTableHeight =  currencyTableHeight == 0.0 ? MagicNumbers.currencyTableHeight : 0.0
     }
-    
+}
+
     //MARK: - textView delegate
+    
+extension NewAccountViewController : UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.backgroundColor = UIColor.clear
@@ -138,16 +141,18 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
         activeTextField = nil
     }
     
-    private func validateTextField(_ textField: TunableTextField?) {
+    fileprivate func validateTextField(_ textField: TunableTextField?) {
         guard let textField = textField else { return }
         if !validator.validate(field: textField) {
             textField.backgroundColor = UIColor.red
         }
     }
-    
-    
+}
+
+
     //MARK: - table view data source
-    
+
+extension NewAccountViewController : UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -174,16 +179,21 @@ class NewAccountViewController: UIViewController, UITableViewDelegate, UITableVi
         currencyTable.deselectRow(at: indexPath, animated: true)
         
     }
-    
+}
+
     //MARK: - UIScrollViewDelegate
-    
+
+extension NewAccountViewController : UIScrollViewDelegate {
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         activeTextField?.resignFirstResponder()
     }
-    
-    
+}
+
+
     //MARK: - KeyboardListener
-    
+
+extension NewAccountViewController : KeyboardListener {
     func keyboardWillshow(absoluteFrame: CGRect, currentViewFrame: CGRect, duration: TimeInterval) {
        print(duration)
         UIView.animate(withDuration: duration) {

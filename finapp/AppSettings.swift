@@ -20,7 +20,7 @@ class AppSettings {
     var datasource: AddEntity & UpdateEntity & GetEntityInfo & CalculateEntityInfo;
     
     
-    private init() {
+    fileprivate init() {
         datasource = CDDataSourse()
     }
     

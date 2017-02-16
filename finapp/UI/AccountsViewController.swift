@@ -10,7 +10,7 @@ import UIKit
 
 let kAccountCellIdentifier = "accountCellIdentifier"
 
-class AccountsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AccountsCellDelegate {
+class AccountsViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
     var datasource: AddEntity & UpdateEntity & GetEntityInfo & CalculateEntityInfo!
@@ -33,7 +33,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         setup()
     }
     
-    private func setup() {
+    fileprivate func setup() {
         datasource = AppSettings.sharedSettings.datasource
         updateAccountsInfo()
     }
@@ -53,24 +53,27 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     }
     
-    private func setUpCell() {
+    fileprivate func setUpCell() {
         tableView.register(UINib(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: kAccountCellIdentifier)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 71
     }
     
-    private func addBarButtons() {
+    fileprivate func addBarButtons() {
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(showAddAccountPage(sender:)))
         self.navigationItem.setRightBarButton(button, animated: false)
     }
     
-    @objc private func showAddAccountPage(sender: UIBarButtonItem) {
+    @objc fileprivate func showAddAccountPage(sender: UIBarButtonItem) {
         let newAccountController = NewAccountViewController()
         newAccountController.accountsVC = self
         let navController = UINavigationController(rootViewController: newAccountController)
         self.present(navController, animated: true, completion: nil)
     }
-    
+}
+
+extension AccountsViewController : UITableViewDataSource {
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -88,8 +91,11 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         return cell
     }
-    
+}
+
     // MARK: AccountsCellDelegate
+extension AccountsViewController : AccountsCellDelegate {
+
     func accessoryTapped(_ sender: UIButton, inCell cell: UITableViewCell) {
         guard let row = tableView.indexPath(for: cell)?.row else { return }
         guard accounts.count > row else { return }
@@ -97,7 +103,5 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         let transactionsController = TransactionsViewController(withAccount: account)
         self.navigationController?.pushViewController(transactionsController, animated: true)
     }
-    
-    
 
 }

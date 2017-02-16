@@ -11,7 +11,7 @@ import Foundation
 
 class TextValidator {
     
-    private var textFieldsSet: Set<String>
+    fileprivate var textFieldsSet: Set<String>
     
     init(with set: Set<String>) {
         textFieldsSet = set

@@ -10,7 +10,7 @@ import UIKit
 
 let kTransactionCellIdentifier = "transactionCellIdentifier"
 
-class TransactionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TransactionsViewController: UIViewController {
 
 
     @IBOutlet var tableView: UITableView!
@@ -41,7 +41,7 @@ class TransactionsViewController: UIViewController, UITableViewDataSource, UITab
         transactions = datasource.getFinTransactionsForAccount(withID: account.accountID)
     }
     
-    private func setup() {
+    fileprivate func setup() {
         datasource = AppSettings.sharedSettings.datasource
         
     }
@@ -53,8 +53,11 @@ class TransactionsViewController: UIViewController, UITableViewDataSource, UITab
         tableView.estimatedRowHeight = 99
         
     }
-    
+}
+
     // MARK: UITableViewDataSource
+extension TransactionsViewController : UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -82,6 +85,4 @@ class TransactionsViewController: UIViewController, UITableViewDataSource, UITab
         
         return transactionCell
     }
-
-
 }

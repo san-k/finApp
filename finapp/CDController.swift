@@ -33,6 +33,6 @@ class CDController {
         }
     }
     
-    private init() {}
+    fileprivate init() {}
 
 }

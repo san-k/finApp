@@ -10,11 +10,13 @@ import Foundation
 import CoreData
 
 
-struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInfo {
+struct CDDataSourse{
     
     let context = CDController.persistentContainer.viewContext
-    
-    // MARK: - AddEntity protocol
+}
+
+// MARK: - AddEntity protocol
+extension CDDataSourse : AddEntity {
     
     func add(finAccount: FinAccount) -> Bool {
         let _ = CDFinAccount(finAccount: finAccount, context: context)
@@ -45,7 +47,10 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         return false
     }
     
-    // MARK: - GetEntityInfo protocol
+}
+
+// MARK: - GetEntityInfo protocol
+extension CDDataSourse : GetEntityInfo {
     
     // MARK: Account
     func getAllFinAccounts() -> [FinAccount]? {
@@ -89,9 +94,9 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         return nil
     }
     
-    // MARK: GetEntityInfo protocol (private methods)
+    // MARK: GetEntityInfo protocol (fileprivate methods)
     
-    private func getCDTransactionCategory(withID categoryID: UUID) -> CDTransactionCategory? {
+    fileprivate func getCDTransactionCategory(withID categoryID: UUID) -> CDTransactionCategory? {
         let request: NSFetchRequest<CDTransactionCategory> = CDTransactionCategory.fetchRequest()
         request.predicate = NSPredicate(format: "categoryID = %@", categoryID.uuidString)
         if let results = try? context.fetch(request), let result = results.first {
@@ -100,7 +105,7 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         return nil
     }
     
-    private func getCDFinAccount(withID accountID: UUID) -> CDFinAccount? {
+    fileprivate func getCDFinAccount(withID accountID: UUID) -> CDFinAccount? {
         let optionalResults = getCDFinAccounts(withPredicate: NSPredicate(format: "accountID = %@", accountID.uuidString))
         if let results = optionalResults, let result = results.first {
             return result
@@ -108,7 +113,7 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         return nil
     }
     
-    private func getFinAccounts(withPredicate predicate:NSPredicate?) -> [FinAccount]? {
+    fileprivate func getFinAccounts(withPredicate predicate:NSPredicate?) -> [FinAccount]? {
         if let cdFinAccounts = getCDFinAccounts(withPredicate: predicate) {
             var finAccounts = [FinAccount]()
             for cdAccount in cdFinAccounts {
@@ -120,7 +125,7 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         return nil
     }
 
-    private func getCDFinAccounts(withPredicate predicate:NSPredicate?) -> [CDFinAccount]? {
+    fileprivate func getCDFinAccounts(withPredicate predicate:NSPredicate?) -> [CDFinAccount]? {
         let request: NSFetchRequest<CDFinAccount> = CDFinAccount.fetchRequest()
         request.predicate = predicate
         if let cdFinAccounts = try? context.fetch(request) {
@@ -129,7 +134,7 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         return nil
     }
 
-    private func getCDFinTransaction(withPredicate predicate:NSPredicate?) -> [CDTransaction]? {
+    fileprivate func getCDFinTransaction(withPredicate predicate:NSPredicate?) -> [CDTransaction]? {
         let request: NSFetchRequest<CDTransaction> = CDTransaction.fetchRequest()
         request.predicate = predicate
         if let cdTransactions = try? context.fetch(request) {
@@ -137,8 +142,10 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         }
         return nil
     }
-    
+}
+
     // MARK: UpdateEntity protocol
+extension CDDataSourse : UpdateEntity {
     
     func updateFinAccount(withID accountID: UUID, newName: String?, newCurency: Currency?, newComment: String?) -> Bool {
         guard let cdAccount = getCDFinAccount(withID: accountID) else {return false}
@@ -157,5 +164,7 @@ struct CDDataSourse : AddEntity, UpdateEntity, GetEntityInfo, CalculateEntityInf
         return false
     }
     
-    
 }
+
+extension CDDataSourse : CalculateEntityInfo {}
+
