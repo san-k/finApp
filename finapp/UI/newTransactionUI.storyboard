@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jxR-sj-ddT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jxR-sj-ddT">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -24,8 +25,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ghT-Ah-2Io">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Kb-AD-3fy">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Kb-AD-3fy" userLabel="ContentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="386"/>
                                         <subviews>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="QX7-cR-4BZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
@@ -36,13 +37,67 @@
                                                     <!--2017-02-16 18:03:51 +0000-->
                                                 </date>
                                             </datePicker>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6zY-ku-wYF">
+                                                <rect key="frame" x="8" y="108" width="359" height="29"/>
+                                                <segments>
+                                                    <segment title="Up"/>
+                                                    <segment title="Down"/>
+                                                </segments>
+                                            </segmentedControl>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ege-sS-wct" customClass="TunableTextField" customModule="finapp" customModuleProvider="target">
+                                                <rect key="frame" x="8" y="144" width="359" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="textTypeAdapter" value="FloatNumber"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3rs-4r-BeM" userLabel="CategoriesView">
+                                                <rect key="frame" x="8" y="182" width="359" height="46"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F77-Eb-Lzf">
+                                                        <rect key="frame" x="8" y="8" width="343" height="30"/>
+                                                        <state key="normal" title="Button"/>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.98431372549999996" green="0.6705882353" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="F77-Eb-Lzf" firstAttribute="leading" secondItem="3rs-4r-BeM" secondAttribute="leadingMargin" id="8ii-QA-DdZ"/>
+                                                    <constraint firstItem="F77-Eb-Lzf" firstAttribute="top" secondItem="3rs-4r-BeM" secondAttribute="topMargin" id="G21-hT-lCa"/>
+                                                    <constraint firstItem="F77-Eb-Lzf" firstAttribute="trailing" secondItem="3rs-4r-BeM" secondAttribute="trailingMargin" id="Hm4-m4-12X"/>
+                                                    <constraint firstAttribute="bottomMargin" secondItem="F77-Eb-Lzf" secondAttribute="bottom" id="mRZ-2A-VtB"/>
+                                                </constraints>
+                                            </view>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jyY-my-2Pw">
+                                                <rect key="frame" x="8" y="236" width="359" height="142"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="142" id="rEM-Fx-uIa"/>
+                                                </constraints>
+                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="300" id="8H5-mi-3sb"/>
+                                            <constraint firstItem="6zY-ku-wYF" firstAttribute="trailing" secondItem="2Kb-AD-3fy" secondAttribute="trailingMargin" id="1cI-L4-Pm0"/>
+                                            <constraint firstItem="jyY-my-2Pw" firstAttribute="trailing" secondItem="2Kb-AD-3fy" secondAttribute="trailingMargin" id="7sU-vr-lgM"/>
+                                            <constraint firstItem="3rs-4r-BeM" firstAttribute="trailing" secondItem="2Kb-AD-3fy" secondAttribute="trailingMargin" id="GFf-Z9-mgR"/>
+                                            <constraint firstItem="3rs-4r-BeM" firstAttribute="top" secondItem="ege-sS-wct" secondAttribute="bottom" constant="8" id="PRZ-jx-2vT"/>
+                                            <constraint firstItem="6zY-ku-wYF" firstAttribute="top" secondItem="QX7-cR-4BZ" secondAttribute="bottom" constant="8" id="QZi-Xg-Y2K"/>
+                                            <constraint firstItem="6zY-ku-wYF" firstAttribute="leading" secondItem="2Kb-AD-3fy" secondAttribute="leadingMargin" id="UGW-ad-uBv"/>
+                                            <constraint firstItem="ege-sS-wct" firstAttribute="trailing" secondItem="2Kb-AD-3fy" secondAttribute="trailingMargin" id="VM3-yI-E2p"/>
+                                            <constraint firstItem="jyY-my-2Pw" firstAttribute="top" secondItem="3rs-4r-BeM" secondAttribute="bottom" constant="8" id="aze-Dn-taO"/>
                                             <constraint firstItem="QX7-cR-4BZ" firstAttribute="leading" secondItem="2Kb-AD-3fy" secondAttribute="leading" id="h6h-Ym-16B"/>
                                             <constraint firstAttribute="width" constant="375" id="jch-Mh-sfX"/>
                                             <constraint firstItem="QX7-cR-4BZ" firstAttribute="top" secondItem="2Kb-AD-3fy" secondAttribute="top" id="k3E-xN-eYh"/>
                                             <constraint firstAttribute="trailing" secondItem="QX7-cR-4BZ" secondAttribute="trailing" id="lzm-AV-3IX"/>
+                                            <constraint firstItem="ege-sS-wct" firstAttribute="top" secondItem="6zY-ku-wYF" secondAttribute="bottom" constant="8" id="oLX-lg-hr4"/>
+                                            <constraint firstItem="jyY-my-2Pw" firstAttribute="leading" secondItem="2Kb-AD-3fy" secondAttribute="leadingMargin" id="qJO-Lh-SzY"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="jyY-my-2Pw" secondAttribute="bottom" id="quZ-Pi-3ZL"/>
+                                            <constraint firstItem="ege-sS-wct" firstAttribute="leading" secondItem="2Kb-AD-3fy" secondAttribute="leadingMargin" id="s1R-hi-yxS"/>
+                                            <constraint firstItem="3rs-4r-BeM" firstAttribute="leading" secondItem="2Kb-AD-3fy" secondAttribute="leadingMargin" id="wrs-0S-Dt7"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -54,6 +109,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ghT-Ah-2Io" firstAttribute="top" secondItem="PxV-oA-Qo4" secondAttribute="bottom" id="AfM-Ic-GU0"/>
                             <constraint firstItem="gSw-Q1-iq3" firstAttribute="top" secondItem="ghT-Ah-2Io" secondAttribute="bottom" id="UL7-xh-4J9"/>
@@ -66,7 +122,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jxS-ah-4qt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="150" y="-10"/>
+            <point key="canvasLocation" x="149.59999999999999" y="-10.344827586206897"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="g0S-HZ-uUt">
