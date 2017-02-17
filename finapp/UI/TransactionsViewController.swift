@@ -22,6 +22,7 @@ class TransactionsViewController: UIViewController {
     
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         setup()
     }
     

@@ -20,6 +20,7 @@ class AccountsViewController: UIViewController {
     
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         setup()
     }
     
@@ -47,10 +48,6 @@ class AccountsViewController: UIViewController {
         super.viewDidLoad()
         setUpCell()
         addBarButtons()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-
     }
     
     fileprivate func setUpCell() {

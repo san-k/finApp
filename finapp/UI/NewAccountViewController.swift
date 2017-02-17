@@ -53,6 +53,7 @@ class NewAccountViewController: UIViewController {
     
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         setupTable()
         addBarButtons()
     }
@@ -109,6 +110,7 @@ class NewAccountViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         currencyTable.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: UITableViewScrollPosition.none)
         self.tableView(currencyTable, didSelectRowAt: IndexPath(row: 0, section: 0))
         startSumText.text = String(0.0)
@@ -116,10 +118,12 @@ class NewAccountViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         stopObserveKeyboardWillNotifications()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         nameText.becomeFirstResponder()
     }
     
