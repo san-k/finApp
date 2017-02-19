@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol AccountsCellDelegate {
+protocol AccountsCellDelegate : class {
     func accessoryTapped(_ sender: UIButton, inCell cell:UITableViewCell)
 }
 
 class AccountTableViewCell: UITableViewCell {
 
-    var delegate: AccountsCellDelegate?
+    weak var delegate: AccountsCellDelegate?
     
     @IBOutlet weak var accountImage: UIImageView!
     @IBOutlet weak var accountName: UILabel!

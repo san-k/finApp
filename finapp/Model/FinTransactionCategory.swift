@@ -27,12 +27,11 @@ struct FinTransactionCategory {
         self.comment = comment ?? ""
     }
     
-    init?(fromCDTransactionCategory cdTransactionCategory: CDTransactionCategory?) {
-        guard let category = cdTransactionCategory else {return nil}
-        self.init(categoryID: UUID(uuidString: category.categoryID)!,
-                  name: category.name,
-                  image: FinTransactionCategory.makeImage(fromData: category.image),
-                  comment: category.comment)
+    init(fromCDTransactionCategory cdTransactionCategory: CDTransactionCategory) {
+        self.init(categoryID: UUID(uuidString: cdTransactionCategory.categoryID)!,
+                  name: cdTransactionCategory.name,
+                  image: FinTransactionCategory.makeImage(fromData: cdTransactionCategory.image),
+                  comment: cdTransactionCategory.comment)
     }
     
     static func makeImage(fromData data: NSData?) -> UIImage? {

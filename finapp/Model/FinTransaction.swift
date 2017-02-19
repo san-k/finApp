@@ -36,7 +36,7 @@ struct FinTransaction {
         self.init(transactionID: UUID(uuidString: cdTransaction.transactionID)!,
                   transactionType: FinTransactionType(rawValue: Int(cdTransaction.transactionType))!,
                   sum: cdTransaction.sum,
-                  category: FinTransactionCategory(fromCDTransactionCategory: cdTransaction.category),
+                  category: cdTransaction.category == nil ? nil : FinTransactionCategory(fromCDTransactionCategory: cdTransaction.category!),
                   date: cdTransaction.date as Date,
                   comment: cdTransaction.comment)
     }

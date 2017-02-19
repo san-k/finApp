@@ -75,7 +75,22 @@ extension CDDataSourse : GetEntityInfo {
         let request: NSFetchRequest<CDTransactionCategory> = CDTransactionCategory.fetchRequest()
         if let results = try? context.fetch(request) {
             var finCategories = [FinTransactionCategory]()
-            results.forEach{ finCategories.append(FinTransactionCategory(fromCDTransactionCategory: $0)!)}
+            results.forEach{ finCategories.append(FinTransactionCategory(fromCDTransactionCategory: $0))}
+            return finCategories
+        }
+        return nil
+    }
+    
+    func getAllSubCategories(forParentCatId parentCatId: UUID?) -> [FinTransactionCategory]? {
+        let request: NSFetchRequest<CDTransactionCategory> = CDTransactionCategory.fetchRequest()
+        if let parentCatId = parentCatId {
+            request.predicate = NSPredicate(format: "parrentCategory.categoryID = %@", parentCatId.uuidString)
+        } else {
+            request.predicate = NSPredicate(format: "parrentCategory = nil")
+        }
+        if let results = try? context.fetch(request) {
+            var finCategories = [FinTransactionCategory]()
+            results.forEach{ finCategories.append(FinTransactionCategory(fromCDTransactionCategory: $0))}
             return finCategories
         }
         return nil
@@ -166,5 +181,28 @@ extension CDDataSourse : UpdateEntity {
     
 }
 
-extension CDDataSourse : CalculateEntityInfo {}
+extension CDDataSourse : CalculateEntityInfo {
+
+    func countSubCategories(forParentCatId parentCatId: UUID?) -> Int {
+        let request: NSFetchRequest<CDTransactionCategory> = CDTransactionCategory.fetchRequest()
+        if let parentCatId = parentCatId {
+            request.predicate = NSPredicate(format: "parrentCategory.categoryID = %@",parentCatId.uuidString)
+        } else {
+            request.predicate = NSPredicate(format: "parrentCategory = nil")
+        }
+        if let countCategories = try? context.count(for: request) {
+            return countCategories
+        }
+        return 0
+
+    }
+    
+}
+
+
+
+
+
+
+
 

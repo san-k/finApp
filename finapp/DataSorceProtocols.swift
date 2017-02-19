@@ -22,6 +22,7 @@ protocol UpdateEntity {
 protocol GetEntityInfo {
     func getAllFinAccounts() -> [FinAccount]?
     func getAllFinCategories() -> [FinTransactionCategory]?
+    func getAllSubCategories(forParentCatId parentCatId: UUID?) -> [FinTransactionCategory]?
     func getFinAccounts(withName name: String) -> [FinAccount]?
     func getFinAccount(withID accountID: UUID) -> FinAccount?
 //
@@ -30,5 +31,8 @@ protocol GetEntityInfo {
 
 
 protocol CalculateEntityInfo {
-    // calculate amount of money which was spent during some perion of time... 
+    
+    // calculate amount of money which was spent during some perion of time...
+
+    func countSubCategories(forParentCatId parentCatId: UUID?) -> Int
 }
