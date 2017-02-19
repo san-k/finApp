@@ -22,7 +22,7 @@ extension CDTransactionCategory {
     @NSManaged public var name: String
     @NSManaged public var transactions: NSSet?
     @NSManaged public var subcategories: NSSet?
-    @NSManaged public var parrentCategory: CDTransactionCategory?
+    @NSManaged public var parentCategory: CDTransactionCategory?
 
 }
 

@@ -25,7 +25,7 @@ extension CDDataSourse : AddEntity {
     
     func add(finTransaction: FinTransaction, toAccountWithID accountID: UUID) -> Bool {
         
-        // firdst we need to find account with current UUID
+        // first we need to find account with current UUID
         // in case we failed - we will return false
         // in this method we're not going to cresate new one account, if it doesn't exists
         if let cdAccount = getCDFinAccount(withID: accountID) {
@@ -47,6 +47,21 @@ extension CDDataSourse : AddEntity {
         return false
     }
     
+    func add(transactionCategory: FinTransactionCategory, withParentCategory parentCategory: FinTransactionCategory?) -> Bool {
+        
+        // first we need to check if there is category with such name with parent with such (second parameter) name
+        // if it is found then ignore adding new one
+        // but here we allow to add category with existing name, but in different parent name
+        // it's useful to check in UI, and ask user if he makes it deliberately
+        
+        if let _ = getCategory(withName: transactionCategory.name, parentID: parentCategory?.categoryID) {
+            // category already exists
+            return false
+        }
+        
+        
+        return true
+    }
 }
 
 // MARK: - GetEntityInfo protocol
@@ -84,9 +99,9 @@ extension CDDataSourse : GetEntityInfo {
     func getAllSubCategories(forParentCatId parentCatId: UUID?) -> [FinTransactionCategory]? {
         let request: NSFetchRequest<CDTransactionCategory> = CDTransactionCategory.fetchRequest()
         if let parentCatId = parentCatId {
-            request.predicate = NSPredicate(format: "parrentCategory.categoryID = %@", parentCatId.uuidString)
+            request.predicate = NSPredicate(format: "parentCategory.categoryID = %@", parentCatId.uuidString)
         } else {
-            request.predicate = NSPredicate(format: "parrentCategory = nil")
+            request.predicate = NSPredicate(format: "parentCategory = nil")
         }
         if let results = try? context.fetch(request) {
             var finCategories = [FinTransactionCategory]()
@@ -95,6 +110,29 @@ extension CDDataSourse : GetEntityInfo {
         }
         return nil
     }
+    
+    func getCategory(withName name: String, parentID: UUID?) -> FinTransactionCategory? {
+        var predicate: NSPredicate?
+        if let parentID = parentID {
+            predicate = NSPredicate(format: "name = %@ and parentCategory.categoryID = %@", name, parentID.uuidString)
+        } else {
+            predicate = NSPredicate(format: "name = %@ and parentCategory.name = nil", name)
+        }
+        return  getFinCategories(withPredicate: predicate)?.first
+    }
+
+    
+    fileprivate func getFinCategories(withPredicate predicate: NSPredicate?) -> [FinTransactionCategory]? {
+        return getCDCategories(withPredicate: predicate).map{ $0.map{ FinTransactionCategory(fromCDTransactionCategory: $0) } }
+    }
+
+    
+    fileprivate func getCDCategories(withPredicate predicate: NSPredicate?) -> [CDTransactionCategory]? {
+        let request: NSFetchRequest<CDTransactionCategory> = CDTransactionCategory.fetchRequest()
+        request.predicate = predicate
+        return try? context.fetch(request)
+    }
+
     
     // MARK: Transaction
     func getFinTransactionsForAccount(withID accountID: UUID) -> [FinTransaction]? {
@@ -186,9 +224,9 @@ extension CDDataSourse : CalculateEntityInfo {
     func countSubCategories(forParentCatId parentCatId: UUID?) -> Int {
         let request: NSFetchRequest<CDTransactionCategory> = CDTransactionCategory.fetchRequest()
         if let parentCatId = parentCatId {
-            request.predicate = NSPredicate(format: "parrentCategory.categoryID = %@",parentCatId.uuidString)
+            request.predicate = NSPredicate(format: "parentCategory.categoryID = %@",parentCatId.uuidString)
         } else {
-            request.predicate = NSPredicate(format: "parrentCategory = nil")
+            request.predicate = NSPredicate(format: "parentCategory = nil")
         }
         if let countCategories = try? context.count(for: request) {
             return countCategories

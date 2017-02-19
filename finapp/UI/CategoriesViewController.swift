@@ -10,11 +10,11 @@ import UIKit
 
 class CategoriesViewController: UIViewController {
 
-    open var parrentCategoryID: UUID?
+    open var parentCategoryID: UUID?
     
     override func viewDidLoad() {
         setUpCell()
-        categories = datasorce.getAllSubCategories(forParentCatId: parrentCategoryID)
+        categories = datasorce.getAllSubCategories(forParentCatId: parentCategoryID)
     }
     
     fileprivate let datasorce = AppSettings.sharedSettings.datasource
@@ -66,7 +66,7 @@ extension CategoriesViewController : CategoryCellDelegate {
         
         if let categoryID = cell.categoryID, cell.subcategoriesCount > 0 {
             let controller = CategoriesViewController()
-            controller.parrentCategoryID = categoryID
+            controller.parentCategoryID = categoryID
             self.navigationController?.pushViewController(controller, animated: true)
         }
         

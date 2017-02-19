@@ -12,6 +12,8 @@ import Foundation
 protocol AddEntity {
     func add(finAccount: FinAccount) -> Bool
     func add(finTransaction: FinTransaction, toAccountWithID accountID: UUID) -> Bool
+    
+    func add(transactionCategory: FinTransactionCategory, withParentCategory parentCategory: FinTransactionCategory?) -> Bool
 }
 
 protocol UpdateEntity {
@@ -22,7 +24,10 @@ protocol UpdateEntity {
 protocol GetEntityInfo {
     func getAllFinAccounts() -> [FinAccount]?
     func getAllFinCategories() -> [FinTransactionCategory]?
+    
     func getAllSubCategories(forParentCatId parentCatId: UUID?) -> [FinTransactionCategory]?
+    func getCategory(withName name: String, parentID: UUID?) -> FinTransactionCategory?
+    
     func getFinAccounts(withName name: String) -> [FinAccount]?
     func getFinAccount(withID accountID: UUID) -> FinAccount?
 //
