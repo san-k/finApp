@@ -65,9 +65,13 @@ extension CategoriesViewController : CategoryCellDelegate {
     func showSubcategoriesTapped(on sender: UIButton, inCell cell: CategoryTableViewCell) {
         
         if let categoryID = cell.categoryID, cell.subcategoriesCount > 0 {
-            let controller = CategoriesViewController()
-            controller.parentCategoryID = categoryID
-            self.navigationController?.pushViewController(controller, animated: true)
+            let storyboard = UIStoryboard(name: "Categories", bundle: nil)
+            let controller = storyboard.instantiateInitialViewController()
+            if let controller = controller as? CategoriesViewController {
+                controller.parentCategoryID = categoryID
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
+
         }
         
     }

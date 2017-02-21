@@ -59,7 +59,17 @@ extension CDDataSourse : AddEntity {
             return false
         }
         
+        // ok. we need to add. but at first we nedd to find parrent category
+        // first of all parrent can be nil in case of root category
+        var parentCDCategory: CDTransactionCategory? = nil
         
+        if let parentCategory = parentCategory {
+            parentCDCategory = getCDCategories(withPredicate: NSPredicate(format: "categoryID = %@", parentCategory.categoryID.uuidString))?.first
+        }
+        
+        let category = CDTransactionCategory(finTransactionCategory: transactionCategory, context: context)
+        category.parentCategory = parentCDCategory
+
         return true
     }
 }

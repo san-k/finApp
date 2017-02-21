@@ -25,8 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let facc1 = FinAccount(name: "SecondFinAccount", currency: Currency.GRN, comment: "second", startSum: 10.0);
         let _ = dataSourse.add(finAccount: facc1)
 
+        
+        var firstCategory: FinTransactionCategory!
+        
         for counter in 1..<5 {
-            let tr = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 10.0 * Double(counter), category: FinTransactionCategory(name: "Food - \(counter)", image: nil, comment: "This is category N \(counter)"), date: Date(), comment: "transaction comment N \(counter)")
+            let category = FinTransactionCategory(name: "Food - \(counter)", image: nil, comment: "This is category N \(counter)")
+            if counter == 1 { firstCategory = category }
+            let tr = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 10.0 * Double(counter), category: category, date: Date(), comment: "transaction comment N \(counter)")
             let _ = dataSourse.add(finTransaction: tr, toAccountWithID: facc0.accountID)
         }
 
@@ -35,6 +40,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let _ = dataSourse.add(finTransaction: tr, toAccountWithID: facc1.accountID)
         }
 
+        for counter in 1..<10 {
+            let cat = FinTransactionCategory(name: "subcategory\(counter)", image: nil, comment: "This is subcategory\(counter)")
+            let _ = dataSourse.add(transactionCategory: cat, withParentCategory: firstCategory)
+        }
+        
+        
+        
         return true
     }
 
