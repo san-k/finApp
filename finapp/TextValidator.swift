@@ -9,6 +9,12 @@
 import Foundation
 
 
+enum ValidatorItem {
+    case tunableTextField(TunableTextField)
+    // case
+}
+
+
 class TextValidator {
     
     fileprivate var textFieldsSet: Set<String>

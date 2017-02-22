@@ -187,8 +187,8 @@
 			children = (
 				3E5290011E5616D4009E110E /* NewTransactionViewController.swift */,
 				3E5290051E561864009E110E /* newTransactionUI.storyboard */,
-				3E23AC691E423A37006F9C9D /* TransactionCategoryTableViewCell.swift */,
 				3E23AC6A1E423A37006F9C9D /* TransactionCategoryTableViewCell.xib */,
+				3E23AC691E423A37006F9C9D /* TransactionCategoryTableViewCell.swift */,
 			);
 			name = newTransactionUI;
 			sourceTree = "<group>";
