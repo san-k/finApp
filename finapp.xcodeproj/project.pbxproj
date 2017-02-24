@@ -45,7 +45,7 @@
 		840FF6AA1E37F21200F06684 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840FF6A81E37F21200F06684 /* AccountTableViewCell.xib */; };
 		8420EAFC1E2AC06200DBF288 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8420EAFB1E2AC06200DBF288 /* AppSettings.swift */; };
 		84A91D171E46A612008CD94E /* TunableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A91D161E46A612008CD94E /* TunableTextField.swift */; };
-		84A91D191E478062008CD94E /* TextValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A91D181E478062008CD94E /* TextValidator.swift */; };
+		84A91D191E478062008CD94E /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A91D181E478062008CD94E /* Validator.swift */; };
 		84BB1C871E59DB0C00B293AD /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB1C861E59DB0C00B293AD /* CategoriesViewController.swift */; };
 		84F163BE1E41483700BDDF04 /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F163BC1E41483700BDDF04 /* NewAccountViewController.swift */; };
 		84F163BF1E41483700BDDF04 /* NewAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F163BD1E41483700BDDF04 /* NewAccountViewController.xib */; };
@@ -94,7 +94,7 @@
 		840FF6A81E37F21200F06684 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountTableViewCell.xib; path = UI/AccountTableViewCell.xib; sourceTree = "<group>"; };
 		8420EAFB1E2AC06200DBF288 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppSettings.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		84A91D161E46A612008CD94E /* TunableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunableTextField.swift; sourceTree = "<group>"; };
-		84A91D181E478062008CD94E /* TextValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TextValidator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		84A91D181E478062008CD94E /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Validator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		84BB1C861E59DB0C00B293AD /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoriesViewController.swift; path = UI/CategoriesViewController.swift; sourceTree = "<group>"; };
 		84F163BC1E41483700BDDF04 /* NewAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = NewAccountViewController.swift; path = UI/NewAccountViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		84F163BD1E41483700BDDF04 /* NewAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NewAccountViewController.xib; path = UI/NewAccountViewController.xib; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 				3E08B3491E1D1DC40010A3C2 /* AppDelegate.swift */,
 				3E23AC7C1E48DD5B006F9C9D /* KeyboardListener.swift */,
 				84A91D161E46A612008CD94E /* TunableTextField.swift */,
-				84A91D181E478062008CD94E /* TextValidator.swift */,
+				84A91D181E478062008CD94E /* Validator.swift */,
 			);
 			path = finapp;
 			sourceTree = "<group>";
@@ -160,10 +160,10 @@
 		3E23AC5F1E40EF56006F9C9D /* newAccountUI */ = {
 			isa = PBXGroup;
 			children = (
-				84F163BC1E41483700BDDF04 /* NewAccountViewController.swift */,
 				84F163BD1E41483700BDDF04 /* NewAccountViewController.xib */,
-				84F163C01E46923E00BDDF04 /* CurrencyTableViewCell.swift */,
+				84F163BC1E41483700BDDF04 /* NewAccountViewController.swift */,
 				84F163C11E46923E00BDDF04 /* CurrencyTableViewCell.xib */,
+				84F163C01E46923E00BDDF04 /* CurrencyTableViewCell.swift */,
 			);
 			name = newAccountUI;
 			sourceTree = "<group>";
@@ -185,8 +185,8 @@
 		3E5290001E5616AF009E110E /* newTransactionUI */ = {
 			isa = PBXGroup;
 			children = (
-				3E5290011E5616D4009E110E /* NewTransactionViewController.swift */,
 				3E5290051E561864009E110E /* newTransactionUI.storyboard */,
+				3E5290011E5616D4009E110E /* NewTransactionViewController.swift */,
 				3E23AC6A1E423A37006F9C9D /* TransactionCategoryTableViewCell.xib */,
 				3E23AC691E423A37006F9C9D /* TransactionCategoryTableViewCell.swift */,
 			);
@@ -362,7 +362,7 @@
 				84F163BE1E41483700BDDF04 /* NewAccountViewController.swift in Sources */,
 				3E08B3521E1D1DC40010A3C2 /* finapp.xcdatamodeld in Sources */,
 				3E08B34A1E1D1DC40010A3C2 /* AppDelegate.swift in Sources */,
-				84A91D191E478062008CD94E /* TextValidator.swift in Sources */,
+				84A91D191E478062008CD94E /* Validator.swift in Sources */,
 				3E8F6DAB1E213EB7001565D9 /* CDDataSource.swift in Sources */,
 				840FF6A91E37F21200F06684 /* AccountTableViewCell.swift in Sources */,
 				3E23AC6B1E423A37006F9C9D /* TransactionCategoryTableViewCell.swift in Sources */,

@@ -45,7 +45,7 @@ class NewAccountViewController: UIViewController {
         return resArray
     }()
 
-    lazy fileprivate var validator: TextValidator = TextValidator(with: Set<String>( self.validatingTextFields.map{ $0.valiadtorID} ))
+    fileprivate var validator = Validator()
     
     struct MagicNumbers {
         static let currencyTableHeight: CGFloat = 100.0
@@ -56,6 +56,16 @@ class NewAccountViewController: UIViewController {
         super.viewDidLoad()
         setupTable()
         addBarButtons()
+        setupValidator()
+    }
+    
+    fileprivate func setupValidator() {
+        for tf in validatingTextFields {
+            if let id = tf.restorationIdentifier {
+                validator.add(validateItem: ValidatorItem.tunableTextField, withID: id)
+            }
+        }
+        
     }
     
     fileprivate func setupTable() {
@@ -148,7 +158,7 @@ extension NewAccountViewController : UITextFieldDelegate {
     
     fileprivate func validateTextField(_ textField: TunableTextField?) {
         guard let textField = textField else { return }
-        if !validator.validate(field: textField) {
+        if !validator.validate(tunableField: textField) {
             textField.backgroundColor = UIColor.red
         }
     }
