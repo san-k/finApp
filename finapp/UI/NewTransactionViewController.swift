@@ -36,10 +36,9 @@ class NewTransactionViewController: UIViewController {
     
     // public properties
     public var selectedCategory: FinTransactionCategory?
-    // it's kind of gangerous, but it should be optional, and be set from presenter
+    // it's kind of dangerous, but it should be optional, and be set from presenter
     // this one just as default (temporary)
-    public var selectedAccount: FinAccount = (AppSettings.sharedSettings.datasource.getAllFinAccounts()?.first)!
-    
+    public var selectedAccount: FinAccount?
     
     // actions and private funcs
     @IBAction fileprivate func takeMoney(_ sender: UIButton) {
@@ -128,10 +127,20 @@ class NewTransactionViewController: UIViewController {
              3. dismiss
              */
             
-            let transaction = FinTransaction(transactionType: transactionType, sum: realSum, category: selectedCategory, date: datePicker.date, comment: commentView.text ?? "")
+            // MARK - NEED REFACTORING!
+            // if we open new transaction not from start page (like instant transaction)
+            // we won't have info about account. becoursa for now we dont have storage for default account!
             
-            let datasource = AppSettings.sharedSettings.datasource
-            let _ = datasource.add(finTransaction: transaction, toAccountWithID: selectedAccount.accountID)
+            if let transactionsVC = (self.navigationController?.presentingViewController as? UINavigationController)?.topViewController as? TransactionsViewController {
+                let transaction = FinTransaction(transactionType: transactionType, sum: realSum, category: selectedCategory, date: datePicker.date, comment: commentView.text ?? "")
+            
+                let datasource = AppSettings.sharedSettings.datasource
+                if let accountID =  transactionsVC.account?.accountID {
+                    let _ = datasource.add(finTransaction: transaction, toAccountWithID: accountID)
+                }
+
+                transactionsVC.updateTransactionsInfo()
+            }
             
             navigationController?.dismiss(animated: true, completion: nil)
             
@@ -159,8 +168,7 @@ class NewTransactionViewController: UIViewController {
         categoriesButton.setTitle(title, for: .normal)
      
         addBarButtons()
-        
-        
+        setupValidator()
     }
 }
 

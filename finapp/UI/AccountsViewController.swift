@@ -19,24 +19,11 @@ class AccountsViewController: UIViewController {
     var accounts: [FinAccount]!
     
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
-    }
     
     fileprivate func setup() {
         datasource = AppSettings.sharedSettings.datasource
-        updateAccountsInfo()
+        setUpCell()
+        addBarButtons()
     }
     
     func updateAccountsInfo() {
@@ -46,9 +33,14 @@ class AccountsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpCell()
-        addBarButtons()
+        setup()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateAccountsInfo()
+    }
+    
     
     fileprivate func setUpCell() {
         tableView.register(UINib(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: kAccountCellIdentifier)
@@ -97,7 +89,8 @@ extension AccountsViewController : AccountsCellDelegate {
         guard let row = tableView.indexPath(for: cell)?.row else { return }
         guard accounts.count > row else { return }
         let account = accounts[row]
-        let transactionsController = TransactionsViewController(withAccount: account)
+        let transactionsController = TransactionsViewController()
+        transactionsController.account = account
         self.navigationController?.pushViewController(transactionsController, animated: true)
     }
 

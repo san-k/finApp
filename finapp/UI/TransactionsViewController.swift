@@ -17,38 +17,25 @@ class TransactionsViewController: UIViewController {
     var datasource: AddEntity & UpdateEntity & GetEntityInfo & CalculateEntityInfo!
 
     /*  little cache */
-    var account: FinAccount?
-    var transactions: [FinTransaction]?
-    
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
-    }
-    
-    convenience init(withAccount account: FinAccount) {
-        self.init()
-        self.account = account
-        transactions = datasource.getFinTransactionsForAccount(withID: account.accountID)
-    }
+    public var account: FinAccount?
+    public var transactions: [FinTransaction]?
     
     fileprivate func setup() {
         datasource = AppSettings.sharedSettings.datasource
-        
+        updateTransactionsInfo()
     }
 
+    public func updateTransactionsInfo()
+    {
+        if let account = account {
+            transactions = datasource.getFinTransactionsForAccount(withID: account.accountID)
+            tableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
         tableView.register(UINib(nibName: "TransactionsTableViewCell", bundle: nil), forCellReuseIdentifier: kTransactionCellIdentifier)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 99
@@ -61,11 +48,18 @@ class TransactionsViewController: UIViewController {
     }
 
     @objc fileprivate func showAddTransactionStory(sender: UIBarButtonItem) {
-        let story = UIStoryboard(name: "newTransactionUI", bundle: nil)
-        let viewController = story.instantiateInitialViewController()
-        if let viewController = viewController {
-            present(viewController, animated: true, completion: nil)
-        }
+        
+        let storyboard = UIStoryboard(name: "Categories", bundle: nil)
+        guard let controller = storyboard.instantiateInitialViewController() else {return}
+        let nav = UINavigationController(rootViewController: controller)
+        navigationController?.present(nav, animated: true, completion: nil)
+
+//        let story = UIStoryboard(name: "newTransactionUI", bundle: nil)
+//        let viewController = story.instantiateInitialViewController()
+//        if let viewController = viewController  as? NewTransactionViewController{
+//            viewController.transactionsVC = self
+//            present(viewController, animated: true, completion: nil)
+//        }
     }
 }
 

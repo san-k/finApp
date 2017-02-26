@@ -31,8 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         for counter in 1..<5 {
             let category = FinTransactionCategory(name: "Food - \(counter)", image: nil, comment: "This is category N \(counter)")
             if counter == 1 { firstCategory = category }
-            let tr = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 10.0 * Double(counter), category: category, date: Date(), comment: "transaction comment N \(counter)")
-            let _ = dataSourse.add(finTransaction: tr, toAccountWithID: facc0.accountID)
+            let _ = dataSourse.add(transactionCategory: category, withParentCategory: nil)
+//            let tr = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 10.0 * Double(counter), category: category, date: Date(), comment: "transaction comment N \(counter)")
+//            let _ = dataSourse.add(finTransaction: tr, toAccountWithID: facc0.accountID)
         }
 
         for counter in 6..<9 {
