@@ -129,7 +129,7 @@ class NewTransactionViewController: UIViewController {
             
             // MARK - NEED REFACTORING!
             // if we open new transaction not from start page (like instant transaction)
-            // we won't have info about account. becoursa for now we dont have storage for default account!
+            // we won't have info about account. becourse for now we dont have storage for default account!
             
             if let transactionsVC = (self.navigationController?.presentingViewController as? UINavigationController)?.topViewController as? TransactionsViewController {
                 let transaction = FinTransaction(transactionType: transactionType, sum: realSum, category: selectedCategory, date: datePicker.date, comment: commentView.text ?? "")

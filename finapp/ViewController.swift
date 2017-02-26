@@ -36,13 +36,6 @@ class ViewController: UIViewController {
         let nav = UINavigationController(rootViewController: controller)
         navigationController?.present(nav, animated: true, completion: nil)
         
-
-//
-//        if let controller = controller {
-//            let segue = UIStoryboardSegue(identifier: "fromRootToCategories", source: self, destination: controller)
-//            segue.perform()
-//        }
-        
     }
 }
 
