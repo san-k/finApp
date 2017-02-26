@@ -14,6 +14,7 @@ class CategoriesViewController: UIViewController {
     
     override func viewDidLoad() {
         setUpCell()
+        addBarButtons()
         categories = datasorce.getAllSubCategories(forParentCatId: parentCategoryID)
     }
     
@@ -28,6 +29,20 @@ class CategoriesViewController: UIViewController {
         categoriesTableView.estimatedRowHeight = 71
     }
     
+    fileprivate func addBarButtons() {
+        let backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(backTapped(sender:)))
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(cancelTapped(sender:)))
+        let leftButtons = parentCategoryID == nil ? [cancelButton] : [backButton, cancelButton]
+        navigationItem.setLeftBarButtonItems(leftButtons, animated: false)
+    }
+    
+    @objc fileprivate func backTapped(sender: UIBarButtonItem) {
+        let _ = navigationController?.popViewController(animated: true)
+    }
+    
+    @objc fileprivate func cancelTapped(sender: UIBarButtonItem) {
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
     
 }
 
@@ -58,6 +73,23 @@ extension CategoriesViewController : UITableViewDataSource {
         return UITableViewCell()
     }
 
+}
+
+extension CategoriesViewController : UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if let categories = categories, categories.count > indexPath.row {
+            let category = categories[indexPath.row]
+            let storyboard = UIStoryboard(name: "newTransactionUI", bundle: nil)
+            guard let controller = storyboard.instantiateInitialViewController() as? NewTransactionViewController else { return }
+            controller.selectedCategory = category
+            navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    
 }
 
 extension CategoriesViewController : CategoryCellDelegate {

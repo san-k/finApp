@@ -57,6 +57,7 @@ class NewAccountViewController: UIViewController {
         setupTable()
         addBarButtons()
         setupValidator()
+        
     }
     
     fileprivate func setupValidator() {
@@ -86,7 +87,7 @@ class NewAccountViewController: UIViewController {
     
     @objc fileprivate func cancelTapped(sender: UIBarButtonSystemItem) {
         activeTextField?.resignFirstResponder()
-        dismiss(animated: true, completion: nil)
+        navigationController?.dismiss(animated: true, completion: nil)
     }
     
     @objc fileprivate func doneTapped(sender: UIBarButtonSystemItem) {
@@ -110,7 +111,7 @@ class NewAccountViewController: UIViewController {
             
             accountsVC?.updateAccountsInfo()
             
-            dismiss(animated: true, completion: nil)
+            navigationController?.dismiss(animated: true, completion: nil)
             
         } else {
             let alertController = UIAlertController(title: nil, message: "Text validation error", preferredStyle: UIAlertControllerStyle.alert)
