@@ -98,6 +98,7 @@ extension CDDataSourse : GetEntityInfo {
     // MARK: Category
     func getAllFinCategories() -> [FinTransactionCategory]? {
         let request: NSFetchRequest<CDTransactionCategory> = CDTransactionCategory.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         if let results = try? context.fetch(request) {
             var finCategories = [FinTransactionCategory]()
             results.forEach{ finCategories.append(FinTransactionCategory(fromCDTransactionCategory: $0))}
@@ -113,6 +114,7 @@ extension CDDataSourse : GetEntityInfo {
         } else {
             request.predicate = NSPredicate(format: "parentCategory = nil")
         }
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         if let results = try? context.fetch(request) {
             var finCategories = [FinTransactionCategory]()
             results.forEach{ finCategories.append(FinTransactionCategory(fromCDTransactionCategory: $0))}
@@ -191,6 +193,7 @@ extension CDDataSourse : GetEntityInfo {
     fileprivate func getCDFinAccounts(withPredicate predicate:NSPredicate?) -> [CDFinAccount]? {
         let request: NSFetchRequest<CDFinAccount> = CDFinAccount.fetchRequest()
         request.predicate = predicate
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true) ]
         if let cdFinAccounts = try? context.fetch(request) {
             return cdFinAccounts
         }
@@ -200,6 +203,7 @@ extension CDDataSourse : GetEntityInfo {
     fileprivate func getCDFinTransaction(withPredicate predicate:NSPredicate?) -> [CDTransaction]? {
         let request: NSFetchRequest<CDTransaction> = CDTransaction.fetchRequest()
         request.predicate = predicate
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         if let cdTransactions = try? context.fetch(request) {
             return cdTransactions
         }
