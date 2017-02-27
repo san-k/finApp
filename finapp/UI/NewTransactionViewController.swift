@@ -23,7 +23,13 @@ class NewTransactionViewController: UIViewController {
     @IBOutlet fileprivate weak var categoriesButton: UIButton!
     @IBOutlet fileprivate weak var commentView: UITextView!
     @IBOutlet weak var rootView: UIView!
-    
+
+    @IBOutlet var scrollBottomConstraint: NSLayoutConstraint!
+    var scrollBottomOffset: CGFloat {
+        get {return scrollBottomConstraint.constant}
+        set {scrollBottomConstraint.constant = newValue}
+    }
+
     // money can be takken and it is default state
     // otherwise - money are put
     // after set new value - update UI
@@ -169,6 +175,16 @@ class NewTransactionViewController: UIViewController {
      
         addBarButtons()
         setupValidator()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        sumField.becomeFirstResponder()
+        observeKeyboardWillNotifications()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        stopObserveKeyboardWillNotifications()
     }
 }
 
@@ -188,9 +204,39 @@ extension NewTransactionViewController : UITextFieldDelegate {
         }
         realSum = Double(tunableTextField.text!) ?? 0.0
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
 
 
+extension NewTransactionViewController : KeyboardListener {
+    func keyboardWillshow(absoluteFrame: CGRect, currentViewFrame: CGRect, duration: TimeInterval) {
+        print(duration)
+        UIView.animate(withDuration: duration) {
+            self.scrollBottomOffset = currentViewFrame.size.height
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func keyboardWillHide(duration: TimeInterval) {
+        UIView.animate(withDuration: duration) {
+            self.scrollBottomOffset = 0.0
+            self.view.layoutIfNeeded()
+        }
+    }
+}
+
+//MARK: - UIScrollViewDelegate
+
+extension NewTransactionViewController : UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        sumField.resignFirstResponder()
+    }
+}
 
 
 
