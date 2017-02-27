@@ -79,8 +79,6 @@ extension CategoriesViewController : UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        tableView.deselectRow(at: indexPath, animated: true)
-        
         if let categories = categories, categories.count > indexPath.row {
             let category = categories[indexPath.row]
             let storyboard = UIStoryboard(name: "newTransactionUI", bundle: nil)
@@ -88,6 +86,8 @@ extension CategoriesViewController : UITableViewDelegate {
             controller.selectedCategory = category
             navigationController?.pushViewController(controller, animated: true)
         }
+
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }

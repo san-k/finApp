@@ -53,13 +53,6 @@ class TransactionsViewController: UIViewController {
         guard let controller = storyboard.instantiateInitialViewController() else {return}
         let nav = UINavigationController(rootViewController: controller)
         navigationController?.present(nav, animated: true, completion: nil)
-
-//        let story = UIStoryboard(name: "newTransactionUI", bundle: nil)
-//        let viewController = story.instantiateInitialViewController()
-//        if let viewController = viewController  as? NewTransactionViewController{
-//            viewController.transactionsVC = self
-//            present(viewController, animated: true, completion: nil)
-//        }
     }
 }
 
@@ -85,9 +78,8 @@ extension TransactionsViewController : UITableViewDataSource {
             transactionCell.sum.text = String(finTransaction.sum)
             
             let formatter = DateFormatter()
-//            formatter.dateFormat = "dd.mm.yyyy"
             formatter.locale = Locale(identifier: "en_US")
-            formatter.setLocalizedDateFormatFromTemplate("dd.mm.yyyy")
+            formatter.dateFormat = "dd.MM.YYYY"
             transactionCell.date.text = formatter.string(from: finTransaction.date)
         }
         
