@@ -82,16 +82,23 @@ extension AccountsViewController : UITableViewDataSource {
     }
 }
 
-    // MARK: AccountsCellDelegate
-extension AccountsViewController : AccountsCellDelegate {
-
-    func accessoryTapped(_ sender: UIButton, inCell cell: UITableViewCell) {
-        guard let row = tableView.indexPath(for: cell)?.row else { return }
+extension AccountsViewController : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        let row = indexPath.row
         guard accounts.count > row else { return }
         let account = accounts[row]
         let transactionsController = TransactionsViewController()
         transactionsController.account = account
         self.navigationController?.pushViewController(transactionsController, animated: true)
+    }
+}
+
+    // MARK: AccountsCellDelegate
+extension AccountsViewController : AccountsCellDelegate {
+
+    func accessoryTapped(_ sender: UIButton, inCell cell: UITableViewCell) {
+        
     }
 
 }
