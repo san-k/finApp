@@ -10,7 +10,7 @@ import Foundation
 
 
 
-struct FinAccount {
+public struct FinAccount {
     
     typealias MoneySum = Double
     
@@ -42,3 +42,15 @@ struct FinAccount {
     }
     
 }
+
+
+extension FinAccount : Equatable {
+    public static func ==(left: FinAccount, right: FinAccount) -> Bool {
+        return  left.accountID == right.accountID &&
+                left.name == right.name &&
+                left.currency == right.currency &&
+                left.totalSum == right.totalSum &&
+                left.comment == right.comment
+    }
+}
+

@@ -17,8 +17,8 @@ protocol AddEntity {
 }
 
 protocol UpdateEntity {
-    func updateFinAccount(withID accountID: UUID, newName: String?, newCurency: Currency?, newComment: String?) -> Bool
-    func updatefinTransaction(withID transactionID: UUID, newSum: Double?, newComment: String?) -> Bool
+    func updateFinAccount(withID accountID: UUID, newAccount: FinAccount) -> Bool
+    func updatefinTransaction(withID transactionID: UUID, newTransaction: FinTransaction) -> Bool
 }
 
 protocol GetEntityInfo {

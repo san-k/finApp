@@ -49,7 +49,7 @@
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="CanBeEmptyAdapter" value="Cant"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="valiadtorID" value="NewAccountNameText"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="regexpPattern" value="[a-z]{3,}"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="regexpPattern" value="[A-Za-z ]{3,}"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="textTypeAdapter" value="Text"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>

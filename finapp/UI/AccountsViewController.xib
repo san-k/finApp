@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -26,10 +26,12 @@
                     <connections>
                         <outlet property="dataSource" destination="-1" id="VJx-8s-wag"/>
                         <outlet property="delegate" destination="-1" id="DZ5-Lp-XyI"/>
+                        <outletCollection property="gestureRecognizers" destination="CmA-QG-JqR" appends="YES" id="5dg-WK-LJ0"/>
                     </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="dNu-7A-KsK" secondAttribute="trailing" id="BdV-mn-wtb"/>
                 <constraint firstItem="dNu-7A-KsK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="cRb-S7-evP"/>
@@ -38,5 +40,10 @@
             </constraints>
             <point key="canvasLocation" x="319.5" y="-337.5"/>
         </view>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="CmA-QG-JqR">
+            <connections>
+                <action selector="longTappedOnTableView:" destination="-1" id="hmC-VQ-32M"/>
+            </connections>
+        </pongPressGestureRecognizer>
     </objects>
 </document>

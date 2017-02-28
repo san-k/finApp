@@ -54,8 +54,13 @@ class AccountsViewController: UIViewController {
     }
     
     @objc fileprivate func showAddAccountPage(sender: UIBarButtonItem) {
+        showNewAccountController(withOldAccount: nil)
+    }
+    
+    fileprivate func showNewAccountController(withOldAccount oldAccount: FinAccount?) {
         let newAccountController = NewAccountViewController()
         newAccountController.accountsVC = self
+        newAccountController.oldAccount = oldAccount
         let navController = UINavigationController(rootViewController: newAccountController)
         self.present(navController, animated: true, completion: nil)
     }
@@ -91,6 +96,18 @@ extension AccountsViewController : UITableViewDelegate {
         let transactionsController = TransactionsViewController()
         transactionsController.account = account
         self.navigationController?.pushViewController(transactionsController, animated: true)
+    }
+    
+    @IBAction func longTappedOnTableView(_ longPress: UILongPressGestureRecognizer) {
+        
+        if longPress.state == .began {
+            let point = longPress.location(in: tableView)
+            guard let indexPath = tableView.indexPathForRow(at: point) else { return }
+            guard accounts.count > indexPath.row else { return }
+            let account = accounts[indexPath.row]
+            showNewAccountController(withOldAccount: account)
+        }
+        
     }
 }
 

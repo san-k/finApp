@@ -13,12 +13,10 @@ class NewAccountViewController: UIViewController {
 
     @IBOutlet fileprivate weak var nameText: TunableTextField!
     @IBOutlet fileprivate weak var startSumText: TunableTextField!
-    fileprivate var activeTextField: TunableTextField?
     @IBOutlet fileprivate weak var commentTextView: UITextView!
-
     @IBOutlet fileprivate weak var currencyTable: UITableView!
     @IBOutlet fileprivate weak var currencyLabel: UILabel!
-    fileprivate var selectedCurrency: String?
+    @IBOutlet var validatingTextFields: [TunableTextField]!
     
     @IBOutlet fileprivate /*strong!*/ var currencyTableHeightConstraint: NSLayoutConstraint!
     var currencyTableHeight: CGFloat {
@@ -32,19 +30,18 @@ class NewAccountViewController: UIViewController {
         set {scrollViewBottomConstraint.constant = newValue}
     }
     
-    @IBOutlet var validatingTextFields: [TunableTextField]!
+    public var accountsVC: AccountsViewController?
+    public var oldAccount: FinAccount?
     
-    var accountsVC: AccountsViewController?
-
 
     // fileprivate PROPERTIES
-    fileprivate var createdAccount: FinAccount?
+    fileprivate var activeTextField: TunableTextField?
+    fileprivate var selectedCurrency: String?
     fileprivate let currencyArr: [String] = {
         var resArray = [String]()
         iterateEnum(Currency.self).forEach{resArray.append($0.rawValue)}
         return resArray
     }()
-
     fileprivate var validator = Validator()
     
     struct MagicNumbers {
@@ -55,8 +52,18 @@ class NewAccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTable()
-        addBarButtons()
         setupValidator()
+        setupButtonsAndValues()
+    }
+    
+    fileprivate func setupButtonsAndValues() {
+        addBarButtons()
+        guard let account = oldAccount else { return }
+        nameText.text = account.name
+        startSumText.text = String(account.totalSum)
+        startSumText.isEnabled = false
+        commentTextView.text = account.comment
+        currencyLabel.text = account.currency.rawValue
         
     }
     
@@ -77,20 +84,28 @@ class NewAccountViewController: UIViewController {
     
     fileprivate func addBarButtons() {
         let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(cancelTapped(sender:)))
-        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(doneTapped(sender:)))
+        
+        var doneOrUpdateButton: UIBarButtonItem! = nil
+        if oldAccount == nil {
+            doneOrUpdateButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(doneOrUpdateTapped(sender:)))
+        
+        } else {
+            doneOrUpdateButton = UIBarButtonItem(title: "Update", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneOrUpdateTapped(sender:)))
+        }
+        
+        self.navigationItem.setRightBarButton(doneOrUpdateButton, animated: false)
         self.navigationItem.setLeftBarButton(cancelButton, animated: false)
-        self.navigationItem.setRightBarButton(doneButton, animated: false)
     }
     
     
     // MARK: Bar buttons actions 
     
-    @objc fileprivate func cancelTapped(sender: UIBarButtonSystemItem) {
+    @objc fileprivate func cancelTapped(sender: UIBarButtonItem) {
         activeTextField?.resignFirstResponder()
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
-    @objc fileprivate func doneTapped(sender: UIBarButtonSystemItem) {
+    @objc fileprivate func doneOrUpdateTapped(sender: UIBarButtonItem) {
         // there can be a case when validation of TF was passsed, then user tried to modify
         // TF again, and without resigning first responder tapped on "done"
         validatingTextFields.forEach{ self.validateTextField($0)}
@@ -101,15 +116,19 @@ class NewAccountViewController: UIViewController {
                3. dismiss
              */
             
-            createdAccount = FinAccount(name: nameText.text!,
+            let newAccount = FinAccount(name: nameText.text!,
                                         currency: Currency(rawValue: selectedCurrency!)!,
                                         comment: commentTextView.text,
                                         startSum: FinAccount.MoneySum(startSumText.text!)!)
             
             let datasource = AppSettings.sharedSettings.datasource
-            let _ = datasource.add(finAccount: createdAccount!)
-            
-            accountsVC?.updateAccountsInfo()
+            if oldAccount == nil {
+                let _ = datasource.add(finAccount: newAccount)
+                accountsVC?.updateAccountsInfo()
+            } else if newAccount != oldAccount! {
+                let _ = datasource.updateFinAccount(withID: oldAccount!.accountID, newAccount: newAccount)
+                accountsVC?.updateAccountsInfo()
+            }
             
             navigationController?.dismiss(animated: true, completion: nil)
             

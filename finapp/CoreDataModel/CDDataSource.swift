@@ -214,18 +214,20 @@ extension CDDataSourse : GetEntityInfo {
     // MARK: UpdateEntity protocol
 extension CDDataSourse : UpdateEntity {
     
-    func updateFinAccount(withID accountID: UUID, newName: String?, newCurency: Currency?, newComment: String?) -> Bool {
+    func updateFinAccount(withID accountID: UUID, newAccount: FinAccount) -> Bool {
         guard let cdAccount = getCDFinAccount(withID: accountID) else {return false}
-        if let newName = newName {cdAccount.name = newName}
-        if let newCurency = newCurency {cdAccount.currency = newCurency.rawValue}
-        if let newComment = newComment {cdAccount.comment = newComment}
+        cdAccount.name = newAccount.name
+        cdAccount.comment = newAccount.comment
+        cdAccount.currency = newAccount.currency.rawValue
         return true
     }
     
-    func updatefinTransaction(withID transactionID: UUID, newSum: Double?, newComment: String?) -> Bool {
+    func updatefinTransaction(withID transactionID: UUID, newTransaction: FinTransaction) -> Bool {
         if let cdTransaction = getCDFinTransaction(withPredicate: NSPredicate(format: "transaction.id = %@", transactionID.uuidString))?.first {
-            if let newSum = newSum {cdTransaction.sum = newSum}
-            if let newComment = newComment {cdTransaction.comment = newComment}
+            cdTransaction.comment = newTransaction.comment
+            cdTransaction.date = newTransaction.date as NSDate
+            cdTransaction.sum = newTransaction.sum
+            cdTransaction.transactionType = Int32(newTransaction.transactionType.rawValue)
             return true
         }
         return false
