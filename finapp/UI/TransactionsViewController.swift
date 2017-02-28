@@ -75,7 +75,7 @@ extension TransactionsViewController : UITableViewDataSource {
             let finTransaction = transactions[indexPath.row]
             transactionCell.category.text = finTransaction.category?.name
             transactionCell.comment.text = finTransaction.comment
-            transactionCell.sum.text = String(finTransaction.sum)
+            transactionCell.set(sum: finTransaction.sum, transactionType: finTransaction.transactionType)
             
             let formatter = DateFormatter()
             formatter.locale = Locale(identifier: "en_US")

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -28,8 +28,8 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s6z-Ev-muF" userLabel="sum">
-                        <rect key="frame" x="295" y="14.5" width="31" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <rect key="frame" x="283.5" y="20" width="42.5" height="24"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -74,7 +74,7 @@
                     <constraint firstItem="VHY-BA-azR" firstAttribute="leading" secondItem="EdQ-0n-kKo" secondAttribute="leading" id="CQs-GL-6rS"/>
                     <constraint firstAttribute="bottomMargin" secondItem="EdQ-0n-kKo" secondAttribute="bottom" id="JLF-ZC-IgG"/>
                     <constraint firstItem="3Lf-rz-bTu" firstAttribute="leading" secondItem="VHY-BA-azR" secondAttribute="trailing" constant="4" id="SYu-p5-9Xj"/>
-                    <constraint firstItem="VHY-BA-azR" firstAttribute="centerY" secondItem="s6z-Ev-muF" secondAttribute="centerY" id="YEl-I9-jwU"/>
+                    <constraint firstItem="s6z-Ev-muF" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="WwX-1m-rxq"/>
                     <constraint firstItem="3Lf-rz-bTu" firstAttribute="centerY" secondItem="VHY-BA-azR" secondAttribute="centerY" id="brV-oh-itI"/>
                     <constraint firstItem="s6z-Ev-muF" firstAttribute="trailing" secondItem="EdQ-0n-kKo" secondAttribute="trailing" id="jTK-qP-WHq"/>
                     <constraint firstItem="VHY-BA-azR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="o4b-od-8WQ"/>
@@ -86,7 +86,7 @@
                 <outlet property="categoryImage" destination="VHY-BA-azR" id="BGc-Rf-Mtg"/>
                 <outlet property="comment" destination="EdQ-0n-kKo" id="jMH-CN-pBp"/>
                 <outlet property="date" destination="fcl-mw-X0D" id="xqx-Rp-J3p"/>
-                <outlet property="sum" destination="s6z-Ev-muF" id="aWW-Yv-B1q"/>
+                <outlet property="sumLabel" destination="s6z-Ev-muF" id="kjR-b1-7KN"/>
             </connections>
             <point key="canvasLocation" x="-400" y="-149"/>
         </tableViewCell>

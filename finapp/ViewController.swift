@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     @IBAction func show(_ sender: Any) {
      
         let controller = AccountsViewController()
+//        controller.edgesForExtendedLayout = []
+//        controller.extendedLayoutIncludesOpaqueBars = true
         let navcontroller = self.navigationController
         navcontroller?.pushViewController(controller, animated: true)
     }
