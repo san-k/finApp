@@ -36,6 +36,7 @@ class ViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Categories", bundle: nil)
         guard let controller = storyboard.instantiateInitialViewController() else {return}
         let nav = UINavigationController(rootViewController: controller)
+        nav.navigationBar.isTranslucent = false
         navigationController?.present(nav, animated: true, completion: nil)
         
     }

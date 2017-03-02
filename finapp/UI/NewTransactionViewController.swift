@@ -23,6 +23,7 @@ class NewTransactionViewController: UIViewController {
     @IBOutlet fileprivate weak var categoriesButton: UIButton!
     @IBOutlet fileprivate weak var commentView: UITextView!
     @IBOutlet weak var rootView: UIView!
+    @IBOutlet var commentButton: UIButton!
 
     @IBOutlet var scrollBottomConstraint: NSLayoutConstraint!
     var scrollBottomOffset: CGFloat {
@@ -39,6 +40,7 @@ class NewTransactionViewController: UIViewController {
     fileprivate var transaction: FinTransaction?
     fileprivate let validator = Validator()
     fileprivate var realSum = 0.0
+    fileprivate var keyboardFrame: CGRect?
     
     // public properties
     public var selectedCategory: FinTransactionCategory?
@@ -60,6 +62,28 @@ class NewTransactionViewController: UIViewController {
         // it really has no sence. it's limited in storyboard
         // validator.validate(datePickerDate: datePicker.date, withID: datePicker.restorationIdentifier!)
     }
+    
+    @IBAction fileprivate func showCommentView(_ sender: UIButton) {
+        commentView.isHidden = false
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.commentButton.alpha = 0.0
+            self.commentView.alpha = 1.0
+        }, completion: { done in
+            self.commentButton.isHidden = true
+            self.commentView.becomeFirstResponder()
+            
+            var verticalOverlaping = CGFloat(0.0)
+            if let keyboardFrame = self.keyboardFrame {
+                let keyboardOriginInScroll = self.scrollView.convert(keyboardFrame.origin, from: self.view)
+                verticalOverlaping = self.commentView.frame.origin.y + self.commentView.frame.size.height - keyboardOriginInScroll.y + 10
+            }
+            UIView.animate(withDuration: 0.5, animations: {
+                self.scrollView.contentOffset = CGPoint(x: 0, y: verticalOverlaping)
+            })
+        })
+    }
+    
     
     fileprivate func updateUI(animated: Bool) {
         
@@ -179,8 +203,8 @@ class NewTransactionViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        sumField.becomeFirstResponder()
         observeKeyboardWillNotifications()
+        sumField.becomeFirstResponder()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -211,21 +235,19 @@ extension NewTransactionViewController : UITextFieldDelegate {
     }
 }
 
-
 extension NewTransactionViewController : KeyboardListener {
     func keyboardWillshow(absoluteFrame: CGRect, currentViewFrame: CGRect, duration: TimeInterval) {
-        print(duration)
-        UIView.animate(withDuration: duration) {
-            self.scrollBottomOffset = currentViewFrame.size.height
-            self.view.layoutIfNeeded()
-        }
+        self.scrollBottomOffset = currentViewFrame.size.height
+        self.view.layoutIfNeeded()
+        
+        keyboardFrame = currentViewFrame
     }
     
     func keyboardWillHide(duration: TimeInterval) {
-        UIView.animate(withDuration: duration) {
-            self.scrollBottomOffset = 0.0
-            self.view.layoutIfNeeded()
-        }
+        self.scrollBottomOffset = 0.0
+        self.view.layoutIfNeeded()
+        
+        keyboardFrame = nil
     }
 }
 
