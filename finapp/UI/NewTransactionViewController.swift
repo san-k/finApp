@@ -34,10 +34,7 @@ class NewTransactionViewController: UIViewController {
     // money can be takken and it is default state
     // otherwise - money are put
     // after set new value - update UI
-    fileprivate var transactionType: FinTransactionType = .TakeMoney {
-        didSet { updateUI(animated: true) }
-    }
-    fileprivate var transaction: FinTransaction?
+    fileprivate var transactionType: FinTransactionType = .TakeMoney
     fileprivate let validator = Validator()
     fileprivate var realSum = 0.0
     fileprivate var keyboardFrame: CGRect?
@@ -45,17 +42,25 @@ class NewTransactionViewController: UIViewController {
     // public properties
     public var selectedCategory: FinTransactionCategory?
     // it's kind of dangerous, but it should be optional, and be set from presenter
-    // this one just as default (temporary)
     public var selectedAccount: FinAccount?
+    public var oldTransaction: FinTransaction? {
+        didSet {
+            selectedCategory = oldTransaction?.category
+        }
+    }
+    public var transactionsVC: TransactionsViewController?
+
     
     // actions and private funcs
     @IBAction fileprivate func takeMoney(_ sender: UIButton) {
         transactionType = .TakeMoney
+        updateUIWithTrType(animated: true)
     }
     
     
     @IBAction fileprivate func putMoney(_ sender: UIButton) {
         transactionType = .PutMoney
+        updateUIWithTrType(animated: true)
     }
     
     @IBAction fileprivate func dateChanged(_ sender: UIDatePicker) {
@@ -85,7 +90,7 @@ class NewTransactionViewController: UIViewController {
     }
     
     
-    fileprivate func updateUI(animated: Bool) {
+    fileprivate func updateUIWithTrType(animated: Bool) {
         
         var opacityChange = { }
         var completion: ((Bool) -> Void)!
@@ -131,10 +136,36 @@ class NewTransactionViewController: UIViewController {
     fileprivate func addBarButtons() {
         let backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(backTapped(sender:)))
         let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(cancelTapped(sender:)))
-        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(doneTapped(sender:)))
-        navigationItem.setLeftBarButtonItems([backButton, cancelButton], animated: false)
-        navigationItem.setRightBarButton(doneButton, animated: false)
+        var doneOrUpdateButton: UIBarButtonItem! = nil
+        var backButtons: [UIBarButtonItem]! = nil
+        
+        if oldTransaction == nil {
+            doneOrUpdateButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(doneOrUpdateTapped(sender:)))
+            backButtons = [backButton, cancelButton]
+            
+            // this is make no sence to add transaction, if we have fogotten to set account
+            if selectedAccount == nil {
+                doneOrUpdateButton.isEnabled = false
+            }
+
+        } else {
+            doneOrUpdateButton = UIBarButtonItem(title: "UPDATE", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneOrUpdateTapped(sender:)))
+            backButtons = [cancelButton]
+        }
+        
+        navigationItem.setLeftBarButtonItems(backButtons, animated: false)
+        navigationItem.setRightBarButton(doneOrUpdateButton, animated: false)
     }
+    
+    fileprivate func setupOldValues() {
+        guard let oldTransaction = oldTransaction else { return }
+        datePicker.date = oldTransaction.date
+        sumField.text = String(oldTransaction.sum)
+        // transaction category is alredy takken in oldTransaction didSet
+        transactionType = oldTransaction.transactionType
+        commentView.text = oldTransaction.comment
+    }
+
 
     @objc fileprivate func backTapped(sender: UIBarButtonItem) {
         let _ = navigationController?.popViewController(animated: true)
@@ -144,7 +175,7 @@ class NewTransactionViewController: UIViewController {
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
-    @objc fileprivate func doneTapped(sender: UIBarButtonItem) {
+    @objc fileprivate func doneOrUpdateTapped(sender: UIBarButtonItem) {
         // we really only need to validate tunable text field
         if !validator.validate(tunableField: sumField) {
             sumField.backgroundColor = UIColor.red
@@ -156,22 +187,22 @@ class NewTransactionViewController: UIViewController {
              2. tell to acccount view condtroller, that DB was updated
              3. dismiss
              */
-            
-            // MARK - NEED REFACTORING!
-            // if we open new transaction not from start page (like instant transaction)
-            // we won't have info about account. becourse for now we dont have storage for default account!
-            
-            if let transactionsVC = (self.navigationController?.presentingViewController as? UINavigationController)?.topViewController as? TransactionsViewController {
-                let transaction = FinTransaction(transactionType: transactionType, sum: realSum, category: selectedCategory, date: datePicker.date, comment: commentView.text ?? "")
-            
-                let datasource = AppSettings.sharedSettings.datasource
-                if let accountID =  transactionsVC.account?.accountID {
-                    let _ = datasource.add(finTransaction: transaction, toAccountWithID: accountID)
-                }
 
-                transactionsVC.updateTransactionsInfo()
-            }
+            // selected account must be. otherwise doneOrUpdateButton wiil be disabled
             
+            
+            let newTransaction = FinTransaction(transactionType: transactionType, sum: realSum, category: selectedCategory, date: datePicker.date, comment: commentView.text ?? "")
+            let datasource = AppSettings.sharedSettings.datasource
+            
+            if let oldTransaction = oldTransaction, !(oldTransaction.isEqualContents(to: newTransaction)) {
+                // we should update old transaction if it is changed
+                let _ = datasource.updatefinTransaction(withID: oldTransaction.transactionID, newTransaction: newTransaction)
+            } else {
+                // we should add new transaction
+                let _ = datasource.add(finTransaction: newTransaction, toAccountWithID: selectedAccount!.accountID)
+            }
+            transactionsVC?.updateTransactionsInfo()
+
             navigationController?.dismiss(animated: true, completion: nil)
             
         } else {
@@ -189,17 +220,16 @@ class NewTransactionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addBarButtons()
+        setupOldValues()
+        setupValidator()
+
         // update UI which depends on set moneyMovement
-        updateUI(animated: false)
-        
+        updateUIWithTrType(animated: false)
         
         // set name of selected category
         let title = selectedCategory?.name ?? "no selected category"
         categoriesButton.setTitle(title, for: .normal)
-     
-        addBarButtons()
-        setupValidator()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {

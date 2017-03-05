@@ -52,5 +52,12 @@ extension FinAccount : Equatable {
                 left.totalSum == right.totalSum &&
                 left.comment == right.comment
     }
+    
+    public func isEqualContents(to finAccount: FinAccount) -> Bool {
+        return  name == finAccount.name &&
+                currency == finAccount.currency &&
+                totalSum == finAccount.totalSum &&
+                comment == finAccount.comment
+    }
 }
 

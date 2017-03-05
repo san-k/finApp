@@ -43,16 +43,41 @@ class TransactionsViewController: UIViewController {
     }
     
     fileprivate func addBarButtons() {
-        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(showAddTransactionStory(sender:)))
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(showCategoriesController(sender:)))
         self.navigationItem.setRightBarButton(button, animated: false)
     }
 
-    @objc fileprivate func showAddTransactionStory(sender: UIBarButtonItem) {
-        
+    @objc fileprivate func showCategoriesController(sender: UIBarButtonItem) {
         let storyboard = UIStoryboard(name: "Categories", bundle: nil)
-        guard let controller = storyboard.instantiateInitialViewController() else {return}
+        guard let controller = storyboard.instantiateInitialViewController() as? CategoriesViewController else {return}
+        controller.account = account
+        controller.transactionsVC = self
         let nav = UINavigationController(rootViewController: controller)
         navigationController?.present(nav, animated: true, completion: nil)
+
+    }
+    
+    
+    //MARK: Long tap gesture
+    
+    @IBAction func longTapped(_ gesture: UILongPressGestureRecognizer) {
+        
+        if gesture.state == .began {
+            let point = gesture.location(in: tableView)
+            guard let indexPath = tableView.indexPathForRow(at: point) else { return }
+            if let transactions = transactions {
+                guard transactions.count > indexPath.row else { return }
+                let transaction = transactions[indexPath.row]
+                
+                let storyboard = UIStoryboard(name: "newTransactionUI", bundle: nil)
+                guard let controller = storyboard.instantiateInitialViewController() as? NewTransactionViewController else { return }
+                controller.oldTransaction = transaction
+                controller.selectedAccount = account
+                controller.transactionsVC = self
+                let nav = UINavigationController(rootViewController: controller)
+                navigationController?.present(nav, animated: true, completion: nil)
+            }
+        }
     }
 }
 

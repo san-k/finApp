@@ -42,3 +42,32 @@ struct FinTransaction {
     }
     
 }
+
+extension FinTransaction : Equatable {
+
+    public static func ==(l: FinTransaction, r: FinTransaction) -> Bool{
+        return  l.transactionID == r.transactionID &&
+                l.transactionType == r.transactionType &&
+                l.sum == r.sum &&
+                l.category == r.category &&
+                l.date == r.date &&
+                l.comment == r.comment        
+    }
+    
+    public func isEqualContents(to transaction: FinTransaction) -> Bool {
+        
+        var isEqualCategories = false
+        if let lCategory = category, let rCategory = transaction.category {
+            isEqualCategories = (lCategory.categoryID == rCategory.categoryID)
+        } else {
+            isEqualCategories = (category == transaction.category)
+        }
+        
+        return  transactionType == transaction.transactionType &&
+                sum == transaction.sum &&
+                isEqualCategories &&
+                date == transaction.date &&
+                comment == transaction.comment
+    }
+
+}

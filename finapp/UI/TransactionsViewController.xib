@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -26,10 +26,12 @@
                     <connections>
                         <outlet property="dataSource" destination="-1" id="L9X-D1-G1D"/>
                         <outlet property="delegate" destination="-1" id="Pu0-RY-cFr"/>
+                        <outletCollection property="gestureRecognizers" destination="i4E-wp-YTr" appends="YES" id="pI6-hJ-4JW"/>
                     </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="qr2-jd-WnL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ddh-bw-4iD"/>
                 <constraint firstItem="qr2-jd-WnL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="LCm-pu-1oi"/>
@@ -37,5 +39,10 @@
                 <constraint firstAttribute="trailing" secondItem="qr2-jd-WnL" secondAttribute="trailing" id="i0m-wQ-7ri"/>
             </constraints>
         </view>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="i4E-wp-YTr">
+            <connections>
+                <action selector="longTapped:" destination="-1" id="Iq6-1d-i5D"/>
+            </connections>
+        </pongPressGestureRecognizer>
     </objects>
 </document>

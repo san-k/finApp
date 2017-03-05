@@ -49,3 +49,35 @@ struct FinTransactionCategory {
     }
     
 }
+
+
+extension FinTransactionCategory : Equatable {
+    
+    public static func ==(l: FinTransactionCategory, r: FinTransactionCategory) -> Bool {
+        var isEqualIMages = false
+        if let lImage = l.image, let rImage = r.image {
+            isEqualIMages = lImage.isEqual(rImage)
+        } else {
+            isEqualIMages = (l.image == r.image)
+        }
+        
+        return  l.categoryID == r.categoryID &&
+                l.name == r.name &&
+                isEqualIMages &&
+                l.comment == r.comment
+    }
+    
+    public func isEqualContents(to category: FinTransactionCategory) -> Bool {
+        var isEqualIMages = false
+        if let lImage = image, let rImage = category.image {
+            isEqualIMages = lImage.isEqual(rImage)
+        } else {
+            isEqualIMages = (image == category.image)
+        }
+        
+        return  name == category.name &&
+                isEqualIMages &&
+                comment == category.comment
+    }
+
+}

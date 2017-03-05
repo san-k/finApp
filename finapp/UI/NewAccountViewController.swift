@@ -125,7 +125,7 @@ class NewAccountViewController: UIViewController {
             if oldAccount == nil {
                 let _ = datasource.add(finAccount: newAccount)
                 accountsVC?.updateAccountsInfo()
-            } else if newAccount != oldAccount! {
+            } else if !( newAccount.isEqualContents(to: oldAccount!) ) {
                 let _ = datasource.updateFinAccount(withID: oldAccount!.accountID, newAccount: newAccount)
                 accountsVC?.updateAccountsInfo()
             }

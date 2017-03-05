@@ -21,8 +21,6 @@ class ViewController: UIViewController {
     @IBAction func show(_ sender: Any) {
      
         let controller = AccountsViewController()
-//        controller.edgesForExtendedLayout = []
-//        controller.extendedLayoutIncludesOpaqueBars = true
         let navcontroller = self.navigationController
         navcontroller?.pushViewController(controller, animated: true)
     }
@@ -30,15 +28,13 @@ class ViewController: UIViewController {
    
     @IBAction func showCAtegories(_ sender: UIButton) {
 
-//        let controller = CategoriesViewController(nibName: "Categories", bundle: nil)
-        
-        
         let storyboard = UIStoryboard(name: "Categories", bundle: nil)
-        guard let controller = storyboard.instantiateInitialViewController() else {return}
+        guard let controller = storyboard.instantiateInitialViewController() as? CategoriesViewController else {return}
+        // hardcoded part, should be changed to take info from NSUserDefaults
+        controller.account = AppSettings.sharedSettings.datasource.getAllFinAccounts()?.first
         let nav = UINavigationController(rootViewController: controller)
         nav.navigationBar.isTranslucent = false
         navigationController?.present(nav, animated: true, completion: nil)
-        
     }
 }
 

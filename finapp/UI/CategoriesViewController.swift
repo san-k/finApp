@@ -10,7 +10,9 @@ import UIKit
 
 class CategoriesViewController: UIViewController {
 
-    open var parentCategoryID: UUID?
+    public var parentCategoryID: UUID?
+    public var account: FinAccount?
+    public var transactionsVC: TransactionsViewController?
     
     override func viewDidLoad() {
         setUpCell()
@@ -84,6 +86,8 @@ extension CategoriesViewController : UITableViewDelegate {
             let storyboard = UIStoryboard(name: "newTransactionUI", bundle: nil)
             guard let controller = storyboard.instantiateInitialViewController() as? NewTransactionViewController else { return }
             controller.selectedCategory = category
+            controller.selectedAccount = account
+            controller.transactionsVC = transactionsVC
             navigationController?.pushViewController(controller, animated: true)
         }
 
@@ -101,6 +105,9 @@ extension CategoriesViewController : CategoryCellDelegate {
             let controller = storyboard.instantiateInitialViewController()
             if let controller = controller as? CategoriesViewController {
                 controller.parentCategoryID = categoryID
+                // pass account through categories controller for newTransaction cantroller
+                controller.account = account
+                controller.transactionsVC = transactionsVC
                 self.navigationController?.pushViewController(controller, animated: true)
             }
 

@@ -223,7 +223,7 @@ extension CDDataSourse : UpdateEntity {
     }
     
     func updatefinTransaction(withID transactionID: UUID, newTransaction: FinTransaction) -> Bool {
-        if let cdTransaction = getCDFinTransaction(withPredicate: NSPredicate(format: "transaction.id = %@", transactionID.uuidString))?.first {
+        if let cdTransaction = getCDFinTransaction(withPredicate: NSPredicate(format: "transactionID = %@", transactionID.uuidString))?.first {
             cdTransaction.comment = newTransaction.comment
             cdTransaction.date = newTransaction.date as NSDate
             cdTransaction.sum = newTransaction.sum
