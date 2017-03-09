@@ -44,6 +44,8 @@
 		840FF6A91E37F21200F06684 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FF6A71E37F21200F06684 /* AccountTableViewCell.swift */; };
 		840FF6AA1E37F21200F06684 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840FF6A81E37F21200F06684 /* AccountTableViewCell.xib */; };
 		8420EAFC1E2AC06200DBF288 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8420EAFB1E2AC06200DBF288 /* AppSettings.swift */; };
+		843C8A371E6CB6BF0009151C /* newCategory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843C8A361E6CB6BF0009151C /* newCategory.storyboard */; };
+		843C8A391E6CB6E00009151C /* NewCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C8A381E6CB6E00009151C /* NewCategoryViewController.swift */; };
 		84A91D171E46A612008CD94E /* TunableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A91D161E46A612008CD94E /* TunableTextField.swift */; };
 		84A91D191E478062008CD94E /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A91D181E478062008CD94E /* Validator.swift */; };
 		84BB1C871E59DB0C00B293AD /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB1C861E59DB0C00B293AD /* CategoriesViewController.swift */; };
@@ -93,6 +95,8 @@
 		840FF6A71E37F21200F06684 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountTableViewCell.swift; path = UI/AccountTableViewCell.swift; sourceTree = "<group>"; };
 		840FF6A81E37F21200F06684 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountTableViewCell.xib; path = UI/AccountTableViewCell.xib; sourceTree = "<group>"; };
 		8420EAFB1E2AC06200DBF288 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppSettings.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		843C8A361E6CB6BF0009151C /* newCategory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = newCategory.storyboard; path = UI/newCategory.storyboard; sourceTree = "<group>"; };
+		843C8A381E6CB6E00009151C /* NewCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewCategoryViewController.swift; path = UI/NewCategoryViewController.swift; sourceTree = "<group>"; };
 		84A91D161E46A612008CD94E /* TunableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunableTextField.swift; sourceTree = "<group>"; };
 		84A91D181E478062008CD94E /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Validator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		84BB1C861E59DB0C00B293AD /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoriesViewController.swift; path = UI/CategoriesViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +175,7 @@
 		3E4D229D1E37A420005708C7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				843C8A351E6CACDF0009151C /* newCategoryUI */,
 				3EEE0F4B1E56EA8600ADDF7B /* CategoriesUI */,
 				3E5290001E5616AF009E110E /* newTransactionUI */,
 				3E23AC5F1E40EF56006F9C9D /* newAccountUI */,
@@ -261,6 +266,15 @@
 			name = resources;
 			sourceTree = "<group>";
 		};
+		843C8A351E6CACDF0009151C /* newCategoryUI */ = {
+			isa = PBXGroup;
+			children = (
+				843C8A361E6CB6BF0009151C /* newCategory.storyboard */,
+				843C8A381E6CB6E00009151C /* NewCategoryViewController.swift */,
+			);
+			name = newCategoryUI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -324,6 +338,7 @@
 				3E08B3571E1D1DC40010A3C2 /* LaunchScreen.storyboard in Resources */,
 				3E23AC6C1E423A37006F9C9D /* TransactionCategoryTableViewCell.xib in Resources */,
 				840FF6AA1E37F21200F06684 /* AccountTableViewCell.xib in Resources */,
+				843C8A371E6CB6BF0009151C /* newCategory.storyboard in Resources */,
 				3E08B3541E1D1DC40010A3C2 /* Assets.xcassets in Resources */,
 				3E6E40B71E3B76E700814FFB /* TransactionsTableViewCell.xib in Resources */,
 				3E4D22A11E37A44E005708C7 /* AccountsViewController.xib in Resources */,
@@ -345,6 +360,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EDD8A481E211319002C0666 /* Currency.swift in Sources */,
+				843C8A391E6CB6E00009151C /* NewCategoryViewController.swift in Sources */,
 				3EDD8A461E211061002C0666 /* FinAccount.swift in Sources */,
 				3E8F6DA51E21325B001565D9 /* CDTransaction+CoreDataProperties.swift in Sources */,
 				3EDD8A4A1E211527002C0666 /* FinTransaction.swift in Sources */,
