@@ -129,7 +129,7 @@ class NewTransactionViewController: UIViewController {
     fileprivate func setupValidator() {
         validator.add(validateItem: .datePicker((minDate: datePicker.minimumDate!, maxDate: datePicker.maximumDate!)), withID: datePicker.restorationIdentifier!)
         validator.add(validateItem: .tunableTextField, withID: sumField.restorationIdentifier!)
-        validator.add(validateItem: .textView(couldBeEmpty: false), withID: commentView.restorationIdentifier!)
+        validator.add(validateItem: .textView(canBeEmpty: false), withID: commentView.restorationIdentifier!)
     }
     
     

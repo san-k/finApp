@@ -12,8 +12,9 @@ import Foundation
 
 enum ValidatorItem {
     case tunableTextField
-    case datePicker((minDate: Date, maxDate:Date))
-    case textView(couldBeEmpty: Bool)
+    case simpleTextField((canBeEmpty: Bool, regExpPattern: String))
+    case datePicker((minDate: Date, maxDate: Date))
+    case textView(canBeEmpty: Bool)
 }
 
 
@@ -36,27 +37,43 @@ class Validator {
         guard let validateDate = validationDic[strID] else {return false}
         guard case let ValidatorItem.datePicker(minDate, maxDate) = validateDate else {return false}
         
-        var matched = false
+        var isValid = false
 
         if date >= minDate && date <= maxDate {
-            matched = true
+            isValid = true
         }
         
-        updateInvalidItems(for: strID, isMatched: matched)
+        updateInvalidItems(for: strID, isValid: isValid)
         
-        return matched
+        return isValid
     }
     
     func validate(textViewText text: String?, withID strID: String) -> Bool {
         
-        guard let validateText = validationDic[strID] else { return false}
-        guard case let ValidatorItem.textView(couldBeEmpty) = validateText else {return false}
+        guard let validateTextItem = validationDic[strID] else { return false}
+        guard case let ValidatorItem.textView(canBeEmpty) = validateTextItem else { return false }
         
-        let matched = couldBeEmpty || (text != nil)
+        let isValid = canBeEmpty || ((text != nil) && (text!.characters.count > 0))
         
-        updateInvalidItems(for: strID, isMatched: matched)
+        updateInvalidItems(for: strID, isValid: isValid)
         
-        return matched
+        return isValid
+    }
+    
+    func validate(simpleTextFieldText text:String?, withID strID:String) -> Bool {
+        guard let validateTextItem = validationDic[strID] else { return false }
+        guard case let ValidatorItem.simpleTextField(canBeEmpty, regExpPattern) = validateTextItem else { return false }
+        
+        // check emptiness
+        var isValid = false
+        
+        if canBeEmpty || ((text != nil) && (text!.characters.count > 0)) {
+            isValid = true
+        } else {
+            isValid = check(text: text!, forPattern: regExpPattern)
+        }
+        
+        return isValid
     }
     
     func validate(tunableField: TunableTextField) -> Bool {
@@ -69,35 +86,44 @@ class Validator {
         
         // guard case let ValidatorItem.datePicker(midDate, maxDate) = validateItem else {return false}
         
-        var matched = false
+        var isValid = false
         
-        // check for emptiness :)
-        if tunableField.text == "" {
+        // check for emptiness
+        if (tunableField.text == nil || tunableField.text == "") {
             switch tunableField.canBeEmpty {
-            case .Can, .NoValue: matched = true
-            case .Cant: matched = false
+            case .Can, .NoValue: isValid = true
+            case .Cant: isValid = false
             }
         }
         // check regExp and here we can hardly unwrap text!
-        else if let regExp = try? NSRegularExpression(pattern: tunableField.regexpPattern, options: []) {
-            let text = tunableField.text!
+        else {
+            isValid = check(text: tunableField.text!, forPattern: tunableField.regexpPattern)
+        }
+
+        updateInvalidItems(for: strID, isValid: isValid)
+        
+        return isValid
+    }
+    
+    fileprivate func check(text: String, forPattern pattern: String) -> Bool {
+        
+        if let regExp = try? NSRegularExpression(pattern: pattern, options: []) {
+            let text = text
             let nsText = text as NSString
             let fullRange = NSMakeRange(0, nsText.length)
             let matchString = regExp.stringByReplacingMatches(in: text, options: [], range: fullRange, withTemplate: "")
             
             if matchString == "" {
-                matched = true
+                return true
             }
         }
-        
-        updateInvalidItems(for: strID, isMatched: matched)
-        
-        return matched
+        return false
     }
     
-    fileprivate func updateInvalidItems(for strID: String, isMatched: Bool) {
+    
+    fileprivate func updateInvalidItems(for strID: String, isValid: Bool) {
     // work with invalid items Set
-        if isMatched {
+        if isValid {
             invalidItems.remove(strID)
         } else {
             let _ = invalidItems.insert(strID)

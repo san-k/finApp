@@ -35,7 +35,12 @@ class CategoriesViewController: UIViewController {
         let backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(backTapped(sender:)))
         let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(cancelTapped(sender:)))
         let leftButtons = parentCategoryID == nil ? [cancelButton] : [backButton, cancelButton]
+        
+        let addCatButton = UIBarButtonItem(title: "addCat", style: UIBarButtonItemStyle.plain, target: self, action: #selector(addCategoryTapped(sender:)))
+        let addSubCat = UIBarButtonItem(title: "addSubCat", style: UIBarButtonItemStyle.plain, target: self, action: #selector(addSubCategoryTapped(sender:)))
+        
         navigationItem.setLeftBarButtonItems(leftButtons, animated: false)
+        navigationItem.setRightBarButtonItems([addCatButton, addSubCat], animated: false)
     }
     
     @objc fileprivate func backTapped(sender: UIBarButtonItem) {
@@ -44,6 +49,17 @@ class CategoriesViewController: UIViewController {
     
     @objc fileprivate func cancelTapped(sender: UIBarButtonItem) {
         navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc fileprivate func addCategoryTapped(sender: UIBarButtonItem) {
+        let newCatStoryBoard = UIStoryboard(name: "newCategory", bundle: nil)
+        guard let newCatController = newCatStoryBoard.instantiateInitialViewController() as? NewCategoryViewController else {return}
+        let navController = UINavigationController(rootViewController: newCatController)
+        navigationController?.present(navController, animated: true, completion: nil)
+    }
+
+    @objc fileprivate func addSubCategoryTapped(sender: UIBarButtonItem) {
+        
     }
     
 }

@@ -43,6 +43,9 @@
 		3EEE0F4D1E56EAAA00ADDF7B /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EEE0F4C1E56EAAA00ADDF7B /* Categories.storyboard */; };
 		840FF6A91E37F21200F06684 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FF6A71E37F21200F06684 /* AccountTableViewCell.swift */; };
 		840FF6AA1E37F21200F06684 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840FF6A81E37F21200F06684 /* AccountTableViewCell.xib */; };
+		841084F01E74A682008D06AF /* CategoryImagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841084EE1E74A682008D06AF /* CategoryImagesController.swift */; };
+		841084F41E757A43008D06AF /* CategoryImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841084F21E757A43008D06AF /* CategoryImageCollectionViewCell.swift */; };
+		841084F51E757A43008D06AF /* CategoryImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841084F31E757A43008D06AF /* CategoryImageCollectionViewCell.xib */; };
 		8420EAFC1E2AC06200DBF288 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8420EAFB1E2AC06200DBF288 /* AppSettings.swift */; };
 		843C8A371E6CB6BF0009151C /* newCategory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843C8A361E6CB6BF0009151C /* newCategory.storyboard */; };
 		843C8A391E6CB6E00009151C /* NewCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C8A381E6CB6E00009151C /* NewCategoryViewController.swift */; };
@@ -94,6 +97,9 @@
 		3EEE0F4C1E56EAAA00ADDF7B /* Categories.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Categories.storyboard; path = UI/Categories.storyboard; sourceTree = "<group>"; };
 		840FF6A71E37F21200F06684 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountTableViewCell.swift; path = UI/AccountTableViewCell.swift; sourceTree = "<group>"; };
 		840FF6A81E37F21200F06684 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountTableViewCell.xib; path = UI/AccountTableViewCell.xib; sourceTree = "<group>"; };
+		841084EE1E74A682008D06AF /* CategoryImagesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryImagesController.swift; path = UI/CategoryImagesController.swift; sourceTree = "<group>"; };
+		841084F21E757A43008D06AF /* CategoryImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryImageCollectionViewCell.swift; path = UI/CategoryImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		841084F31E757A43008D06AF /* CategoryImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CategoryImageCollectionViewCell.xib; path = UI/CategoryImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		8420EAFB1E2AC06200DBF288 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppSettings.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		843C8A361E6CB6BF0009151C /* newCategory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = newCategory.storyboard; path = UI/newCategory.storyboard; sourceTree = "<group>"; };
 		843C8A381E6CB6E00009151C /* NewCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewCategoryViewController.swift; path = UI/NewCategoryViewController.swift; sourceTree = "<group>"; };
@@ -271,6 +277,9 @@
 			children = (
 				843C8A361E6CB6BF0009151C /* newCategory.storyboard */,
 				843C8A381E6CB6E00009151C /* NewCategoryViewController.swift */,
+				841084EE1E74A682008D06AF /* CategoryImagesController.swift */,
+				841084F21E757A43008D06AF /* CategoryImageCollectionViewCell.swift */,
+				841084F31E757A43008D06AF /* CategoryImageCollectionViewCell.xib */,
 			);
 			name = newCategoryUI;
 			sourceTree = "<group>";
@@ -335,6 +344,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841084F51E757A43008D06AF /* CategoryImageCollectionViewCell.xib in Resources */,
 				3E08B3571E1D1DC40010A3C2 /* LaunchScreen.storyboard in Resources */,
 				3E23AC6C1E423A37006F9C9D /* TransactionCategoryTableViewCell.xib in Resources */,
 				840FF6AA1E37F21200F06684 /* AccountTableViewCell.xib in Resources */,
@@ -376,8 +386,10 @@
 				84BB1C871E59DB0C00B293AD /* CategoriesViewController.swift in Sources */,
 				3E08B34C1E1D1DC40010A3C2 /* ViewController.swift in Sources */,
 				3E23AC7D1E48DD5B006F9C9D /* KeyboardListener.swift in Sources */,
+				841084F01E74A682008D06AF /* CategoryImagesController.swift in Sources */,
 				84F163BE1E41483700BDDF04 /* NewAccountViewController.swift in Sources */,
 				3E08B3521E1D1DC40010A3C2 /* finapp.xcdatamodeld in Sources */,
+				841084F41E757A43008D06AF /* CategoryImageCollectionViewCell.swift in Sources */,
 				3E08B34A1E1D1DC40010A3C2 /* AppDelegate.swift in Sources */,
 				84A91D191E478062008CD94E /* Validator.swift in Sources */,
 				3E8F6DAB1E213EB7001565D9 /* CDDataSource.swift in Sources */,
