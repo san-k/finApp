@@ -65,11 +65,9 @@ class Validator {
         guard case let ValidatorItem.simpleTextField(canBeEmpty, regExpPattern) = validateTextItem else { return false }
         
         // check emptiness
-        var isValid = false
+        var isValid = canBeEmpty || ((text != nil) && (text!.characters.count > 0))
         
-        if canBeEmpty || ((text != nil) && (text!.characters.count > 0)) {
-            isValid = true
-        } else {
+        if isValid == true {
             isValid = check(text: text!, forPattern: regExpPattern)
         }
         

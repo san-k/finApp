@@ -16,6 +16,10 @@ class NewCategoryViewController: UIViewController {
         case imageCollectionView
         case commentView
     }
+    
+    fileprivate struct Sizes {
+        static let switcherContentHeightConstant = CGFloat(300.0)
+    }
   
     @IBOutlet fileprivate weak var scrollView: UIScrollView!
     @IBOutlet fileprivate weak var contentView: UIView!
@@ -78,7 +82,10 @@ class NewCategoryViewController: UIViewController {
     
     fileprivate var switcherContentHeight: CGFloat {
         get { return switcherContentHeightConstraint.constant }
-        set { switcherContentHeightConstraint.constant = switcherContentHeight}
+        set {
+            switcherContentHeightConstraint.constant = newValue
+            switcherContentView.superview?.layoutIfNeeded()
+        }
     }
     
     fileprivate var parrentName: String? {
@@ -92,27 +99,55 @@ class NewCategoryViewController: UIViewController {
     }
     
     @IBAction func imageTapped(_ sender: UIButton) {
-        showImageCollectionView()
+        nameTextField.resignFirstResponder()
+        if contentViewMode != .imageCollectionView {
+            showImageCollectionView()
+        } else {
+            switcherContentHeight = 0.0
+            imagesCollectionView.isHidden = true
+            imageButton.setTitle("Image", for: UIControlState.normal)
+            contentViewMode = .none
+        }
+        
     }
 
     @IBAction func commentTapped(_ sender: UIButton) {
-        showCommentView()
+        nameTextField.resignFirstResponder()
+        if contentViewMode != .commentView {
+            showCommentView()
+        } else {
+            switcherContentHeight = 0.0
+            commentTextView.isHidden = true
+            commentButton.setTitle("Comment", for: UIControlState.normal)
+            contentViewMode = .none
+        }
+        
     }
     
     fileprivate func showCommentView() {
         if contentViewMode == .imageCollectionView {
             imagesCollectionView.isHidden = true
+            imageButton.setTitle("Image", for: UIControlState.normal)
+        }
+        if contentViewMode == .none {
+            switcherContentHeight = Sizes.switcherContentHeightConstant
         }
         contentViewMode = .commentView
         commentTextView.isHidden = false
+        commentButton.setTitle("Hide", for: UIControlState.normal)
     }
     
     fileprivate func showImageCollectionView() {
         if contentViewMode == .commentView {
             commentTextView.isHidden = true
+            commentButton.setTitle("Comment", for: UIControlState.normal)
+        }
+        if contentViewMode == .none {
+            switcherContentHeight = Sizes.switcherContentHeightConstant
         }
         contentViewMode = .imageCollectionView
         imagesCollectionView.isHidden = false
+        imageButton.setTitle("Hide", for: UIControlState.normal)
     }
     
     fileprivate func addBarButtons() {
@@ -132,13 +167,13 @@ class NewCategoryViewController: UIViewController {
     }
     
     fileprivate func setupValidator() {
-        
         validator.add(validateItem: ValidatorItem.simpleTextField((canBeEmpty: false, regExpPattern: "[A-Za-z ]{3,}")), withID: nameTextField.restorationIdentifier!)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addBarButtons()
+        setupValidator()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -159,8 +194,14 @@ extension NewCategoryViewController : UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.backgroundColor = UIColor.white
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
-        let _ = validator.validate(textViewText: textField.text, withID: textField.restorationIdentifier!)
+        if !validator.validate(simpleTextFieldText: textField.text, withID: textField.restorationIdentifier!) {
+            textField.backgroundColor = UIColor.red
+        }
     }
 }
 

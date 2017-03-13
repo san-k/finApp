@@ -13,11 +13,10 @@ class CategoryImagesController : NSObject {
     public var collectionView: UICollectionView
     
     // typealias DidSelectHandler =
-    public var didSelectHandler: (String?) -> Void
+    public var didSelectHandler: ((String?) -> ())?
     
     init(collectionView: UICollectionView) {
         self.collectionView = collectionView
-        self.didSelectHandler = { string in }
         super.init()
         setup()
     }
@@ -58,7 +57,7 @@ extension CategoryImagesController : UICollectionViewDataSource {
 extension CategoryImagesController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? CategoryImageCollectionViewCell {
-            didSelectHandler(cell.categoryImageName)
+            didSelectHandler?(cell.categoryImageName)
         }
     }
 }
