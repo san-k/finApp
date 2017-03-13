@@ -42,27 +42,34 @@ class NewCategoryViewController: UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 4.0, right: 4.0)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
+        self.imagesCollectionController = CategoryImagesController(collectionView: view)
+        self.imagesCollectionController!.didSelectHandler = {
+            self.selectedCategoryImage = ( $0 == nil ? nil : AppSettings.sharedSettings.categoryImage(with: $0!) )
+        }
+        self.addToSwitcherContentView(view: view)
+        return view
+    }()
+    
+    lazy fileprivate var commentTextView: UITextView = {
+        let view = UITextView()
+        self.addToSwitcherContentView(view: view)
+        return view
+    }()
+    
+    fileprivate func addToSwitcherContentView(view: UIView) {
         view.backgroundColor = UIColor.white
         view.layer.cornerRadius = 10.0
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.borderWidth = 1.0
         view.translatesAutoresizingMaskIntoConstraints = false
 
-        self.imagesCollectionController = CategoryImagesController(collectionView: view)
-        self.imagesCollectionController!.didSelectHandler = {
-            self.selectedCategoryImage = ( $0 == nil ? nil : AppSettings.sharedSettings.categoryImage(with: $0!) )
-        }
-        
         self.switcherContentView.addSubview(view)
         view.leadingAnchor.constraint(equalTo: self.switcherContentView.leadingAnchor).isActive = true
         view.trailingAnchor.constraint(equalTo: self.switcherContentView.trailingAnchor).isActive = true
         view.topAnchor.constraint(equalTo: self.switcherContentView.topAnchor).isActive = true
         view.bottomAnchor.constraint(equalTo: self.switcherContentView.bottomAnchor).isActive = true
         view.isHidden = true
-        
-        // also we have aditional controller for collection View
-        return view
-    }()
+    }
     
     fileprivate var selectedCategoryImage: UIImage? {
         get { return selectedCategoryImageView.image }
@@ -85,19 +92,26 @@ class NewCategoryViewController: UIViewController {
     }
     
     @IBAction func imageTapped(_ sender: UIButton) {
-        contentViewMode = .imageCollectionView
         showImageCollectionView()
     }
 
     @IBAction func commentTapped(_ sender: UIButton) {
-        contentViewMode = .commentView
         showCommentView()
     }
     
     fileprivate func showCommentView() {
+        if contentViewMode == .imageCollectionView {
+            imagesCollectionView.isHidden = true
+        }
+        contentViewMode = .commentView
+        commentTextView.isHidden = false
     }
     
     fileprivate func showImageCollectionView() {
+        if contentViewMode == .commentView {
+            commentTextView.isHidden = true
+        }
+        contentViewMode = .imageCollectionView
         imagesCollectionView.isHidden = false
     }
     
