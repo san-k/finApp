@@ -12,16 +12,19 @@ class CategoryImagesController : NSObject {
 
     public var collectionView: UICollectionView
     
-    public var didSelectHandler: ()
+    // typealias DidSelectHandler =
+    public var didSelectHandler: (String?) -> Void
     
     init(collectionView: UICollectionView) {
         self.collectionView = collectionView
+        self.didSelectHandler = { string in }
         super.init()
         setup()
     }
     
     fileprivate func setup() {
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.register(UINib(nibName: "CategoryImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CategoryImageCollectionViewCell")
     
 //        tableView.register(UINib(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: kAccountCellIdentifier)
@@ -46,7 +49,7 @@ extension CategoryImagesController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryImageCollectionViewCell", for: indexPath)
         if let cell = cell as? CategoryImageCollectionViewCell {
-            cell.setCategoryImage(from: "catewgoryImage-\(indexPath.row + 1)") // this is just magic, according to caterogy images naming
+            cell.categoryImageName = "catewgoryImage-\(indexPath.row + 1)" // this is just magic, according to caterogy images naming
         }
         return cell
     }
@@ -55,7 +58,7 @@ extension CategoryImagesController : UICollectionViewDataSource {
 extension CategoryImagesController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? CategoryImageCollectionViewCell {
-            
+            didSelectHandler(cell.categoryImageName)
         }
     }
 }

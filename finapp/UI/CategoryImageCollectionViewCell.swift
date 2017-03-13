@@ -11,19 +11,27 @@ import UIKit
 class CategoryImageCollectionViewCell: UICollectionViewCell {
 
     
-    @IBOutlet weak var categoryImageView: UIImageView! {
+    @IBOutlet fileprivate weak var categoryImageView: UIImageView! {
         didSet {
             setupImageView()
         }
     }
     
+    public var categoryImageName: String? {
+        didSet { setCategoryImage(from: categoryImageName) }
+    }
     public var categoryImage: UIImage? {
         get { return categoryImageView.image }
-        set { categoryImageView.image = newValue }
     }
     
-    public func setCategoryImage(from text: String) {
-        categoryImageView.image = AppSettings.sharedSettings.categoryImage(with: text)
+    
+    fileprivate func setCategoryImage(from name: String?) {
+        if let name = name {
+            categoryImageView.image = AppSettings.sharedSettings.categoryImage(with: name)
+        } else {
+            categoryImageView.image = nil
+        }
+        
     }
     
     fileprivate func setupImageView() {

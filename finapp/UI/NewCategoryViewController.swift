@@ -34,7 +34,7 @@ class NewCategoryViewController: UIViewController {
     
     fileprivate var validator = Validator()
     fileprivate var contentViewMode = ContentViewMode.none
-    fileprivate var imagesCollectionViewController: CategoryImagesController?
+    fileprivate var imagesCollectionController: CategoryImagesController?
     lazy fileprivate var imagesCollectionView: UICollectionView  = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 4.0
@@ -46,10 +46,13 @@ class NewCategoryViewController: UIViewController {
         view.layer.cornerRadius = 10.0
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.borderWidth = 1.0
-        
-
         view.translatesAutoresizingMaskIntoConstraints = false
-        self.imagesCollectionViewController = CategoryImagesController(collectionView: view)
+
+        self.imagesCollectionController = CategoryImagesController(collectionView: view)
+        self.imagesCollectionController!.didSelectHandler = {
+            self.selectedCategoryImage = ( $0 == nil ? nil : AppSettings.sharedSettings.categoryImage(with: $0!) )
+        }
+        
         self.switcherContentView.addSubview(view)
         view.leadingAnchor.constraint(equalTo: self.switcherContentView.leadingAnchor).isActive = true
         view.trailingAnchor.constraint(equalTo: self.switcherContentView.trailingAnchor).isActive = true
@@ -63,7 +66,7 @@ class NewCategoryViewController: UIViewController {
     
     fileprivate var selectedCategoryImage: UIImage? {
         get { return selectedCategoryImageView.image }
-        set { selectedCategoryImageView.image = newValue}
+        set { selectedCategoryImageView.image = newValue }
     }
     
     fileprivate var switcherContentHeight: CGFloat {
