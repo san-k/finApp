@@ -17,6 +17,6 @@ public class CDTransactionCategory: NSManagedObject {
         self.categoryID = finTransactionCategory.categoryID.uuidString
         self.name = finTransactionCategory.name
         self.comment = finTransactionCategory.comment
-        self.image = FinTransactionCategory.makeData(fromImage: finTransactionCategory.image)
+        self.imageName = finTransactionCategory.imageName
     }
 }

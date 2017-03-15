@@ -20,8 +20,6 @@ class CategoryTableViewCell: UITableViewCell {
 
     weak var delegate: CategoryCellDelegate?
     
-    open var categoryID: UUID?
-    
     open var categoryImage: UIImage? {
         get {return categoryImagaView.image}
         set { categoryImagaView.image = newValue}

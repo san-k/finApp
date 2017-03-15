@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var firstCategory: FinTransactionCategory!
         
         for counter in 1..<5 {
-            let category = FinTransactionCategory(name: "Food - \(counter)", image: nil, comment: "This is category N \(counter)")
+            let category = FinTransactionCategory(name: "Food - \(counter)", imageName: nil, comment: "This is category N \(counter)")
             if counter == 1 { firstCategory = category }
             let _ = dataSourse.add(transactionCategory: category, withParentCategory: nil)
 //            let tr = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 10.0 * Double(counter), category: category, date: Date(), comment: "transaction comment N \(counter)")
@@ -37,12 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         for counter in 6..<9 {
-            let tr = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 10.0 * Double(counter), category: FinTransactionCategory(name: "Food - \(counter)", image: nil, comment: "This is category N \(counter)"), date: Date(), comment: "transaction comment N \(counter)")
+            let tr = FinTransaction(transactionType: FinTransactionType.PutMoney, sum: 10.0 * Double(counter), category: FinTransactionCategory(name: "Food - \(counter)", imageName: nil, comment: "This is category N \(counter)"), date: Date(), comment: "transaction comment N \(counter)")
             let _ = dataSourse.add(finTransaction: tr, toAccountWithID: facc1.accountID)
         }
 
         for counter in 1..<10 {
-            let cat = FinTransactionCategory(name: "subcategory\(counter)", image: nil, comment: "This is subcategory\(counter)")
+            let cat = FinTransactionCategory(name: "subcategory\(counter)", imageName: nil, comment: "This is subcategory\(counter)")
             let _ = dataSourse.add(transactionCategory: cat, withParentCategory: firstCategory)
         }
         

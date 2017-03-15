@@ -10,6 +10,7 @@ import UIKit
 
 class NewCategoryViewController: UIViewController {
 
+    public var parentCategory: FinTransactionCategory?
     
     fileprivate enum ContentViewMode {
         case none
@@ -23,7 +24,15 @@ class NewCategoryViewController: UIViewController {
   
     @IBOutlet fileprivate weak var scrollView: UIScrollView!
     @IBOutlet fileprivate weak var contentView: UIView!
-    @IBOutlet fileprivate weak var parrentLabel: UILabel!
+    @IBOutlet fileprivate weak var parrentLabel: UILabel! {
+        didSet {
+            if let parentCategory = parentCategory {
+                parrentLabel.text = "Parent category: \(parentCategory.name)"
+            } else {
+                parrentLabel.text = "No parent category"
+            }
+        }
+    }
     @IBOutlet fileprivate weak var nameTextField: UITextField!
     
     @IBOutlet fileprivate weak var imageButtonBack: UIView!
@@ -39,6 +48,7 @@ class NewCategoryViewController: UIViewController {
     fileprivate var validator = Validator()
     fileprivate var contentViewMode = ContentViewMode.none
     fileprivate var imagesCollectionController: CategoryImagesController?
+    
     lazy fileprivate var imagesCollectionView: UICollectionView  = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 4.0

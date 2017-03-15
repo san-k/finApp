@@ -10,14 +10,14 @@ import UIKit
 
 class CategoriesViewController: UIViewController {
 
-    public var parentCategoryID: UUID?
+    public var parentCategory: FinTransactionCategory?
     public var account: FinAccount?
     public var transactionsVC: TransactionsViewController?
     
     override func viewDidLoad() {
         setUpCell()
         addBarButtons()
-        categories = datasorce.getAllSubCategories(forParentCatId: parentCategoryID)
+        categories = datasorce.getAllSubCategories(forParentCatId: parentCategory?.categoryID)
     }
     
     fileprivate let datasorce = AppSettings.sharedSettings.datasource
@@ -34,13 +34,12 @@ class CategoriesViewController: UIViewController {
     fileprivate func addBarButtons() {
         let backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(backTapped(sender:)))
         let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(cancelTapped(sender:)))
-        let leftButtons = parentCategoryID == nil ? [cancelButton] : [backButton, cancelButton]
+        let leftButtons = parentCategory == nil ? [cancelButton] : [backButton, cancelButton]
         
         let addCatButton = UIBarButtonItem(title: "addCat", style: UIBarButtonItemStyle.plain, target: self, action: #selector(addCategoryTapped(sender:)))
-        let addSubCat = UIBarButtonItem(title: "addSubCat", style: UIBarButtonItemStyle.plain, target: self, action: #selector(addSubCategoryTapped(sender:)))
         
         navigationItem.setLeftBarButtonItems(leftButtons, animated: false)
-        navigationItem.setRightBarButtonItems([addCatButton, addSubCat], animated: false)
+        navigationItem.setRightBarButton(addCatButton, animated: false)
     }
     
     @objc fileprivate func backTapped(sender: UIBarButtonItem) {
@@ -52,16 +51,17 @@ class CategoriesViewController: UIViewController {
     }
     
     @objc fileprivate func addCategoryTapped(sender: UIBarButtonItem) {
-        let newCatStoryBoard = UIStoryboard(name: "newCategory", bundle: nil)
-        guard let newCatController = newCatStoryBoard.instantiateInitialViewController() as? NewCategoryViewController else {return}
-        let navController = UINavigationController(rootViewController: newCatController)
-        navigationController?.present(navController, animated: true, completion: nil)
+        addSubCategoryTapped(for: parentCategory)
     }
 
-    @objc fileprivate func addSubCategoryTapped(sender: UIBarButtonItem) {
+    fileprivate func addSubCategoryTapped(for parrentCategory: FinTransactionCategory?) {
+        let newCatStoryBoard = UIStoryboard(name: "newCategory", bundle: nil)
+        guard let newCatController = newCatStoryBoard.instantiateInitialViewController() as? NewCategoryViewController else {return}
+        newCatController.parentCategory = parrentCategory
+        let navController = UINavigationController(rootViewController: newCatController)
+        navigationController?.present(navController, animated: true, completion: nil)
         
     }
-    
 }
 
 
@@ -83,7 +83,6 @@ extension CategoriesViewController : UITableViewDataSource {
         if let categories = categories, categories.count > indexPath.row {
             let category = categories[indexPath.row]
             cell.delegate = self
-            cell.categoryID = category.categoryID
             cell.categoryName = category.name
             cell.subcategoriesCount = datasorce.countSubCategories(forParentCatId: category.categoryID)
             return cell
@@ -115,22 +114,27 @@ extension CategoriesViewController : UITableViewDelegate {
 extension CategoriesViewController : CategoryCellDelegate {
     
     func showSubcategoriesTapped(on sender: UIButton, inCell cell: CategoryTableViewCell) {
+        guard let indexPath = categoriesTableView.indexPath(for: cell) else { return }
+        let row = indexPath.row
+        guard let categories = categories, categories.count > row else { return }
+        let selectedCategory = categories[row]
         
-        if let categoryID = cell.categoryID, cell.subcategoriesCount > 0 {
+        if cell.subcategoriesCount > 0 {
+            // show categories controller with subcategories
             let storyboard = UIStoryboard(name: "Categories", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()
             if let controller = controller as? CategoriesViewController {
-                controller.parentCategoryID = categoryID
+                controller.parentCategory = selectedCategory
                 // pass account through categories controller for newTransaction cantroller
                 controller.account = account
                 controller.transactionsVC = transactionsVC
                 self.navigationController?.pushViewController(controller, animated: true)
             }
-
+        } else {
+            // show new category controller to add category to selected category
+            addSubCategoryTapped(for: selectedCategory)
         }
-        
     }
-
 }
 
 

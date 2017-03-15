@@ -2,7 +2,7 @@
 //  CDTransactionCategory+CoreDataProperties.swift
 //  finapp
 //
-//  Created by Oleksandr Kachanov on 2/17/17.
+//  Created by Oleksandr Kachanov on 3/15/17.
 //  Copyright © 2017 Oleksandr Kachanov. All rights reserved.
 //
 
@@ -17,29 +17,12 @@ extension CDTransactionCategory {
     }
 
     @NSManaged public var categoryID: String
-    @NSManaged public var comment: String?
-    @NSManaged public var image: NSData?
+    @NSManaged public var comment: String
+    @NSManaged public var imageName: String?
     @NSManaged public var name: String
-    @NSManaged public var transactions: NSSet?
-    @NSManaged public var subcategories: NSSet?
     @NSManaged public var parentCategory: CDTransactionCategory?
-
-}
-
-// MARK: Generated accessors for transactions
-extension CDTransactionCategory {
-
-    @objc(addTransactionsObject:)
-    @NSManaged public func addToTransactions(_ value: CDTransaction)
-
-    @objc(removeTransactionsObject:)
-    @NSManaged public func removeFromTransactions(_ value: CDTransaction)
-
-    @objc(addTransactions:)
-    @NSManaged public func addToTransactions(_ values: NSSet)
-
-    @objc(removeTransactions:)
-    @NSManaged public func removeFromTransactions(_ values: NSSet)
+    @NSManaged public var subcategories: NSSet?
+    @NSManaged public var transactions: NSSet?
 
 }
 
@@ -57,5 +40,22 @@ extension CDTransactionCategory {
 
     @objc(removeSubcategories:)
     @NSManaged public func removeFromSubcategories(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for transactions
+extension CDTransactionCategory {
+
+    @objc(addTransactionsObject:)
+    @NSManaged public func addToTransactions(_ value: CDTransaction)
+
+    @objc(removeTransactionsObject:)
+    @NSManaged public func removeFromTransactions(_ value: CDTransaction)
+
+    @objc(addTransactions:)
+    @NSManaged public func addToTransactions(_ values: NSSet)
+
+    @objc(removeTransactions:)
+    @NSManaged public func removeFromTransactions(_ values: NSSet)
 
 }
