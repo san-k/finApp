@@ -20,6 +20,12 @@ class CategoriesViewController: UIViewController {
         categories = datasorce.getAllSubCategories(forParentCatId: parentCategory?.categoryID)
     }
     
+    public func updateCategoriesInfo()
+    {
+        categories = datasorce.getAllSubCategories(forParentCatId: parentCategory?.categoryID)
+        categoriesTableView.reloadData()
+    }
+
     fileprivate let datasorce = AppSettings.sharedSettings.datasource
     fileprivate var categories: [FinTransactionCategory]?
     
@@ -58,6 +64,7 @@ class CategoriesViewController: UIViewController {
         let newCatStoryBoard = UIStoryboard(name: "newCategory", bundle: nil)
         guard let newCatController = newCatStoryBoard.instantiateInitialViewController() as? NewCategoryViewController else {return}
         newCatController.parentCategory = parrentCategory
+        newCatController.categoriesVC = self
         let navController = UINavigationController(rootViewController: newCatController)
         navigationController?.present(navController, animated: true, completion: nil)
         

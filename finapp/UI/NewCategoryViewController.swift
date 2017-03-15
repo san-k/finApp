@@ -11,6 +11,7 @@ import UIKit
 class NewCategoryViewController: UIViewController {
 
     public var parentCategory: FinTransactionCategory?
+    public var categoriesVC: CategoriesViewController?
     
     fileprivate enum ContentViewMode {
         case none
@@ -58,7 +59,7 @@ class NewCategoryViewController: UIViewController {
         
         self.imagesCollectionController = CategoryImagesController(collectionView: view)
         self.imagesCollectionController!.didSelectHandler = {
-            self.selectedCategoryImage = ( $0 == nil ? nil : AppSettings.sharedSettings.categoryImage(with: $0!) )
+            self.selectedCategoryImageName = $0
         }
         self.addToSwitcherContentView(view: view)
         return view
@@ -85,9 +86,12 @@ class NewCategoryViewController: UIViewController {
         view.isHidden = true
     }
     
-    fileprivate var selectedCategoryImage: UIImage? {
-        get { return selectedCategoryImageView.image }
-        set { selectedCategoryImageView.image = newValue }
+    fileprivate var selectedCategoryImageName: String? {
+        didSet {
+            if let name = selectedCategoryImageName {
+            selectedCategoryImageView.image = AppSettings.sharedSettings.categoryImage(with: name)
+            }
+        }
     }
     
     fileprivate var switcherContentHeight: CGFloat {
@@ -174,6 +178,32 @@ class NewCategoryViewController: UIViewController {
     
     @objc fileprivate func doneTapped(sender: UIBarButtonItem) {
     
+        // we really only need to validate name text field
+        if !validator.validate(simpleTextFieldText: nameTextField.text, withID: nameTextField.restorationIdentifier!) {
+            nameTextField.backgroundColor = UIColor.red
+        }
+        nameTextField.resignFirstResponder()
+
+        if validator.isAllValidated {
+            /* 1. add info to DB
+             2. tell to acccount view condtroller, that DB was updated
+             3. dismiss
+             */
+            
+            let newCategory = FinTransactionCategory(name: nameTextField.text!, imageName: selectedCategoryImageName, comment: commentTextView.text)
+            let datasource = AppSettings.sharedSettings.datasource
+            
+            // here we need to add update functionality
+            let _ = datasource.add(transactionCategory: newCategory, withParentCategory: parentCategory)
+            // here we need to update some table
+            categoriesVC?.updateCategoriesInfo()
+            navigationController?.dismiss(animated: true, completion: nil)
+            
+        } else {
+            let alertController = UIAlertController(title: nil, message: "Text validation error", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     fileprivate func setupValidator() {

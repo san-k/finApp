@@ -210,10 +210,6 @@ class NewTransactionViewController: UIViewController {
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
-
-        
-        navigationController?.dismiss(animated: true, completion: nil)
-        
     }
     
     // viewController life cycle
