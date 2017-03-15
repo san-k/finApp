@@ -233,6 +233,14 @@ extension CDDataSourse : UpdateEntity {
         return false
     }
     
+    func updateCategory(withID categoryID: UUID, newCategory: FinTransactionCategory) -> Bool {
+        guard let cdCategory = getCDCategories(withPredicate: NSPredicate(format: "categoryID = %@", categoryID.uuidString))?.first else { return false }
+        cdCategory.name = newCategory.name
+        cdCategory.imageName = newCategory.imageName
+        cdCategory.comment = newCategory.comment
+        return true
+    }
+    
 }
 
 extension CDDataSourse : CalculateEntityInfo {

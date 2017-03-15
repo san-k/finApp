@@ -12,6 +12,7 @@ class NewCategoryViewController: UIViewController {
 
     public var parentCategory: FinTransactionCategory?
     public var categoriesVC: CategoriesViewController?
+    public var categoryToUpdate: FinTransactionCategory?
     
     fileprivate enum ContentViewMode {
         case none
@@ -35,12 +36,11 @@ class NewCategoryViewController: UIViewController {
         }
     }
     @IBOutlet fileprivate weak var nameTextField: UITextField!
-    
     @IBOutlet fileprivate weak var imageButtonBack: UIView!
     @IBOutlet fileprivate weak var imageButton: UIButton!
     @IBOutlet fileprivate weak var commentButtonBack: UIView!
     @IBOutlet fileprivate weak var commentButton: UIButton!
-    @IBOutlet weak var selectedCategoryImageView: UIImageView!
+    @IBOutlet fileprivate weak var selectedCategoryImageView: UIImageView!
     @IBOutlet fileprivate weak var switcherContentView: UIView!
     @IBOutlet fileprivate weak var switcherContentHeightConstraint: NSLayoutConstraint!
     
@@ -193,12 +193,14 @@ class NewCategoryViewController: UIViewController {
             let newCategory = FinTransactionCategory(name: nameTextField.text!, imageName: selectedCategoryImageName, comment: commentTextView.text)
             let datasource = AppSettings.sharedSettings.datasource
             
-            // here we need to add update functionality
-            let _ = datasource.add(transactionCategory: newCategory, withParentCategory: parentCategory)
-            // here we need to update some table
-            categoriesVC?.updateCategoriesInfo()
-            navigationController?.dismiss(animated: true, completion: nil)
             
+            if categoryToUpdate != nil && !categoryToUpdate!.isEqualContents(to: newCategory) {
+                let _ = datasource.updateCategory(withID: categoryToUpdate!.categoryID, newCategory: newCategory)
+            } else {
+                let _ = datasource.add(transactionCategory: newCategory, withParentCategory: parentCategory)
+                categoriesVC?.updateCategoriesInfo()
+                navigationController?.dismiss(animated: true, completion: nil)
+            }
         } else {
             let alertController = UIAlertController(title: nil, message: "Text validation error", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
@@ -210,10 +212,19 @@ class NewCategoryViewController: UIViewController {
         validator.add(validateItem: ValidatorItem.simpleTextField((canBeEmpty: false, regExpPattern: "[A-Za-z ]{3,}")), withID: nameTextField.restorationIdentifier!)
     }
     
+    fileprivate func prepareForUpdateIfNeeded() {
+        if let oldCat = categoryToUpdate {
+            nameTextField.text = oldCat.name
+            selectedCategoryImageName = oldCat.imageName
+            commentTextView.text = oldCat.comment
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addBarButtons()
         setupValidator()
+        prepareForUpdateIfNeeded()
     }
     
     override func viewDidAppear(_ animated: Bool) {

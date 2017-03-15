@@ -12,13 +12,14 @@ import Foundation
 protocol AddEntity {
     func add(finAccount: FinAccount) -> Bool
     func add(finTransaction: FinTransaction, toAccountWithID accountID: UUID) -> Bool
-    
     func add(transactionCategory: FinTransactionCategory, withParentCategory parentCategory: FinTransactionCategory?) -> Bool
 }
 
 protocol UpdateEntity {
     func updateFinAccount(withID accountID: UUID, newAccount: FinAccount) -> Bool
     func updatefinTransaction(withID transactionID: UUID, newTransaction: FinTransaction) -> Bool
+    func updateCategory(withID categoryID: UUID, newCategory: FinTransactionCategory) -> Bool
+
 }
 
 protocol GetEntityInfo {

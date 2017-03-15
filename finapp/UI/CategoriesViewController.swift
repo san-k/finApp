@@ -15,9 +15,14 @@ class CategoriesViewController: UIViewController {
     public var transactionsVC: TransactionsViewController?
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         setUpCell()
         addBarButtons()
-        categories = datasorce.getAllSubCategories(forParentCatId: parentCategory?.categoryID)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateCategoriesInfo()
     }
     
     public func updateCategoriesInfo()
@@ -57,13 +62,14 @@ class CategoriesViewController: UIViewController {
     }
     
     @objc fileprivate func addCategoryTapped(sender: UIBarButtonItem) {
-        addSubCategoryTapped(for: parentCategory)
+        showNewCategoryController(forParrent: parentCategory)
     }
 
-    fileprivate func addSubCategoryTapped(for parrentCategory: FinTransactionCategory?) {
+    fileprivate func showNewCategoryController(forParrent parrentCategory: FinTransactionCategory?, update oldCategory: FinTransactionCategory? = nil) {
         let newCatStoryBoard = UIStoryboard(name: "newCategory", bundle: nil)
         guard let newCatController = newCatStoryBoard.instantiateInitialViewController() as? NewCategoryViewController else {return}
         newCatController.parentCategory = parrentCategory
+        newCatController.categoryToUpdate = oldCategory
         newCatController.categoriesVC = self
         let navController = UINavigationController(rootViewController: newCatController)
         navigationController?.present(navController, animated: true, completion: nil)
@@ -91,6 +97,11 @@ extension CategoriesViewController : UITableViewDataSource {
             let category = categories[indexPath.row]
             cell.delegate = self
             cell.categoryName = category.name
+            if let imageName = category.imageName {
+                cell.categoryImage = AppSettings.sharedSettings.categoryImage(with: imageName)
+            } else {
+                cell.categoryImage = nil
+            }
             cell.subcategoriesCount = datasorce.countSubCategories(forParentCatId: category.categoryID)
             return cell
         }
@@ -116,6 +127,17 @@ extension CategoriesViewController : UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    @IBAction func longPress(_ longPress: UILongPressGestureRecognizer) {
+        if longPress.state == .began {
+            let point = longPress.location(in: categoriesTableView)
+            guard let indexPath = categoriesTableView.indexPathForRow(at: point) else { return }
+            guard categories!.count > indexPath.row else { return }
+            let category = categories![indexPath.row]
+            showNewCategoryController(forParrent: parentCategory, update: category)
+        }
+    }
+
+    
 }
 
 extension CategoriesViewController : CategoryCellDelegate {
@@ -139,7 +161,7 @@ extension CategoriesViewController : CategoryCellDelegate {
             }
         } else {
             // show new category controller to add category to selected category
-            addSubCategoryTapped(for: selectedCategory)
+            showNewCategoryController(forParrent: selectedCategory)
         }
     }
 }

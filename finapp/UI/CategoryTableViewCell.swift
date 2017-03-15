@@ -35,7 +35,15 @@ class CategoryTableViewCell: UITableViewCell {
             guard let stringNum = subCatCount.text, let intNum = Int(stringNum) else {return 0}
             return intNum
         }
-        set {subCatCount.text = String(newValue)}
+        set {
+            if newValue == 0 {
+                subCatLabel.text = "add sub cat"
+                subCatCount.text = nil
+            } else {
+                subCatLabel.text = "sub cat"
+                subCatCount.text = String(newValue)
+            }
+        }
     }
     
     public struct Locals {
@@ -45,6 +53,7 @@ class CategoryTableViewCell: UITableViewCell {
     @IBOutlet fileprivate weak var categoryImagaView: UIImageView!
     @IBOutlet fileprivate weak var name: UILabel!
     @IBOutlet fileprivate weak var subCatCount: UILabel!
+    @IBOutlet weak var subCatLabel: UILabel!
     
     @IBAction fileprivate func showSubcategories(_ sender: UIButton) {
         delegate?.showSubcategoriesTapped(on: sender, inCell: self)
