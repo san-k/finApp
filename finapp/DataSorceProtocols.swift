@@ -35,6 +35,13 @@ protocol GetEntityInfo {
     func getFinTransactionsForAccount(withID accountID: UUID) -> [FinTransaction]?
 }
 
+protocol RemoveEntity {
+    func removeFinAccount(withID accountID: UUID) -> Bool
+    func removefinTransaction(withID transactionID: UUID) -> Bool
+    func removeCategory(withID categoryID: UUID) -> Bool
+
+}
+
 
 protocol CalculateEntityInfo {
     

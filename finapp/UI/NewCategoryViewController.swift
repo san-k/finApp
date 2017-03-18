@@ -166,7 +166,8 @@ class NewCategoryViewController: UIViewController {
     
     fileprivate func addBarButtons() {
         let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(cancelTapped(sender:)))
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneTapped(sender:)))
+        let title = categoryToUpdate == nil ? "Done" : "Update"
+        let doneButton = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.done, target: self, action: #selector(doneTapped(sender:)))
         
         navigationItem.setLeftBarButton(cancelButton, animated: false)
         navigationItem.setRightBarButton(doneButton, animated: false)
@@ -199,8 +200,8 @@ class NewCategoryViewController: UIViewController {
             } else {
                 let _ = datasource.add(transactionCategory: newCategory, withParentCategory: parentCategory)
                 categoriesVC?.updateCategoriesInfo()
-                navigationController?.dismiss(animated: true, completion: nil)
             }
+            navigationController?.dismiss(animated: true, completion: nil)
         } else {
             let alertController = UIAlertController(title: nil, message: "Text validation error", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))

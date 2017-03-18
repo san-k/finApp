@@ -12,14 +12,6 @@ let kAccountCellIdentifier = "accountCellIdentifier"
 
 class AccountsViewController: UIViewController {
 
-    @IBOutlet var tableView: UITableView!
-    var datasource: AddEntity & UpdateEntity & GetEntityInfo & CalculateEntityInfo!
-    
-    /*  little cache */
-    var accounts: [FinAccount]!
-    
-    
-    
     fileprivate func setup() {
         datasource = AppSettings.sharedSettings.datasource
         setUpCell()
@@ -41,6 +33,13 @@ class AccountsViewController: UIViewController {
         updateAccountsInfo()
     }
     
+    
+    @IBOutlet fileprivate var tableView: UITableView!
+    fileprivate var datasource: AddEntity & UpdateEntity & GetEntityInfo & RemoveEntity & CalculateEntityInfo!
+    fileprivate var accounts: [FinAccount]! {
+        didSet { accounts = accounts ?? []}
+    }
+
     
     fileprivate func setUpCell() {
         tableView.register(UINib(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: kAccountCellIdentifier)
@@ -107,7 +106,19 @@ extension AccountsViewController : UITableViewDelegate {
             let account = accounts[indexPath.row]
             showNewAccountController(withOldAccount: account)
         }
-        
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            guard accounts.count > indexPath.row else { return }
+            if datasource.removeFinAccount(withID: accounts[indexPath.row].accountID) {
+                accounts.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+            }
+        }
     }
 }
 

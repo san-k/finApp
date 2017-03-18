@@ -12,18 +12,7 @@ let kTransactionCellIdentifier = "transactionCellIdentifier"
 
 class TransactionsViewController: UIViewController {
 
-
-    @IBOutlet var tableView: UITableView!
-    var datasource: AddEntity & UpdateEntity & GetEntityInfo & CalculateEntityInfo!
-
-    /*  little cache */
     public var account: FinAccount?
-    public var transactions: [FinTransaction]?
-    
-    fileprivate func setup() {
-        datasource = AppSettings.sharedSettings.datasource
-        updateTransactionsInfo()
-    }
 
     public func updateTransactionsInfo()
     {
@@ -41,6 +30,18 @@ class TransactionsViewController: UIViewController {
         tableView.estimatedRowHeight = 99
         addBarButtons()
     }
+
+    @IBOutlet fileprivate var tableView: UITableView!
+    fileprivate var datasource: AddEntity & UpdateEntity & GetEntityInfo & RemoveEntity & CalculateEntityInfo!
+    fileprivate var transactions: [FinTransaction]! {
+        didSet { transactions = transactions ?? [] }
+    }
+    
+    fileprivate func setup() {
+        datasource = AppSettings.sharedSettings.datasource
+        updateTransactionsInfo()
+    }
+
     
     fileprivate func addBarButtons() {
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(showCategoriesController(sender:)))
@@ -56,26 +57,36 @@ class TransactionsViewController: UIViewController {
         navigationController?.present(nav, animated: true, completion: nil)
 
     }
-    
-    
+}
+
+extension TransactionsViewController : UITableViewDelegate {
     //MARK: Long tap gesture
-    
     @IBAction func longTapped(_ gesture: UILongPressGestureRecognizer) {
         
         if gesture.state == .began {
             let point = gesture.location(in: tableView)
             guard let indexPath = tableView.indexPathForRow(at: point) else { return }
-            if let transactions = transactions {
-                guard transactions.count > indexPath.row else { return }
-                let transaction = transactions[indexPath.row]
-                
-                let storyboard = UIStoryboard(name: "newTransactionUI", bundle: nil)
-                guard let controller = storyboard.instantiateInitialViewController() as? NewTransactionViewController else { return }
-                controller.oldTransaction = transaction
-                controller.selectedAccount = account
-                controller.transactionsVC = self
-                let nav = UINavigationController(rootViewController: controller)
-                navigationController?.present(nav, animated: true, completion: nil)
+            guard transactions.count > indexPath.row else { return }
+            let transaction = transactions[indexPath.row]
+            
+            let storyboard = UIStoryboard(name: "newTransactionUI", bundle: nil)
+            guard let controller = storyboard.instantiateInitialViewController() as? NewTransactionViewController else { return }
+            controller.oldTransaction = transaction
+            controller.selectedAccount = account
+            controller.transactionsVC = self
+            let nav = UINavigationController(rootViewController: controller)
+            navigationController?.present(nav, animated: true, completion: nil)
+        }
+    }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            guard transactions.count > indexPath.row else { return }
+            if datasource.removefinTransaction(withID: transactions[indexPath.row].transactionID) {
+                transactions.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
             }
         }
     }
@@ -89,12 +100,10 @@ extension TransactionsViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let transactions = transactions else { return 0 }
         return transactions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let transactions = transactions else { return UITableViewCell() }
         let transactionCell =  self.tableView.dequeueReusableCell(withIdentifier: kTransactionCellIdentifier, for: indexPath) as! TransactionsTableViewCell
         if transactions.count > indexPath.row {
             let finTransaction = transactions[indexPath.row]

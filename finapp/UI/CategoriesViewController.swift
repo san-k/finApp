@@ -27,12 +27,14 @@ class CategoriesViewController: UIViewController {
     
     public func updateCategoriesInfo()
     {
-        categories = datasorce.getAllSubCategories(forParentCatId: parentCategory?.categoryID)
+        categories = datasource.getAllSubCategories(forParentCatId: parentCategory?.categoryID)
         categoriesTableView.reloadData()
     }
 
-    fileprivate let datasorce = AppSettings.sharedSettings.datasource
-    fileprivate var categories: [FinTransactionCategory]?
+    fileprivate let datasource = AppSettings.sharedSettings.datasource
+    fileprivate var categories: [FinTransactionCategory]! {
+        didSet { categories = categories ?? [] }
+    }
     
     @IBOutlet fileprivate weak var categoriesTableView: UITableView!
     
@@ -85,7 +87,7 @@ extension CategoriesViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories == nil ? 0 : categories!.count
+        return categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,7 +95,7 @@ extension CategoriesViewController : UITableViewDataSource {
             return UITableViewCell()
         }
         
-        if let categories = categories, categories.count > indexPath.row {
+        if categories.count > indexPath.row {
             let category = categories[indexPath.row]
             cell.delegate = self
             cell.categoryName = category.name
@@ -102,7 +104,7 @@ extension CategoriesViewController : UITableViewDataSource {
             } else {
                 cell.categoryImage = nil
             }
-            cell.subcategoriesCount = datasorce.countSubCategories(forParentCatId: category.categoryID)
+            cell.subcategoriesCount = datasource.countSubCategories(forParentCatId: category.categoryID)
             return cell
         }
         return UITableViewCell()
@@ -114,7 +116,7 @@ extension CategoriesViewController : UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if let categories = categories, categories.count > indexPath.row {
+        if categories.count > indexPath.row {
             let category = categories[indexPath.row]
             let storyboard = UIStoryboard(name: "newTransactionUI", bundle: nil)
             guard let controller = storyboard.instantiateInitialViewController() as? NewTransactionViewController else { return }
@@ -131,13 +133,25 @@ extension CategoriesViewController : UITableViewDelegate {
         if longPress.state == .began {
             let point = longPress.location(in: categoriesTableView)
             guard let indexPath = categoriesTableView.indexPathForRow(at: point) else { return }
-            guard categories!.count > indexPath.row else { return }
-            let category = categories![indexPath.row]
+            guard categories.count > indexPath.row else { return }
+            let category = categories[indexPath.row]
             showNewCategoryController(forParrent: parentCategory, update: category)
         }
     }
 
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            guard categories.count > indexPath.row else { return }
+            if datasource.removeCategory(withID: categories[indexPath.row].categoryID) {
+                categories.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+            }
+        }
+    }
 }
 
 extension CategoriesViewController : CategoryCellDelegate {
@@ -145,7 +159,7 @@ extension CategoriesViewController : CategoryCellDelegate {
     func showSubcategoriesTapped(on sender: UIButton, inCell cell: CategoryTableViewCell) {
         guard let indexPath = categoriesTableView.indexPath(for: cell) else { return }
         let row = indexPath.row
-        guard let categories = categories, categories.count > row else { return }
+        guard categories.count > row else { return }
         let selectedCategory = categories[row]
         
         if cell.subcategoriesCount > 0 {

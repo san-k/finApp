@@ -22,7 +22,7 @@ class AppSettings {
         return imagesDic[name]
     }
     
-    public var datasource: AddEntity & UpdateEntity & GetEntityInfo & CalculateEntityInfo;
+    public var datasource: AddEntity & UpdateEntity & GetEntityInfo & RemoveEntity & CalculateEntityInfo;
     
     
     lazy fileprivate var imagesDic: [String : UIImage] = {

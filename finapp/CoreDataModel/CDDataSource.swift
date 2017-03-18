@@ -243,6 +243,33 @@ extension CDDataSourse : UpdateEntity {
     
 }
 
+
+extension CDDataSourse : RemoveEntity {
+    func removeFinAccount(withID accountID: UUID) -> Bool {
+        let cdAccount = getCDFinAccount(withID: accountID)
+        return remove(managedObject: cdAccount)
+    }
+    
+    func removefinTransaction(withID transactionID: UUID) -> Bool {
+        let cdTransaction = getCDFinTransaction(withPredicate: NSPredicate(format: "transactionID = %@", transactionID.uuidString))?.first
+        return remove(managedObject: cdTransaction)
+    }
+    func removeCategory(withID categoryID: UUID) -> Bool {
+        let cdCategory = getCDTransactionCategory(withID: categoryID)
+        return remove(managedObject: cdCategory)
+    }
+    
+    fileprivate func remove(managedObject: NSManagedObject?) -> Bool {
+        if let managedObject = managedObject {
+            context.delete(managedObject)
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
+
 extension CDDataSourse : CalculateEntityInfo {
 
     func countSubCategories(forParentCatId parentCatId: UUID?) -> Int {
