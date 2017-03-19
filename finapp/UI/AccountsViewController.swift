@@ -12,11 +12,16 @@ let kAccountCellIdentifier = "accountCellIdentifier"
 
 class AccountsViewController: UIViewController {
 
-    fileprivate func setup() {
-        datasource = AppSettings.sharedSettings.datasource
-        setUpCell()
-        addBarButtons()
+    // we reuse this controller in different modes
+    // behavious differs by didSelectRow... in accounts table
+    // showTransactions - shows transactionscontroller with transactions for this account
+    // selectDefaultAccount - goes back to summary page and sets selected accouns as sdefault acoount
+    public enum AccountsControllerMode {
+        case showTransactions
+        case selectDefaultAccount
     }
+    
+    public var controllerMode: AccountsControllerMode?
     
     func updateAccountsInfo() {
         accounts = datasource.getAllFinAccounts()
@@ -35,12 +40,18 @@ class AccountsViewController: UIViewController {
     
     
     @IBOutlet fileprivate var tableView: UITableView!
-    fileprivate var datasource: AddEntity & UpdateEntity & GetEntityInfo & RemoveEntity & CalculateEntityInfo!
+    
+    fileprivate var datasource = AppSettings.sharedSettings.datasource
     fileprivate var accounts: [FinAccount]! {
         didSet { accounts = accounts ?? []}
     }
 
     
+    fileprivate func setup() {
+        setUpCell()
+        addBarButtons()
+    }
+
     fileprivate func setUpCell() {
         tableView.register(UINib(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: kAccountCellIdentifier)
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -89,17 +100,28 @@ extension AccountsViewController : UITableViewDataSource {
 
 extension AccountsViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
-        let row = indexPath.row
-        guard accounts.count > row else { return }
-        let account = accounts[row]
+        guard let controllerMode = controllerMode else { return }
+        guard accounts.count > indexPath.row else { return }
+        let account = accounts[indexPath.row]
+        
+        switch controllerMode {
+        case .selectDefaultAccount: setDefaultAccount(account)
+        case .showTransactions: pushTransactionsController(for: account)
+        }
+    }
+    
+    fileprivate func pushTransactionsController(for account: FinAccount) {
         let transactionsController = TransactionsViewController()
         transactionsController.account = account
         self.navigationController?.pushViewController(transactionsController, animated: true)
     }
     
+    fileprivate func setDefaultAccount(_ account: FinAccount) {
+        AppSettings.sharedSettings.defaultAccount = account
+        let _ = self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func longTappedOnTableView(_ longPress: UILongPressGestureRecognizer) {
-        
         if longPress.state == .began {
             let point = longPress.location(in: tableView)
             guard let indexPath = tableView.indexPathForRow(at: point) else { return }
@@ -112,6 +134,7 @@ extension AccountsViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             guard accounts.count > indexPath.row else { return }

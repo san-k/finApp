@@ -23,7 +23,7 @@ class AppSettings {
     }
     
     public var datasource: AddEntity & UpdateEntity & GetEntityInfo & RemoveEntity & CalculateEntityInfo;
-    
+    public var defaultAccount: FinAccount?
     
     lazy fileprivate var imagesDic: [String : UIImage] = {
         var dic = [String : UIImage]()

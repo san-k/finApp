@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3E08B34A1E1D1DC40010A3C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08B3491E1D1DC40010A3C2 /* AppDelegate.swift */; };
-		3E08B34C1E1D1DC40010A3C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08B34B1E1D1DC40010A3C2 /* ViewController.swift */; };
-		3E08B34F1E1D1DC40010A3C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E08B34D1E1D1DC40010A3C2 /* Main.storyboard */; };
+		3E08B34C1E1D1DC40010A3C2 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08B34B1E1D1DC40010A3C2 /* SummaryViewController.swift */; };
+		3E08B34F1E1D1DC40010A3C2 /* Summary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E08B34D1E1D1DC40010A3C2 /* Summary.storyboard */; };
 		3E08B3521E1D1DC40010A3C2 /* finapp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E08B3501E1D1DC40010A3C2 /* finapp.xcdatamodeld */; };
 		3E08B3541E1D1DC40010A3C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E08B3531E1D1DC40010A3C2 /* Assets.xcassets */; };
 		3E08B3571E1D1DC40010A3C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E08B3551E1D1DC40010A3C2 /* LaunchScreen.storyboard */; };
@@ -61,8 +61,8 @@
 /* Begin PBXFileReference section */
 		3E08B3461E1D1DC40010A3C2 /* finapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = finapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E08B3491E1D1DC40010A3C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3E08B34B1E1D1DC40010A3C2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3E08B34E1E1D1DC40010A3C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3E08B34B1E1D1DC40010A3C2 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
+		3E08B34E1E1D1DC40010A3C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Summary.storyboard; sourceTree = "<group>"; };
 		3E08B3511E1D1DC40010A3C2 /* finapp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = finapp.xcdatamodel; sourceTree = "<group>"; };
 		3E08B3531E1D1DC40010A3C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E08B3561E1D1DC40010A3C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -185,8 +185,8 @@
 				3EEE0F4B1E56EA8600ADDF7B /* CategoriesUI */,
 				3E5290001E5616AF009E110E /* newTransactionUI */,
 				3E23AC5F1E40EF56006F9C9D /* newAccountUI */,
-				3E08B34D1E1D1DC40010A3C2 /* Main.storyboard */,
-				3E08B34B1E1D1DC40010A3C2 /* ViewController.swift */,
+				3E08B34D1E1D1DC40010A3C2 /* Summary.storyboard */,
+				3E08B34B1E1D1DC40010A3C2 /* SummaryViewController.swift */,
 				3E6E40AF1E3B75F800814FFB /* Accounts UI */,
 				3E23AC5E1E40E46B006F9C9D /* TransactionsUI */,
 			);
@@ -353,7 +353,7 @@
 				3E6E40B71E3B76E700814FFB /* TransactionsTableViewCell.xib in Resources */,
 				3E4D22A11E37A44E005708C7 /* AccountsViewController.xib in Resources */,
 				84F163C31E46923E00BDDF04 /* CurrencyTableViewCell.xib in Resources */,
-				3E08B34F1E1D1DC40010A3C2 /* Main.storyboard in Resources */,
+				3E08B34F1E1D1DC40010A3C2 /* Summary.storyboard in Resources */,
 				3ED84F391E56F013007FF267 /* CategoryTableViewCell.xib in Resources */,
 				3E5290061E561864009E110E /* newTransactionUI.storyboard in Resources */,
 				3E6E40B31E3B768400814FFB /* TransactionsViewController.xib in Resources */,
@@ -384,7 +384,7 @@
 				3E6E40B61E3B76E700814FFB /* TransactionsTableViewCell.swift in Sources */,
 				3E8F6DA71E21325B001565D9 /* CDFinAccount+CoreDataProperties.swift in Sources */,
 				84BB1C871E59DB0C00B293AD /* CategoriesViewController.swift in Sources */,
-				3E08B34C1E1D1DC40010A3C2 /* ViewController.swift in Sources */,
+				3E08B34C1E1D1DC40010A3C2 /* SummaryViewController.swift in Sources */,
 				3E23AC7D1E48DD5B006F9C9D /* KeyboardListener.swift in Sources */,
 				841084F01E74A682008D06AF /* CategoryImagesController.swift in Sources */,
 				84F163BE1E41483700BDDF04 /* NewAccountViewController.swift in Sources */,
@@ -409,12 +409,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3E08B34D1E1D1DC40010A3C2 /* Main.storyboard */ = {
+		3E08B34D1E1D1DC40010A3C2 /* Summary.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				3E08B34E1E1D1DC40010A3C2 /* Base */,
 			);
-			name = Main.storyboard;
+			name = Summary.storyboard;
 			sourceTree = "<group>";
 		};
 		3E08B3551E1D1DC40010A3C2 /* LaunchScreen.storyboard */ = {

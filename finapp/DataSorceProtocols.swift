@@ -47,5 +47,8 @@ protocol CalculateEntityInfo {
     
     // calculate amount of money which was spent during some perion of time...
 
+    func sumOf(plusTransactionsAfAccountID accountID: UUID, fromDate: Date, toDate: Date) -> Double?
+    func sumOf(minusTransactionsAfAccountID accountID: UUID, fromDate: Date, toDate: Date) -> Double?
+    
     func countSubCategories(forParentCatId parentCatId: UUID?) -> Int
 }

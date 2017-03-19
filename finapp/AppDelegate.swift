@@ -46,8 +46,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let _ = dataSourse.add(transactionCategory: cat, withParentCategory: firstCategory)
         }
         
-        
-        
+        let _ = dataSourse.sumOf(plusTransactionsAfAccountID: facc1.accountID, fromDate: Date().addingTimeInterval(-(60 * 60 * 24 * 5)), toDate:  Date().addingTimeInterval(60 * 60 * 24 * 5))
+
+        let _ = dataSourse.sumOf(minusTransactionsAfAccountID: facc1.accountID, fromDate: Date().addingTimeInterval(-(60 * 60 * 24 * 5)), toDate:  Date().addingTimeInterval(60 * 60 * 24 * 5))
+
         return true
     }
 

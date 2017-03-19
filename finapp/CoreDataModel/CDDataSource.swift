@@ -287,6 +287,88 @@ extension CDDataSourse : CalculateEntityInfo {
 
     }
     
+    func sumOf(plusTransactionsAfAccountID accountID: UUID, fromDate: Date, toDate: Date) -> Double? {
+        let predicate = NSPredicate(format: "(date >= %@) and (date <= %@) and (transactionType = %d)", fromDate as NSDate, toDate as NSDate, FinTransactionType.PutMoney.rawValue)
+        if let transactions = getCDFinTransaction(withPredicate: predicate) {
+            let sum = transactions.reduce(0.0, { $0 + $1.sum})
+            print("plus sum = \(sum)")
+            return sum
+        }
+        return 0.0
+    }
+    
+//        var amountTotal : Double = 0
+//        
+//        // Step 1:
+//        // - Create the summing expression on the amount attribute.
+//        // - Name the expression result as 'amountTotal'.
+//        // - Assign the expression result data type as a Double.
+//        
+//        let expression = NSExpressionDescription()
+//        expression.expression =  NSExpression(forFunction: "sum:", arguments:[NSExpression(forKeyPath: "sum")])
+//        expression.name = "amountTotal";
+//        expression.expressionResultType = NSAttributeType.doubleAttributeType
+//        
+//        // Step 2:
+//        // - Create the fetch request for the Movement entity.
+//        // - Indicate that the fetched properties are those that were
+//        //   described in `expression`.
+//        // - Indicate that the result type is a dictionary.
+//        
+//        let fetchRequest = NSFetchRequest<NSDictionary>(entityName: "CDTransaction")
+//        fetchRequest.propertiesToFetch = [expression]
+//        fetchRequest.resultType = .dictionaryResultType
+//        
+//        // Step 3:
+//        // - Execute the fetch request which returns an array.
+//        // - There will only be one result. Get the first array
+//        //   element and assign to 'resultMap'.
+//        // - The summed amount value is in the dictionary as
+//        //   'amountTotal'. This will be summed value.
+//        
+//        do {
+//            let results = try context.fetch(fetchRequest)
+//            let resultMap = results[0] as! [String:Double]
+//            amountTotal = resultMap["amountTotal"]!
+//            print(amountTotal)
+//        } catch let error as NSError {
+//            NSLog("Error when summing amounts: \(error.localizedDescription)")
+//        }
+//        
+//        return amountTotal
+        
+//        
+//        let request = NSFetchRequest<NSDictionary>(entityName: "CDTransaction")
+//        // request.predicate = NSPredicate(format: "(date >= %@) and (date <= %@)", fromDate as NSDate, toDate as NSDate)
+////        request.predicate = NSPredicate(format: "(date >= %@) and (date <= %@) and (transactionType = %d)", fromDate as NSDate, toDate as NSDate, FinTransactionType.PutMoney.rawValue)
+//        request.resultType = .dictionaryResultType
+//        
+//        let description = NSExpressionDescription()
+//        description.name = "moneySum"
+//        // NSExpression(forFunction: "sum:", arguments:[NSExpression(forKeyPath: "amount")])
+//        description.expression = NSExpression(forFunction: "sum:", arguments: [NSExpression(forKeyPath:"sum")])
+//        description.expressionResultType = NSAttributeType.doubleAttributeType
+//        
+//        request.propertiesToFetch = [description]
+//
+//        if let results = try? context.fetch(request){
+//            print(results)
+//            // print(results[0]["moneySum"] ?? "noValue")
+//        } else {
+//            print("fail")
+//        }
+//        return nil
+    
+    func sumOf(minusTransactionsAfAccountID accountID: UUID, fromDate: Date, toDate: Date) -> Double?
+    {
+        let predicate = NSPredicate(format: "(date >= %@) and (date <= %@) and (transactionType = %d)", fromDate as NSDate, toDate as NSDate, FinTransactionType.TakeMoney.rawValue)
+        if let transactions = getCDFinTransaction(withPredicate: predicate) {
+            let sum = transactions.reduce(0.0, { $0 + $1.sum})
+            print("minus sum = \(sum)")
+            return sum
+        }
+        return 0.0
+    }
 }
 
 

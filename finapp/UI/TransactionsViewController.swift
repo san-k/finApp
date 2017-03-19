@@ -24,24 +24,18 @@ class TransactionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        updateTransactionsInfo()
+        addBarButtons()
         tableView.register(UINib(nibName: "TransactionsTableViewCell", bundle: nil), forCellReuseIdentifier: kTransactionCellIdentifier)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 99
-        addBarButtons()
     }
 
     @IBOutlet fileprivate var tableView: UITableView!
-    fileprivate var datasource: AddEntity & UpdateEntity & GetEntityInfo & RemoveEntity & CalculateEntityInfo!
+    fileprivate var datasource = AppSettings.sharedSettings.datasource
     fileprivate var transactions: [FinTransaction]! {
         didSet { transactions = transactions ?? [] }
     }
-    
-    fileprivate func setup() {
-        datasource = AppSettings.sharedSettings.datasource
-        updateTransactionsInfo()
-    }
-
     
     fileprivate func addBarButtons() {
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(showCategoriesController(sender:)))

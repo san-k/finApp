@@ -10,7 +10,7 @@ import UIKit
 
 
 
-class ViewController: UIViewController {
+class SummaryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     @IBAction func show(_ sender: Any) {
      
         let controller = AccountsViewController()
+        controller.controllerMode = AccountsViewController.AccountsControllerMode.showTransactions
         let navcontroller = self.navigationController
         navcontroller?.pushViewController(controller, animated: true)
     }
