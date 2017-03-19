@@ -69,6 +69,7 @@ extension CDDataSourse : AddEntity {
         
         let category = CDTransactionCategory(finTransactionCategory: transactionCategory, context: context)
         category.parentCategory = parentCDCategory
+        category.parentCategory?.subcategoriesCount += 1
 
         return true
     }

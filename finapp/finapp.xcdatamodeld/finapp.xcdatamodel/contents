@@ -14,21 +14,22 @@
         <attribute name="sum" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="transactionID" attributeType="String" syncable="YES"/>
         <attribute name="transactionType" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="account" maxCount="1" deletionRule="No Action" destinationEntity="CDFinAccount" inverseName="transactions" inverseEntity="CDFinAccount" syncable="YES"/>
-        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDTransactionCategory" inverseName="transactions" inverseEntity="CDTransactionCategory" syncable="YES"/>
+        <relationship name="account" maxCount="1" deletionRule="Deny" destinationEntity="CDFinAccount" inverseName="transactions" inverseEntity="CDFinAccount" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="CDTransactionCategory" inverseName="transactions" inverseEntity="CDTransactionCategory" syncable="YES"/>
     </entity>
     <entity name="CDTransactionCategory" representedClassName="CDTransactionCategory" syncable="YES">
         <attribute name="categoryID" attributeType="String" syncable="YES"/>
         <attribute name="comment" attributeType="String" syncable="YES"/>
         <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="parentCategory" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CDTransactionCategory" inverseName="subcategories" inverseEntity="CDTransactionCategory" syncable="YES"/>
-        <relationship name="subcategories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTransactionCategory" inverseName="parentCategory" inverseEntity="CDTransactionCategory" syncable="YES"/>
-        <relationship name="transactions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTransaction" inverseName="category" inverseEntity="CDTransaction" syncable="YES"/>
+        <attribute name="subcategoriesCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="parentCategory" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="CDTransactionCategory" inverseName="subcategories" inverseEntity="CDTransactionCategory" syncable="YES"/>
+        <relationship name="subcategories" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDTransactionCategory" inverseName="parentCategory" inverseEntity="CDTransactionCategory" syncable="YES"/>
+        <relationship name="transactions" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="CDTransaction" inverseName="category" inverseEntity="CDTransaction" syncable="YES"/>
     </entity>
     <elements>
         <element name="CDFinAccount" positionX="-306" positionY="24" width="128" height="133"/>
         <element name="CDTransaction" positionX="-83" positionY="27" width="128" height="148"/>
-        <element name="CDTransactionCategory" positionX="144" positionY="35" width="191" height="150"/>
+        <element name="CDTransactionCategory" positionX="144" positionY="35" width="191" height="163"/>
     </elements>
 </model>

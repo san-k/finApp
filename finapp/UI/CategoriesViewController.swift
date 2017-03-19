@@ -94,20 +94,15 @@ extension CategoriesViewController : UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.Locals.reuseIdentifier, for: indexPath) as? CategoryTableViewCell else {
             return UITableViewCell()
         }
-        
+        cell.selectionStyle = .none
         if categories.count > indexPath.row {
-            let category = categories[indexPath.row]
             cell.delegate = self
-            cell.categoryName = category.name
-            if let imageName = category.imageName {
-                cell.categoryImage = AppSettings.sharedSettings.categoryImage(with: imageName)
-            } else {
-                cell.categoryImage = nil
-            }
-            cell.subcategoriesCount = datasource.countSubCategories(forParentCatId: category.categoryID)
-            return cell
+            cell.set(from: categories[indexPath.row])
+        } else  {
+            cell.delegate = nil
+            cell.set(from: nil)
         }
-        return UITableViewCell()
+        return cell
     }
 
 }

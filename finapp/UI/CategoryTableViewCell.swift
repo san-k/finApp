@@ -30,9 +30,9 @@ class CategoryTableViewCell: UITableViewCell {
         set {name.text = newValue}
     }
     
-    open var subcategoriesCount:Int {
+    open var subcategoriesCount: Int32 {
         get {
-            guard let stringNum = subCatCount.text, let intNum = Int(stringNum) else {return 0}
+            guard let stringNum = subCatCount.text, let intNum = Int32(stringNum) else {return 0}
             return intNum
         }
         set {
@@ -48,6 +48,24 @@ class CategoryTableViewCell: UITableViewCell {
     
     public struct Locals {
         static let reuseIdentifier = "CategoryTableViewCell"
+    }
+    
+    public func set(from category: FinTransactionCategory?) {
+        if let category = category {
+            name.text = category.name
+            if let imageName = category.imageName {
+                categoryImagaView.image = AppSettings.sharedSettings.categoryImage(with: imageName)
+            } else {
+                categoryImagaView.image = nil
+            }
+            subcategoriesCount = category.subcategoriesCount
+            // subcategoriesCount = datasource.countSubCategories(forParentCatId: category.categoryID)
+        } else  {
+            name.text = nil
+            categoryImagaView.image = nil
+            subCatLabel.text = nil
+            subCatCount.text = nil
+        }
     }
     
     @IBOutlet fileprivate weak var categoryImagaView: UIImageView!

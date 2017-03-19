@@ -2,7 +2,7 @@
 //  CDTransactionCategory+CoreDataProperties.swift
 //  finapp
 //
-//  Created by Oleksandr Kachanov on 3/15/17.
+//  Created by Oleksandr Kachanov on 3/19/17.
 //  Copyright © 2017 Oleksandr Kachanov. All rights reserved.
 //
 
@@ -20,9 +20,10 @@ extension CDTransactionCategory {
     @NSManaged public var comment: String
     @NSManaged public var imageName: String?
     @NSManaged public var name: String
+    @NSManaged public var subcategoriesCount: Int32
     @NSManaged public var parentCategory: CDTransactionCategory?
-    @NSManaged public var subcategories: NSSet?
-    @NSManaged public var transactions: NSSet?
+    @NSManaged public var subcategories: NSSet
+    @NSManaged public var transactions: NSSet
 
 }
 

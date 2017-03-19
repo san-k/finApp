@@ -12,11 +12,15 @@ import CoreData
 @objc(CDTransactionCategory)
 public class CDTransactionCategory: NSManagedObject {
 
-    convenience init(finTransactionCategory: FinTransactionCategory, context:NSManagedObjectContext) {
+    convenience init(finTransactionCategory: FinTransactionCategory, context:NSManagedObjectContext, parrentCategoryID: UUID? = nil) {
         self.init(context:context)
         self.categoryID = finTransactionCategory.categoryID.uuidString
         self.name = finTransactionCategory.name
         self.comment = finTransactionCategory.comment
         self.imageName = finTransactionCategory.imageName
+    }
+    
+    public override func prepareForDeletion() {
+        parentCategory?.subcategoriesCount -= 1
     }
 }

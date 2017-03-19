@@ -8,21 +8,26 @@
 
 import UIKit
 
-protocol AccountsCellDelegate : class {
-    func accessoryTapped(_ sender: UIButton, inCell cell:UITableViewCell)
-}
-
 class AccountTableViewCell: UITableViewCell {
 
-    weak var delegate: AccountsCellDelegate?
-    
-    @IBOutlet weak var accountImage: UIImageView!
-    @IBOutlet weak var accountName: UILabel!
-    @IBOutlet weak var accountSum: UILabel!
+    @IBOutlet fileprivate weak var accountImage: UIImageView!
+    @IBOutlet fileprivate weak var accountName: UILabel!
+    @IBOutlet fileprivate weak var accountSumLabel: UILabel!
 
-    @IBAction func accessoryTapped(_ sender: UIButton) {
-        delegate?.accessoryTapped(sender, inCell: self)
+    public func set(from finAccount: FinAccount?) {
+        guard let account = finAccount else {
+            accountName.text = ""
+            accountImage = nil
+            accountSumLabel.text = ""
+            return
+        }
         
+        accountName.text = account.name
+        switch account.totalSum  {
+        case let s where s > 0.0 : accountSumLabel.textColor = UIColor.green
+        case let s where s < 0.0 : accountSumLabel.textColor = UIColor.red
+        default: accountSumLabel.textColor = UIColor.black
+        }
+        accountSumLabel.text = String(account.totalSum)
     }
-    
 }

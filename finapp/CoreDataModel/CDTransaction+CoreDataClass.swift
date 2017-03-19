@@ -29,4 +29,12 @@ public class CDTransaction: NSManagedObject {
         }
     }
     
+    public override func prepareForDeletion() {
+        super.prepareForDeletion()
+        let trType = FinTransactionType(rawValue: Int(transactionType))!
+        switch trType {
+        case .PutMoney: account.sum -= sum
+        case .TakeMoney: account.sum += sum
+        }
+    }
 }

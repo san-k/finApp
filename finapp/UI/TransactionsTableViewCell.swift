@@ -10,13 +10,31 @@ import UIKit
 
 class TransactionsTableViewCell: UITableViewCell {
 
-    @IBOutlet var comment: UILabel!
+    @IBOutlet fileprivate var comment: UILabel!
     @IBOutlet fileprivate var sumLabel: UILabel!
-    @IBOutlet var category: UILabel!
-    @IBOutlet var categoryImage: UIImageView!
-    @IBOutlet var date: UILabel!
+    @IBOutlet fileprivate var category: UILabel!
+    @IBOutlet fileprivate var categoryImage: UIImageView!
+    @IBOutlet fileprivate var date: UILabel!
     
-    public func set(sum: Double, transactionType: FinTransactionType) {
+    public func set(from finTransaction: FinTransaction?) {
+        if let finTransaction = finTransaction {
+            category.text = finTransaction.category?.name
+            comment.text = finTransaction.comment
+            set(sum: finTransaction.sum, transactionType: finTransaction.transactionType)
+        
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US")
+            formatter.dateFormat = "dd.MM.YYYY"
+            date.text = formatter.string(from: finTransaction.date)
+        } else {
+            category.text = ""
+            comment.text = ""
+            sumLabel.text = ""
+            date.text = ""
+        }
+    }
+    
+    fileprivate func set(sum: Double, transactionType: FinTransactionType) {
         
         // we can't change parameter
         var localSum = sum

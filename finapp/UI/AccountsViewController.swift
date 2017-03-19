@@ -77,10 +77,11 @@ extension AccountsViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: kAccountCellIdentifier, for: indexPath) as! AccountTableViewCell
-        cell.delegate = self
+        cell.selectionStyle = .none
         if accounts.count > indexPath.row {
-            cell.accountName.text = accounts[indexPath.row].name
-            cell.accountSum.text = String(accounts[indexPath.row].totalSum)
+            cell.set(from: accounts[indexPath.row])
+        } else {
+            cell.set(from: nil)
         }
         return cell
     }
@@ -120,13 +121,4 @@ extension AccountsViewController : UITableViewDelegate {
             }
         }
     }
-}
-
-    // MARK: AccountsCellDelegate
-extension AccountsViewController : AccountsCellDelegate {
-
-    func accessoryTapped(_ sender: UIButton, inCell cell: UITableViewCell) {
-        
-    }
-
 }

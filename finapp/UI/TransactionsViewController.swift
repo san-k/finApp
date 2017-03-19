@@ -105,18 +105,12 @@ extension TransactionsViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let transactionCell =  self.tableView.dequeueReusableCell(withIdentifier: kTransactionCellIdentifier, for: indexPath) as! TransactionsTableViewCell
+        transactionCell.selectionStyle = .none
         if transactions.count > indexPath.row {
-            let finTransaction = transactions[indexPath.row]
-            transactionCell.category.text = finTransaction.category?.name
-            transactionCell.comment.text = finTransaction.comment
-            transactionCell.set(sum: finTransaction.sum, transactionType: finTransaction.transactionType)
-            
-            let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: "en_US")
-            formatter.dateFormat = "dd.MM.YYYY"
-            transactionCell.date.text = formatter.string(from: finTransaction.date)
+            transactionCell.set(from: transactions[indexPath.row])
+        } else {
+            transactionCell.set(from: nil)
         }
-        
         return transactionCell
     }
 }

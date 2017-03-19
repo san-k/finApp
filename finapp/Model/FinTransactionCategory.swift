@@ -12,9 +12,10 @@ import UIKit
 struct FinTransactionCategory {
     
     let categoryID: UUID
-    var name : String
-    var imageName : String?
-    var comment : String
+    var name: String
+    var imageName: String?
+    var comment: String
+    var subcategoriesCount: Int32
     
     init(name: String, imageName: String?, comment: String?) {
         self.init(categoryID: UUID(), name: name, imageName: imageName, comment: comment)
@@ -25,6 +26,7 @@ struct FinTransactionCategory {
         self.name = name
         self.imageName = imageName
         self.comment = comment ?? ""
+        self.subcategoriesCount = 0
     }
     
     init(fromCDTransactionCategory cdTransactionCategory: CDTransactionCategory) {
@@ -32,6 +34,7 @@ struct FinTransactionCategory {
                   name: cdTransactionCategory.name,
                   imageName: cdTransactionCategory.imageName,
                   comment: cdTransactionCategory.comment)
+        subcategoriesCount = cdTransactionCategory.subcategoriesCount
     }
 }
 
@@ -43,7 +46,8 @@ extension FinTransactionCategory : Equatable {
         return  l.categoryID == r.categoryID &&
                 l.name == r.name &&
                 l.imageName == r.imageName &&
-                l.comment == r.comment
+                l.comment == r.comment &&
+                l.subcategoriesCount == r.subcategoriesCount
     }
     
     public func isEqualContents(to category: FinTransactionCategory) -> Bool {
