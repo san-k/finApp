@@ -181,12 +181,12 @@
 		3E4D229D1E37A420005708C7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3E08B34D1E1D1DC40010A3C2 /* Summary.storyboard */,
+				3E08B34B1E1D1DC40010A3C2 /* SummaryViewController.swift */,
 				843C8A351E6CACDF0009151C /* newCategoryUI */,
 				3EEE0F4B1E56EA8600ADDF7B /* CategoriesUI */,
 				3E5290001E5616AF009E110E /* newTransactionUI */,
 				3E23AC5F1E40EF56006F9C9D /* newAccountUI */,
-				3E08B34D1E1D1DC40010A3C2 /* Summary.storyboard */,
-				3E08B34B1E1D1DC40010A3C2 /* SummaryViewController.swift */,
 				3E6E40AF1E3B75F800814FFB /* Accounts UI */,
 				3E23AC5E1E40E46B006F9C9D /* TransactionsUI */,
 			);
