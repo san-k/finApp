@@ -227,6 +227,13 @@ extension CDDataSourse : UpdateEntity {
         if let cdTransaction = getCDFinTransaction(withPredicate: NSPredicate(format: "transactionID = %@", transactionID.uuidString))?.first {
             cdTransaction.comment = newTransaction.comment
             cdTransaction.date = newTransaction.date as NSDate
+            
+            guard let oldTransactionType = FinTransactionType(rawValue: Int(cdTransaction.transactionType)) else { return false }
+            let realOldTransactionSum = oldTransactionType == .TakeMoney ? cdTransaction.sum * -1 : cdTransaction.sum
+            let realNewTransactionSum = newTransaction.transactionType == .TakeMoney ? newTransaction.sum * -1 : newTransaction.sum
+            cdTransaction.account.sum += realNewTransactionSum
+            cdTransaction.account.sum -= realOldTransactionSum
+
             cdTransaction.sum = newTransaction.sum
             cdTransaction.transactionType = Int32(newTransaction.transactionType.rawValue)
             return true

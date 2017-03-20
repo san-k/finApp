@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let facc0 = FinAccount(name: "FirstFinAccount", currency: Currency.GRN, comment: "first", startSum: 0.0);
         let _ = dataSourse.add(finAccount: facc0)
 
-        let facc1 = FinAccount(name: "SecondFinAccount", currency: Currency.GRN, comment: "second", startSum: 10.0);
+        let facc1 = FinAccount(name: "SecondFinAccount", currency: Currency.GRN, comment: "second", startSum: 0.0);
         let _ = dataSourse.add(finAccount: facc1)
 
         
